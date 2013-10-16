@@ -1,0 +1,31 @@
+doctype 5
+html(lang='ja')
+	head
+		title= 'Websocket Test User'
+		script(src='./lib/chikuwa.min.js')
+	body
+		h2 acceleration
+		ul
+			li.acX x
+				span.text
+			li.acY y
+				span.text
+			li.acZ z
+				span.text
+		h2 accelerationIncludingGravity
+		ul
+			li.acgX x
+				span.text
+			li.acgY y
+				span.text
+			li.acgZ z
+				span.text
+		h2 rotationRate
+		ul
+			li.rrA alpha
+				span.text
+			li.rrB beta
+				span.text
+			li.rrG gamma
+				span.text
+	script(src='./module/js/user.js')

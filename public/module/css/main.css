@@ -1,0 +1,8 @@
+.poi {
+	position:absolute;
+	left:0;
+	top:0;
+	background-image: url("../img/poi.png");
+	width:141px;
+	height:244px;
+}
