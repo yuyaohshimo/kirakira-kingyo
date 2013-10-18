@@ -19,11 +19,17 @@ var doScoop = false;
 // socket通信開始したらopenアラートを出します
 ws.addEventListener('open' , function (e) {
 	alert('open');
-}, false);
+});
 
 // メッセージをサーバーから受け取った時の処理
 ws.addEventListener('message' , function (e) {
-	var data = JSON.parse(e.data).data;
+	try {
+		var data = JSON.parse(e.data).data;
+	}
+	catch (e) {
+		console.log(e);
+		return;
+	}
 	if (doShake || doScoop) { return; }
 	if (data.doScoop) {
 		doScoop = true;
