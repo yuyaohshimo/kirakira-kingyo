@@ -53,8 +53,12 @@ $.ready(function () {
 		kingyo.Socket = function () {
 			var self = this;
 			self.ws = new WebSocket('ws://localhost:8888'); // need to override
+			// self.ws = new WebSocket('ws://172.22.247.45:8888');
 			self.ws.addEventListener('open', function (e) {
 				log.debug('open web socket');
+				self.ws.send(JSON.stringify({id:'game.prep', data:{t_id:1, name:"shogo"}})); // t_id:1 を参加させる。動作確認用。
+				// self.ws.send(JSON.stringify({id:'game.fish', data:{t_id:1, fishInfo:{type:"fishType1", score:"100"}}}));
+				// self.ws.send(JSON.stringify({id:'game.life', data:{t_id:1, lastLife:0}}));
 			});
 		};
 		kingyo.Socket.prototype = {
@@ -95,6 +99,7 @@ $.ready(function () {
 						return false;
 					}
 				}
+
 				// 加速度センサーがセンシングされたときの処理です（0.05秒くらい←超適当）
 				$(w).on('devicemotion', function (e) {
 					if (doEvent) { return; }
