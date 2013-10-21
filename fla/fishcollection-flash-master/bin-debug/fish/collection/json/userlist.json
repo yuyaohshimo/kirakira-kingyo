@@ -1,0 +1,83 @@
+{
+	"list":[
+		{"code":"4cb103f8e1ddd374", "name":"bao_bao", "msg":["元バオバオの人です","カルピスの中の人です"], "type":"legend"},
+		{"code":"d082f8f44a833efb", "name":"うえちん", "msg":["彼女絶賛募集中!!"], "type":"legend"},
+		{"code":"0d796c788b172dbc", "name":"BG", "msg":["BGBGBGBG"], "type":"legend"},
+		{"code":"2c1a73fdfe423c27", "name":"いっちー", "msg":["僕は裏方ですよ"],"type":"legend"},
+		{"code":"21e10bb93e15b318", "name":"なかしま", "msg":["・・・・"],"type":"legend"},
+		{"code":"ff86fe284e2eb27e", "name":"石村さん", "msg":["ロン大三元","ツモ四暗刻","ロン!国士無双"],"type":"legend"},
+		{"code":"49b0e5483632a794", "name":"いたしきレッド", "msg":["ユニットテストの作成をお願いします！", "タグコミットはほどほどに！"],"type":"legend"},
+		
+		{"code":"6c48fb2c026260d7", "name":"たくぼっくす", "type":"legend","msg":["砦、砦・・・・"]},
+		{"code":"731d8414e94e8f53", "name":"なたりー", "type":"legend"},
+		
+		{"code":"475324a10809fd58","name":"ポニョ"},
+		{"code":"811d3e9d6f25c336","name":"Deux","msg":["すみません"]},
+		{"code":"c3647e93fa416086","name":"カール","msg":["呼んでよ"]},
+		{"code":"af6d863e32440f18","name":"たまこ","msg":["わたしがたまこしだ！","たまこしは”たまこ氏”だよ","バンドとアイドルが大好きです","イベプロのたまこしをよろしく！","たまこさん、か、たまこしって呼んでね！"]},
+		{"code":"914178d638d93374","name":"カン・ジョンフン","msg":["日本語分かりません"],"type":"cafe"},
+		{"code":"f5ee69e90c7156e7","name":"まっつん","msg":["変態丘サーファー"],"type":"cafe"},
+		
+		{"code":"a99d0a0a13e6d5d4","msg":["麻雀作りました!!","オレが麻雀王のクロだ！"],"name":"クロ"},
+		{"code":"d8ffbd2ee15e4707","msg":["漫画家です"],"name":"矢島"},
+		{"code":"c256de3424851cf0","msg":["予約DivのGMの冨塚です"],"name":"こたろう"},
+		{"code":"821af6628e746ea5","msg":["なたさーん"],"name":"元祖たまちゃん"},
+        {"code":"a3d5efda05b74da0","msg":["ちいさな巨人になりたい","んーんー","ハイキュウ好きです"],"name":"のらぽち"},
+        {"code":"44471a66767f772a","name":"黒金太郎"},
+        {"code":"6c3dc21f6d094ee1","name":"ゆし", "msg":["変態紳士","ももクロ"]},
+        {"code":"f78ade922953e4b6","name":"ばんばん","msg":["ヒゲ好きです！","醤油好きです!","なんか","なんかって何なんだ！","猫背","首こり治したい","ハイキュウ！"]},
+        {"code":"352e92ae8da49270","name":"ともっくす","msg":["ももクロ♥", "うりゃっ！ おいっ！うりゃっ！おいっ！",  "コココ コーコ コッコッコッ♪", "右手をあげてー！左右に振ってー！"]},
+        {"code":"317a52c81045030c","name":"みなみ","msg":["ふむふむ","いけ好かないなー(ｷﾘ"]},
+        {"code":"1a98ba2019832a2c","name":"坪水","msg":["鹿児島出身です"]},
+        {"code":"b64e7a48cc27fc80","name":"杉山","msg":["なるほどね","ジェンキンスはオレが守る"]},
+        {"code":"39734cf33fa882ef","name":"そーしゅん","msg":["ふーん"]},
+        {"code":"65639b3547c6b566","name":"きよ姉","msg":["わかるぅ？"]},
+        {"code":"90322e23b59d02a2","name":"GK","msg":["元モデル"]},
+        {"code":"d871922ad809b26b","name":"たけ","msg":["はい"]},
+        {"code":"109b910a125337c3","name":"ずっきー","msg":["イーシャンテンかなー","もうオーラスかぁ...","気持ちは東場1局!!"],"type":"mj"},
+        {"code":"817c25ceb865094b","name":"なぐー","msg":["意外とおっちょこちょいです"]},
+        
+        {"code":"15d05b051b002c7a","name":"わごー","msg":["ニートあかん"]},
+        
+        {"code":"4179a710a394d57f","name":"わたわた","msg":["ごっど ぶれす ゆ〜"]},
+        {"code":"8537ef40fe718028","name":"原","msg":["みなさん、お元気ですか？"]},
+        {"code":"2dff013c2cd97e86","name":"レミはせがわ","msg":["何故ベストを尽くさないのか"]},
+        
+        
+        {"code":"5b9076c5af8e2e75","name":"大西マックス","msg":["なるほど・ザ・ワールド！", "ワールドは私が守る"],"type":"world"},
+        {"code":"ecd26ae1c57d73ab","name":"ザキミヤ","msg":["鉄板の3ライン"],"type":"world"},
+        {"code":"e869ff8ca36ff917","name":"あっきーな","msg":["カフェに戻りたい..."],"type":"cafe"},
+        {"code":"b666b4ecce8720cb","name":"べーさん","msg":["べーやんじゃないよべーさんだよ"],"type":"evepro"},
+        {"code":"79f040fce5ee6deb","name":"吉田さん","msg":["こころのたび-cresson"],"type":"home"},
+        {"code":"ea924c9d50f61d03","name":"モンロー","msg":["縁の下の力もち"],"type":"world"},
+        {"code":"0c92bb3fb6da049a","name":"スージー","msg":["スージーです"],"type":"life"},
+        {"code":"91bcc90f6ee8cd0d","name":"カズマ","msg":["そろそろオレをいじめるのを止めないか"],"type":"evepro"},
+        
+        
+        {"code":"91264c16cf9ee4bf","name":"関口","msg":["森山未來研究家"],"type":"world"},
+        {"code":"8db025050e38aadf","name":"り","msg":["カジノからカフェへ"],"type":"cafe"},
+        {"code":"2dd5dfcdef57d369","name":"しょこ","msg":["しょこたんです!"],"type":"world"},
+        {"code":"f49da6eecf652e10","name":"れーな","msg":["イラストレータです"],"type":"contents"},
+        {"code":"298548430baa2853","name":"チカ","msg":["イラストレーターにジョブチェンジ"],"type":"contents"},
+        
+        {"code":"4a98636c7f5fb24f","name":"DMP","msg":["DMP!、DMP!","年は教えないよん"],"type":"cafe"},
+        {"code":"0fe9a0b98f9104e5","name":"TK","msg":["飼い猫に逃げられる日々"],"type":"contents"},
+        {"code":"baed536088f4e8b6","name":"エリ","msg":["eriiiiiiiii iは何個あるかな"],"type":"contents"},
+        {"code":"930df03242ea2bfb","name":"先生","msg":["バスケ始めてみる？"],"type":"contents"},
+        {"code":"e33d860a10d823cc","name":"ちくじょー","msg":["グッピグしてね！"],"type":"contents"},
+        {"code":"7a1c1b9e3312b237","name":"まる","msg":["スマホをよろしくね！"],"type":"contents"},
+        
+        {"code":"40f7a144806a5b06","name":"小川","msg":["釣りも好き"],"type":"contents"},
+        {"code":"0d02d9a4d52b6f32","name":"ちゃんウメ","msg":["体は大きいけど優しいよ。","相良じゃないよ"],"type":"contents"},
+        {"code":"bdbf632429d9d3d1","name":"YZ","msg":["オレがあのYZだよ"],"type":"cs"},
+        {"code":"55a0021473766502","name":"矢沢永吉","msg":["僕にはFlashは早すぎたんだ"],"type":"evepro"},
+        {"code":"c0c4dc50405bdc81","name":"やすい","msg":["根っからの関西人","ツッコミ待ちだよ"],"type":"world"},
+        
+        {"code":"edbbcbf6a1c29ede","name":"さっちゃん","msg":["岩田ポーズが得意"],"type":"cafe"},
+        {"code":"9c2d42413fc67b00","name":"なっくる","msg":["山が呼んでいる","サバゲーって知ってるかい?"],"type":"world"},
+        {"code":"c0c4dc50405bdc81","name":"やすい","msg":["根っからの関西人","ツッコミ待ちだよ"],"type":"world"},
+        {"code":"84a474ac12ec6856","name":"とみー","msg":["夏祭りが楽しみです"],"type":"evepro"},
+        {"code":"cbb73fef2e0d8b2f","name":"しえら"},
+        {"code":"c09d47c006e00863","name":"だいじん","msg":["サブウェイうまうま","すみません、遅刻します"]}
+    ]
+}
