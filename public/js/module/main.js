@@ -16,13 +16,18 @@ pY = cY;
 var doShake = false;
 var doScoop = false;
 
-// socket通信開始したらopenアラートを出します
+// socket通信開始したらopenアラートを出します。
 ws.addEventListener('open' , function (e) {
 	alert('open');
+	ws.send(JSON.stringify({id:'game.flash', data:{t_id:0}}));　// flashとして通信する。動作確認用。
+//	ws.send(JSON.stringify({id:'game.fish', data:{t_id:1, fishInfo:"fishType1"}}));
 });
+
+
 
 // メッセージをサーバーから受け取った時の処理
 ws.addEventListener('message' , function (e) {
+//	alert(e.data); // 通信確認用
 	try {
 		var data = JSON.parse(e.data).data;
 	}
