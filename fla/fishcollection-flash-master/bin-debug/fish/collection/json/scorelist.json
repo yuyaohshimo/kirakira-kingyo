@@ -1,0 +1,17 @@
+{
+    "type1": {
+        "normal": 100
+    },
+    "type2": {
+        "normal": 200
+    },
+    "type3": {
+        "normal": 300
+    },
+    "type4": {
+        "normal": 400
+    },
+    "type5": {
+        "normal": 500
+    }
+}
