@@ -1,4 +1,5 @@
 var ws = new WebSocket("ws://localhost:8888");// need to override
+//var ws = new WebSocket("ws://172.22.247.45:8888");
 var acX = $('.acX').find('.text');
 var acY = $('.acY').find('.text');
 var acZ = $('.acZ').find('.text');
@@ -49,7 +50,13 @@ function evalScoop(y, z) {
 // socket通信が開始されたらアラートが出ます
 ws.addEventListener("open" , function(e){
 	alert("open");
+	ws.send(JSON.stringify({id:'game.prep', data:{t_id:1}})); // t_id:1 を参加させる。動作確認用。
 },false);
+
+// // 動作確認用。
+// ws.addEventListener('message', function(e){
+// 	alert(e.data);
+// }, false);
 
 // 加速度センサーがセンシングされたときの処理です（0.05秒くらい←超適当）
 window.addEventListener('devicemotion', function (e) {
