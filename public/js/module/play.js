@@ -4,12 +4,21 @@
 		'/': {
 			name: 'top',
 			action: function (args) {
-				kingyo.pageReplace($.view('play'));
+				// websocket
+				var socket = new kingyo.Socket();
+
+				var _view = $.view('play');
+				_view.on({
+					close: function () {
+						socket.send({ id: 'game.stop', data: { t_id: ($.storage('t_id') || 0) } });
+					}
+				});
+				kingyo.pageReplace(_view);
+
 				// for debug
 				var test = $.view('play.test');
 				$('body').append(test.content);
-				// websocket
-				var socket = new kingyo.Socket();
+
 				socket.devicemotion(function (obj) {
 					test.update(obj);
 				});
@@ -21,9 +30,11 @@
 			init: function () {
 			},
 			render: function () {
+				var self = this;
 				return tag('div#play')
 						.tag('button').text('中断する')
 							.tap(function () {
+								self.trigger('close');
 								kingyo.executeHash('top', 'top');
 							})
 						.gat()

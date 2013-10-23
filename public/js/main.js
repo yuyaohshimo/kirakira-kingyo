@@ -60,6 +60,10 @@ $.ready(function () {
 				// self.ws.send(JSON.stringify({id:'game.fish', data:{t_id:1, fishInfo:{type:"fishType1", score:"100"}}}));
 				// self.ws.send(JSON.stringify({id:'game.life', data:{t_id:1, lastLife:0}}));
 			});
+			self.ws.addEventListener('close', function (e) {
+				log.debug('close web socket');
+				self.ws.close();
+			});
 		};
 		kingyo.Socket.prototype = {
 			devicemotion: function (callback) {
@@ -145,9 +149,19 @@ $.ready(function () {
 		}
 	})(w.kingyo);
 
-	var hash = location.hash;
-	if (!hash) {
-		hash = 'top';
+	function init() {
+		var hash = location.hash;
+		if (!hash) {
+			hash = 'top';
+		}
+		kingyo.executeHash(hash);
 	}
-	kingyo.executeHash(hash);
+
+	$(w).on('hashchange', function () {
+		log.debug('hashchange');
+		init();
+	});
+
+	init();
+
 });
