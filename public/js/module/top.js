@@ -4,7 +4,23 @@
 		'/': {
 			name: 'top',
 			action: function (args) {
-				kingyo.pageReplace($.view('top'));
+				var _view = $.view('top')
+				_view.on({
+					start: function (callback) {
+						var name = $('input[name="nickname"]').value();
+						var t_id = $.storage('t_id') || 0;
+						$.http.post('/api/top', { name: name, t_id: t_id }).on({
+							complete: function () {
+								$.storage('name', name);
+								callback(null, true);
+							},
+							error: function (err) {
+								callback(err);
+							}
+						});
+					}
+				});
+				kingyo.pageReplace(_view);
 			}
 		}
 	});
@@ -13,6 +29,7 @@
 			init: function () {
 			},
 			render: function () {
+				var self = this;
 				return tag('div#top')
 						.tag('h1.title').text('KIRAKIRA KINGYO')
 							.tag('ol.procedure')
@@ -25,12 +42,15 @@
 							.gat()
 							.tag('div.form_container')
 								.tag('label').text('ニックネームを入力してください')
-									.tag('input', { type: 'text', name: 'name' }).gat()
+									.tag('input', { type: 'text', name: 'nickname', maxlength: 15 }).gat()
 								.gat()
 								.tag('button').text('START')
-								.tap(function () {
-									kingyo.executeHash('play')
-								})
+									.tap(function () {
+										self.trigger('start', function (err, _bool) {
+											if (err) { return; }
+											kingyo.executeHash('play');
+										});
+									})
 								.gat()
 							.gat()
 						.gat();
