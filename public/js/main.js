@@ -50,10 +50,11 @@ $.ready(function () {
 			.empty()
 			.append(view.content);
 		}
-		kingyo.Socket = function () {
+		kingyo.Socket = function (view) {
 			var self = this;
 			self.ws = new WebSocket('ws://localhost:8888'); // need to override
 			// self.ws = new WebSocket('ws://172.22.247.45:8888');
+			// onを使おうかな
 			self.ws.addEventListener('open', function (e) {
 				log.debug('open web socket');
 				self.ws.send(JSON.stringify({id:'game.prep', data:{t_id:1, name:"shogo"}})); // t_id:1 を参加させる。動作確認用。
@@ -64,8 +65,17 @@ $.ready(function () {
 			});
 			self.ws.addEventListener('close', function (e) {
 				log.debug('close web socket');
+				$(w).off('devicemotion');
 				self.ws.close();
 			});
+			// trigger view
+			if (view) {
+				self.ws.addEventListener('message', function (data, flag) {
+					var parsedData = JSON.parse(data.data);
+					var dataId = parsedData.id;
+					view.trigger('message');
+				});
+			}
 		};
 		kingyo.Socket.prototype = {
 			devicemotion: function (callback) {
@@ -144,9 +154,6 @@ $.ready(function () {
 			send: function (obj) {
 				var self = this;
 				self.ws.send(JSON.stringify(obj));
-			},
-			off: function (eventName) {
-				$(w).off(eventName);
 			}
 		}
 	})(w.kingyo);

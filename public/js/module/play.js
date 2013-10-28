@@ -4,13 +4,21 @@
 		'/': {
 			name: 'top',
 			action: function (args) {
-				// websocket
-				var socket = new kingyo.Socket();
-
 				var _view = $.view('play');
+				// websocket
+				var socket = new kingyo.Socket(_view);
 				_view.on({
 					close: function () {
 						socket.send({ id: 'game.stop', data: { t_id: ($.storage('t_id') || 0) } });
+					},
+					message: function (dataId, data) {
+						switch (dataId) {
+							case 'game.life':
+								_view.updateLife(data.lastLife);
+								break;
+							default:
+								break;
+						}
 					}
 				});
 				kingyo.pageReplace(_view);
@@ -58,6 +66,12 @@
 								.gat()
 							.gat()
 						.gat();
+			},
+			updateLife: function (lastLife) {
+				var self = this;
+				if (lastLife === 0) {
+					self.trigger('close');
+				}
 			}
 		},
 		'play.test': {
