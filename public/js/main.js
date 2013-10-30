@@ -45,11 +45,11 @@ $.ready(function () {
 				);
 			}
 		}
-		kingyo.executeHash = function (hash) {
+		kingyo.executeHash = function (hash, action) {
 			log.info('executeHash', hash);
 			var controller = $.dispatcher.controllerName(hash);
 			loadModule(controller, function () {
-				$.dispatcher.execute(hash);
+				$.dispatcher.execute(hash, action);
 				location.hash = hash;
 			});
 		}
@@ -62,30 +62,31 @@ $.ready(function () {
 		kingyo.Socket = function (view) {
 			var self = this;
 			self.ws = new WebSocket('ws://localhost:8888'); // need to override
+			// self.ws = new WebSocket('ws://172.22.242.251:8888'); // need to override
 			// self.ws = new WebSocket('ws://172.22.247.45:8888');
 			// onを使おうかな
+			self.isOpen = false;
 			self.ws.addEventListener('open', function (e) {
+				self.isOpen = true;
+				console.log('-------------------------------------')
 				var t_id = $.storage('t_id');
 				var name = $.storage('name');
 				log.debug('open web socket');
-				// self.ws.send(JSON.stringify({id:'game.prep', data:{t_id:1, name:"shogo"}})); // t_id:1 を参加させる。動作確認用。
-				// self.ws.send(JSON.stringify({id:'game.fish', data:{t_id:1, fishInfo:{type:"fishType1", score:"100"}}}));
-				// self.ws.send(JSON.stringify({id:'game.fish', data:{t_id:1, fishInfo:{type:"fishType2", score:"200"}}}));
-				// self.ws.send(JSON.stringify({id:'game.fish', data:{t_id:1, fishInfo:{type:"fishType1", score:"200"}}}));
-				// self.ws.send(JSON.stringify({id:'game.life', data:{t_id:1, lastLife:0}}));
-				// self.ws.close();
+				self.ws.send(JSON.stringify({ id:'game.prep', data:{ t_id: t_id, name: name }}));
 			});
 			self.ws.addEventListener('close', function (e) {
 				log.debug('close web socket');
 				$(w).off('devicemotion');
+				self.isOpen = false;
 				self.ws.close();
 			});
 			// trigger view
 			if (view) {
-				self.ws.addEventListener('message', function (data, flag) {
+				self.ws.addEventListener('message', function (data) {
+					console.log(data);
 					var parsedData = JSON.parse(data.data);
 					var dataId = parsedData.id;
-					view.trigger('message');
+					view.trigger('message', dataId, parsedData.data);
 				});
 			}
 		};
@@ -130,7 +131,8 @@ $.ready(function () {
 
 				// 加速度センサーがセンシングされたときの処理です（0.05秒くらい←超適当）
 				$(w).on('devicemotion', function (e) {
-					if (doEvent) { return; }
+					if (doEvent || !self.isOpen) { return; }
+					console.log('devicemotion');
 					doEvent = true;
 					setTimeout(function () {
 						var ac = e.acceleration;
@@ -149,6 +151,7 @@ $.ready(function () {
 						// サーバーにデータ送ります
 						sendObj = {
 							id: 'game.locate',
+							t_id: $.storage('t_id'),
 							data: {
 								ac: ac,
 								acg: acg,
@@ -157,10 +160,16 @@ $.ready(function () {
 								doScoop: doScoop
 							}
 						};
-						callback(sendObj);
 						self.send(sendObj);
-						doEvent = false;
-					}, 10);
+
+						if (doScoop || doShake) {
+							setTimeout(function () {
+								doEvent = false;
+							}, 1000);
+						} else {
+							doEvent = false;
+						}
+					}, 50);
 				});
 			},
 			send: function (obj) {
@@ -177,11 +186,6 @@ $.ready(function () {
 		}
 		kingyo.executeHash(hash);
 	}
-
-	$(w).on('hashchange', function () {
-		log.debug('hashchange');
-		init();
-	});
 
 	init();
 

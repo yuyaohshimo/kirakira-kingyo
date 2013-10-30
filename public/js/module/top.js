@@ -75,7 +75,7 @@
 											alert(err.message);
 											return;
 										}
-										kingyo.executeHash('play');
+										kingyo.executeHash('play', 'top');
 									});
 								})
 							.gat()

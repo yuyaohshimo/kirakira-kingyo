@@ -16,12 +16,16 @@
 							case 'game.life':
 								_view.updateLife(data.lastLife);
 								break;
+							case 'game.fish':
+								console.log(data);
 							default:
 								break;
 						}
 					}
 				});
 				kingyo.pageReplace(_view);
+
+				socket.devicemotion();
 
 				// for debug
 				// var test = $.view('play.test');
@@ -68,6 +72,8 @@
 			},
 			updateLife: function (lastLife) {
 				var self = this;
+				var poi = self.content.find('.poi');
+				// $(poi.get(poi.length()).remove();
 				if (lastLife === 0) {
 					self.trigger('close');
 				}
