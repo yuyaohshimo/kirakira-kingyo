@@ -71,7 +71,7 @@ package fish.collection.net
 		/**
 		 * サーバーにデータを送信
 		 */
-		public function send(data:Object, callback:Callback = null):void
+		public function send(data:Object):void
 		{
 			// WebSocketがオープンしていない場合は無視
 			if (!_websocket.isOpen)

@@ -32,8 +32,8 @@ package fish.collection.net
 			{
 				_websocket.close();
 			}
-			//_websocket = new WebSocket("ws://172.22.247.45:8888", "*", "lws-mirror-protocol", 5000);
-			_websocket = new WebSocket("ws://localhost:8888", "*", "lws-mirror-protocol", 5000);
+			_websocket = new WebSocket("ws://172.22.242.251:8888", "*", "lws-mirror-protocol", 5000);
+			//_websocket = new WebSocket("ws://localhost:8888", "*", "lws-mirror-protocol", 5000);
 			_websocket.debug = true;
 			_websocket.connect();
 			_websocket.addEventListener(WebSocketEvent.CLOSED, handleWebSocketClosed);
