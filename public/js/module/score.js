@@ -4,33 +4,44 @@
 		'/': {
 			name: 'top',
 			action: function (args) {
-				kingyo.pageReplace($.view('score'));
+				$.http.get('/api/result').on({
+					complete: function (data) {
+						kingyo.pageReplace($.view('score', data));
+					},
+					error: function (err) {
+						kingyo.pageReplace($.view('error'));
+					}
+				});
 			}
 		}
 	});
 	$.views({
 		'score': {
-			init: function () {
+			init: function (data) {
+				var self = this;
+				self.data = data;
 			},
 			render: function () {
+				var self = this;
 				return tag('div#score')
+							.tag('p.title').text('SCORE').gat()
 							.tag('p.text')
-								.tag('span.label').text('SCORE').gat()
-								.tag('span.pt').text('3500').gat()
+								.tag('span.total_score').text(self.data.totalScore).gat()
 							.gat()
 							.tag('ul.fish')
-								.tag('li')
-									.tag('img').gat()
-									.tag('p.num').gat()
-									.tag('p.pt').gat()
-								.gat()
-								.tag('li')
-									.tag('img').gat()
-									.tag('p.num').gat()
-									.tag('p.pt').gat()
-								.gat()
+								.exec(function () {
+									var that = this;
+									self.data.fish.forEach(function (item) {
+										that
+										.tag('li')
+											.tag('img').gat()
+											.tag('p.num').text('×{1}', item.num).gat()
+											.tag('p.pt').text(item.score).gat()
+										.gat()
+									})
+								})
 							.gat()
-							.tag('button').text('ランキングを見る')
+							.tag('button')
 								.tap(function () {
 									kingyo.executeHash('ranking', 'top');
 								})
