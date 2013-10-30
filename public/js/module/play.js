@@ -9,7 +9,7 @@
 				var socket = new kingyo.Socket(_view);
 				_view.on({
 					close: function () {
-						socket.send({ id: 'game.stop', data: { t_id: ($.storage('t_id') || 0) } });
+						socket.send({ id: 'game.stop', data: { t_id: $.storage('t_id') } });
 					},
 					message: function (dataId, data) {
 						switch (dataId) {
@@ -24,12 +24,11 @@
 				kingyo.pageReplace(_view);
 
 				// for debug
-				var test = $.view('play.test');
-				$('body').append(test.content);
-
-				socket.devicemotion(function (obj) {
-					test.update(obj);
-				});
+				// var test = $.view('play.test');
+				// $('body').append(test.content);
+				// socket.devicemotion(function (obj) {
+				// 	test.update(obj);
+				// });
 			}
 		}
 	});
@@ -40,14 +39,14 @@
 			render: function () {
 				var self = this;
 				return tag('div#play')
-						.tag('button').text('中断する')
+						.tag('button')
 							.tap(function () {
 								self.trigger('close');
 								kingyo.executeHash('top', 'top');
 							})
 						.gat()
 						.tag('p.player_info')
-							.tag('span.num').text('P2').gat()
+							.tag('span.num').text('P{1}', $.storage('t_id')).gat()
 							.tag('span.name').text('パジェロ').gat()
 						.gat()
 						.tag('div.main')
@@ -72,6 +71,9 @@
 				if (lastLife === 0) {
 					self.trigger('close');
 				}
+			},
+			updateFish: function () {
+				
 			}
 		},
 		'play.test': {
