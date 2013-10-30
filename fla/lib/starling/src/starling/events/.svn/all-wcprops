@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/events
+END
+Touch.as
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/events/Touch.as
+END
+TouchPhase.as
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/events/TouchPhase.as
+END
+TouchEvent.as
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/events/TouchEvent.as
+END
+Event.as
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/events/Event.as
+END
+TouchMarker.as
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/events/TouchMarker.as
+END
+ResizeEvent.as
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/events/ResizeEvent.as
+END
+EnterFrameEvent.as
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/events/EnterFrameEvent.as
+END
+KeyboardEvent.as
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/events/KeyboardEvent.as
+END
+TouchProcessor.as
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/events/TouchProcessor.as
+END
+EventDispatcher.as
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/events/EventDispatcher.as
+END
