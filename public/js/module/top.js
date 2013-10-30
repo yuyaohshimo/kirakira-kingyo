@@ -12,8 +12,10 @@
 						if (name.indexOf('amebastorage') !== -1) {
 							t_id = name.split('_')[1];
 							$.storage('t_id', t_id);
-						}
-						if (!name) {
+							callback({
+								message: 't_idを登録しました'
+							});
+						} else if (!name) {
 							callback({
 								message: 'ニックネームが入力されていません'
 							});
