@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/src/fish/collection/net/websocket
+END
+WebSocketMessage.as
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/src/fish/collection/net/websocket/WebSocketMessage.as
+END
+WebSocketState.as
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/src/fish/collection/net/websocket/WebSocketState.as
+END
+WebSocketConfig.as
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/src/fish/collection/net/websocket/WebSocketConfig.as
+END
+WebSocketErrorEvent.as
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/src/fish/collection/net/websocket/WebSocketErrorEvent.as
+END
+WebSocket.as
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/src/fish/collection/net/websocket/WebSocket.as
+END
+WebSocketFrame.as
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/src/fish/collection/net/websocket/WebSocketFrame.as
+END
+WebSocketOpcode.as
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/src/fish/collection/net/websocket/WebSocketOpcode.as
+END
+WebSocketCloseStatus.as
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/src/fish/collection/net/websocket/WebSocketCloseStatus.as
+END
+WebSocketEvent.as
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/src/fish/collection/net/websocket/WebSocketEvent.as
+END
+WebSocketHandler.as
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/src/fish/collection/net/websocket/WebSocketHandler.as
+END
+WebSocketError.as
+K 25
+svn:wc:ra_dav:version-url
+V 117
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/src/fish/collection/net/websocket/WebSocketError.as
+END

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>60253F0D-99A4-4CEB-B8E4-268BEAF6C526</string>
+	<key>IDESourceControlProjectName</key>
+	<string>kirakira-kingyo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>E4D4C501-29EC-4CEB-BC72-49F25A3F395B</key>
+		<string>https://github.com/yuyaohshimo/kirakira-kingyo.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ios/kirakira-kingyo/kirakira-kingyo.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>E4D4C501-29EC-4CEB-BC72-49F25A3F395B</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/yuyaohshimo/kirakira-kingyo.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E4D4C501-29EC-4CEB-BC72-49F25A3F395B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E4D4C501-29EC-4CEB-BC72-49F25A3F395B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>kirakira-kingyo</string>
+		</dict>
+	</array>
+</dict>
+</plist>
