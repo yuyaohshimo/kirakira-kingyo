@@ -68,10 +68,11 @@ $.ready(function () {
 				var t_id = $.storage('t_id');
 				var name = $.storage('name');
 				log.debug('open web socket');
-				self.ws.send(JSON.stringify({ id: 'game.prep', data: { t_id :t_id, name: name } }));
-				self.ws.send(JSON.stringify({ id: 'game.fish', data: { t_id :t_id, fishInfo: { type: "fishType1", score: "100" } } }));
-				self.ws.send(JSON.stringify({ id: 'game.fish', data: { t_id :t_id, fishInfo: { type: "fishType2", score: "200" } } }));
-				self.ws.send(JSON.stringify({ id: 'game.life', data: { t_id :t_id, lastLife: 0 } }));
+				// self.ws.send(JSON.stringify({id:'game.prep', data:{t_id:1, name:"shogo"}})); // t_id:1 を参加させる。動作確認用。
+				// self.ws.send(JSON.stringify({id:'game.fish', data:{t_id:1, fishInfo:{type:"fishType1", score:"100"}}}));
+				// self.ws.send(JSON.stringify({id:'game.fish', data:{t_id:1, fishInfo:{type:"fishType2", score:"200"}}}));
+				// self.ws.send(JSON.stringify({id:'game.fish', data:{t_id:1, fishInfo:{type:"fishType1", score:"200"}}}));
+				// self.ws.send(JSON.stringify({id:'game.life', data:{t_id:1, lastLife:0}}));
 				// self.ws.close();
 			});
 			self.ws.addEventListener('close', function (e) {
