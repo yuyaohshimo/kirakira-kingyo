@@ -18,10 +18,14 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-	NSURLRequest* req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.11.7:8888"]];
+	NSURLRequest* req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:8888"]];
 	[self.webView loadRequest:req];
 	self.webView.scrollView.scrollEnabled = NO;
 	self.webView.scrollView.bounces = NO;
+	
+	// stop auto sleep
+	UIApplication *application = [UIApplication sharedApplication];
+	application.idleTimerDisabled = YES;
 }
 
 - (void)didReceiveMemoryWarning
