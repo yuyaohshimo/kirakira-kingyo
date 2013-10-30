@@ -61,6 +61,9 @@ package fish.collection.game.view
 		// index
 		private var _index:int;
 		
+		// ポイとの距離
+		private var _distPoi:Number;
+		
 		
 		private var _temp:Boolean = false;;
 		
@@ -72,6 +75,11 @@ package fish.collection.game.view
 			super();
 		}
 		
+		public function get distPoi():Number
+		{
+			return _distPoi;
+		}
+
 		public function get fishData():FishData
 		{
 			return _fishData;
@@ -112,7 +120,7 @@ package fish.collection.game.view
 			}
 			// 捕獲フラグ
 			_isCatched = false;
-			
+			_distPoi = 0.0;
 		}
 		/**
 		 * ステージ配置イベントリスナ
@@ -315,14 +323,13 @@ package fish.collection.game.view
 			}
 			
 			// ポイが近ければ逃げていく
-			var distPoi:Number = 0.0;
 			for (var j:int = 0, len:int = pois.length; j < len; j++)
 			{
 				dx = dy = .0;
 				dx = (pois[j].x - _px);
 				dy = (pois[j].y - _py);
-				distPoi = dx * dx + dy * dy;
-				if (distPoi > Util.getRandom(5000.0, 12000.0))
+				_distPoi = dx * dx + dy * dy;
+				if (_distPoi > Util.getRandom(3000.0, 5000.0))
 				{
 					continue;
 				}

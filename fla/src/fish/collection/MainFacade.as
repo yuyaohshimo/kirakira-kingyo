@@ -41,7 +41,7 @@ package fish.collection
 		public function sendFish(data:Object):void
 		{
 			log("成功　成功　成功　成功　成功　成功　成功　");
-			_client.send(data, new Callback(onData));
+			_client.send(data);
 		}
 		
 		/**
@@ -50,7 +50,7 @@ package fish.collection
 		public function sendLife(data:Object):void
 		{
 			log("失敗　失敗　失敗　失敗　失敗　失敗　");
-			_client.send(data, new Callback(onData));
+			_client.send(data);
 		}
 		
 		/**
