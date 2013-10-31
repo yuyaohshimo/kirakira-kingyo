@@ -18,6 +18,9 @@
 								break;
 							case 'game.fish':
 								console.log(data);
+							case 'game.prep':
+								log.info('set playerId -->', data.playerId);
+								$.storage('playerId', data.playerId);
 							default:
 								break;
 						}
