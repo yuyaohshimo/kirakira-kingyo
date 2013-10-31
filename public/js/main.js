@@ -136,44 +136,41 @@ $.ready(function () {
 				// 加速度センサーがセンシングされたときの処理です（0.05秒くらい←超適当）
 				$(w).on('devicemotion', function (e) {
 					if (doEvent || !self.isOpen) { return; }
-					console.log('devicemotion');
 					doEvent = true;
-					setTimeout(function () {
-						var ac = e.acceleration;
-						var acg = e.accelerationIncludingGravity;
-						var rr = e.rotationRate;
+					var ac = e.acceleration;
+					var acg = e.accelerationIncludingGravity;
+					var rr = e.rotationRate;
 
-						// shake
-						doShake = evalShake(acg.x, acg.y, acg.z);
-						// scoop
-						doScoop = evalScoop(acg.y, acg.z);
+					// shake
+					doShake = evalShake(acg.x, acg.y, acg.z);
+					// scoop
+					doScoop = evalScoop(acg.y, acg.z);
 
-						lastAcgX = acg.x;
-						lastAcgY = acg.y;
-						lastAcgZ = acg.z;
+					lastAcgX = acg.x;
+					lastAcgY = acg.y;
+					lastAcgZ = acg.z;
 
-						// サーバーにデータ送ります
-						sendObj = {
-							id: 'game.locate',
-							t_id: $.storage('t_id'),
-							data: {
-								ac: ac,
-								acg: acg,
-								rr: rr,
-								doShake: doShake,
-								doScoop: doScoop
-							}
-						};
-						self.send(sendObj);
-
-						if (doScoop || doShake) {
-							setTimeout(function () {
-								doEvent = false;
-							}, 1000);
-						} else {
-							doEvent = false;
+					// サーバーにデータ送ります
+					sendObj = {
+						id: 'game.locate',
+						t_id: $.storage('t_id'),
+						data: {
+							ac: ac,
+							acg: acg,
+							rr: rr,
+							doShake: doShake,
+							doScoop: doScoop
 						}
-					}, 50);
+					};
+					self.send(sendObj);
+
+					if (doScoop || doShake) {
+						setTimeout(function () {
+							doEvent = false;
+						}, 1000);
+					} else {
+						doEvent = false;
+					}
 				});
 			},
 			send: function (obj) {
