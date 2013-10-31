@@ -61,8 +61,8 @@ $.ready(function () {
 		}
 		kingyo.Socket = function (view) {
 			var self = this;
-			// self.ws = new WebSocket('ws://localhost:8888'); // need to override
-			self.ws = new WebSocket('ws://172.22.242.251:8888'); // need to override
+			self.ws = new WebSocket('ws://172.30.4.205:8888'); // need to override
+			// self.ws = new WebSocket('ws://172.22.242.251:8888'); // need to override
 			// self.ws = new WebSocket('ws://172.22.247.45:8888');
 			// onを使おうかな
 			self.isOpen = false;
@@ -133,13 +133,20 @@ $.ready(function () {
 					}
 				}
 
+				function truncateNum (obj) {
+					for (var key in obj) {
+						obj[key] = obj[key].toFixed(2);
+					}
+					return obj;
+				}
+
 				// 加速度センサーがセンシングされたときの処理です（0.05秒くらい←超適当）
 				$(w).on('devicemotion', function (e) {
 					if (doEvent || !self.isOpen) { return; }
 					doEvent = true;
-					var ac = e.acceleration;
-					var acg = e.accelerationIncludingGravity;
-					var rr = e.rotationRate;
+					var ac = truncateNum(e.acceleration);
+					var acg = truncateNum(e.accelerationIncludingGravity);
+					var rr = truncateNum(e.rotationRate);
 
 					// shake
 					doShake = evalShake(acg.x, acg.y, acg.z);
@@ -163,6 +170,9 @@ $.ready(function () {
 						}
 					};
 					self.send(sendObj);
+
+					// for debug
+					// callback(sendObj);
 
 					if (doScoop || doShake) {
 						setTimeout(function () {
