@@ -31,14 +31,14 @@
 							.tag('ul.fish')
 								.exec(function () {
 									var that = this;
-									self.data.fish.forEach(function (item) {
+									for (var key in self.data.fishResult) {
 										that
 										.tag('li')
 											.tag('img').gat()
-											.tag('p.num').text('×{1}', item.num).gat()
-											.tag('p.pt').text(item.score).gat()
+											.tag('p.num').text('×{1}', self.data.fishResult[key].count).gat()
+											.tag('p.pt').text(self.data.fishResult[key].score).gat()
 										.gat()
-									})
+									}
 								})
 							.gat()
 							.tag('button')

@@ -61,18 +61,22 @@ $.ready(function () {
 		}
 		kingyo.Socket = function (view) {
 			var self = this;
-			self.ws = new WebSocket('ws://localhost:8888'); // need to override
-			// self.ws = new WebSocket('ws://172.22.242.251:8888'); // need to override
+			// self.ws = new WebSocket('ws://localhost:8888'); // need to override
+			self.ws = new WebSocket('ws://172.22.242.251:8888'); // need to override
 			// self.ws = new WebSocket('ws://172.22.247.45:8888');
 			// onを使おうかな
 			self.isOpen = false;
 			self.ws.addEventListener('open', function (e) {
 				self.isOpen = true;
-				console.log('-------------------------------------')
+				log.info('open ws');
 				var t_id = $.storage('t_id');
 				var name = $.storage('name');
 				log.debug('open web socket');
 				self.ws.send(JSON.stringify({ id:'game.prep', data:{ t_id: t_id, name: name }}));
+
+				// for debug
+				// self.ws.send(JSON.stringify({ id: 'game.fish', data: { t_id :t_id, fishInfo: { type: "fishType1", score: "100" } } }));
+				// self.ws.send(JSON.stringify({ id: 'game.life', data: { t_id :t_id, lastLife: 0 } }));
 			});
 			self.ws.addEventListener('close', function (e) {
 				log.debug('close web socket');
