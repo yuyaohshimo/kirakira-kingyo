@@ -14,13 +14,15 @@
 					message: function (dataId, data) {
 						switch (dataId) {
 							case 'game.life':
-								_view.updateLife(data.lastLife);
+								this.updateLife(data.lastLife);
 								break;
 							case 'game.fish':
 								console.log(data);
+								break;
 							case 'game.prep':
 								log.info('set playerId -->', data.playerId);
 								$.storage('playerId', data.playerId);
+								break;
 							default:
 								break;
 						}
