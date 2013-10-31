@@ -76,6 +76,7 @@
 				// $(poi.get(poi.length()).remove();
 				if (lastLife === 0) {
 					self.trigger('close');
+					kingyo.executeHash('score', 'top');
 				}
 			},
 			updateFish: function () {
