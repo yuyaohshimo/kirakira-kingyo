@@ -4,7 +4,7 @@
 		'/': {
 			name: 'top',
 			action: function (args) {
-				$.http.get('/api/result').on({
+				$.http.get($.format('/api/result?t_id={1}', $.storage('t_id'))).on({
 					complete: function (data) {
 						kingyo.pageReplace($.view('score', data));
 					},
