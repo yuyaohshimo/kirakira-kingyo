@@ -1,0 +1,328 @@
+package fish.collection.game
+{
+	import adobe.utils.CustomActions;
+	
+	import fish.collection.game.poi.PoiView;
+	import fish.collection.game.poi.data.PoiData;
+	import fish.collection.game.util.CustumEvent;
+	import fish.collection.game.util.Util;
+	import fish.collection.game.view.Boid;
+	import fish.collection.game.view.ui.DoubleSlider;
+	import fish.collection.game.view.ui.FishControlPanel;
+	
+	import flash.display.Bitmap;
+	import flash.display.MovieClip;
+	import flash.display.Sprite;
+	import flash.events.Event;
+	import flash.events.MouseEvent;
+	import flash.geom.Point;
+	import flash.net.URLLoader;
+	import flash.net.URLLoaderDataFormat;
+	import flash.net.URLRequest;
+	
+	
+	
+	public class GameView extends Sprite
+	{
+		private var _idelegate:GameInternalDelegate;
+		private var _container:Sprite;
+		
+		private var _background:Bitmap;
+		
+		// Poi関連
+		private var _poiLayer:Sprite;
+		private var _pois:Vector.<PoiView>;
+		private const POI_NUM:int = 1;
+		
+		// Boidの数
+		private const NUMBOIDS:int = 50;
+		// Boidクラス
+		private var _boids:Vector.<Boid>;
+		
+		// 魚描画レイヤー
+		private var _fishLayer:Sprite;
+		
+		private var _fishControlPanel:FishControlPanel;
+		
+		
+		private var _scoreData:Object = {};
+		private var _gotfishData:Object = {};
+
+		public function get view():Sprite {return _container;}
+		
+		private const initPoiPos:Array = [
+			new Point(800, 400),
+			new Point(100, 100),
+			new Point(200, 200),
+			new Point(300, 200),
+			new Point(400, 200),
+			new Point(500, 200)
+			];
+		
+		public function GameView()
+		{
+			super();
+			
+		}
+		
+		/**
+		 * clean
+		 */
+		public function clean():void
+		{
+			if (_container)
+			{
+				removeAllChild(_container);
+				removeFromParent(_container);
+				_container = null;
+			}
+			if (_fishLayer)
+			{
+				removeAllChild(_fishLayer);
+				removeFromParent(_fishLayer);
+				_fishLayer = null;
+			}
+			if (_fishControlPanel)
+			{
+				_fishControlPanel.clean();
+				_fishControlPanel = null;
+			}
+			removeAllChild(this);
+			removeFromParent(this);
+		}
+		
+		/**
+		 * 初期化
+		 */
+		public function initialize(idelegate:GameInternalDelegate):void
+		{
+			loadJson();
+			
+			
+			_idelegate = idelegate;
+			_container = new Sprite();
+			addChild(_container);
+			_background = new Bitmap(new kirakira());
+			//_container.addChild(_background);
+			_poiLayer = new Sprite();
+			_container.addChild(_poiLayer);
+			
+			
+			// Boid初期設定
+			var i:int;
+			_boids = new Vector.<Boid>();
+			_fishLayer = new Sprite();
+			for (i = 0; i < NUMBOIDS; i++) 
+			{
+				// Boid設定
+				var b:Boid = new Boid();
+				const ph:Number = i * 2.0 * Math.PI / Number(NUMBOIDS);
+				b.initialize( 
+					Util.getRandom(0.0, 1600),
+					Util.getRandom(0.0, 900),
+					Util.getRandom(-1, 1),
+					Util.getRandom(-1, 1),
+					i
+					);
+				b.setFishCode('いまはなにも設定できない', 0.7);
+				_fishLayer.addChild(b);
+					
+				_boids[i] = b;
+			}
+			_container.addChild(_fishLayer);
+			
+			// スライダー
+			_fishControlPanel = new FishControlPanel();
+			_container.addChild(_fishControlPanel);
+			
+			// PoiView初期設定
+			_pois = new Vector.<PoiView>(POI_NUM, true);
+			for (var j:int = 0, len:int = _pois.length; j < len; j++)
+			{
+				_pois[j] = new PoiView(_idelegate);
+				_pois[j].initialize();
+				_poiLayer.addChild(_pois[j]);
+				// ダミーデータ
+				var obj:Object ={
+					t_id:"p1", 
+					name:"小栗旬"
+				};
+				var data:PoiData = new PoiData(obj);
+				_pois[j].show(data);
+				_pois[j].x = initPoiPos[j].x;
+				_pois[j].y = initPoiPos[j].y;
+			}
+			
+			
+			
+			// 毎フレーム処理イベント設定
+			addEventListener(Event.ENTER_FRAME, onEnterFrame);
+		}
+		
+		/**
+		 * 毎フレームイベントハンドラ
+		 */
+		public function onEnterFrame(ev:Event) : void 
+		{ 
+			// 毎フレーム関数
+			updateBoids();
+			for (var j:int = 0, len:int = _pois.length; j < len; j++)
+			{
+				var obj:Object = {
+					xxx : _container.mouseX - _pois[j].width / 2.0,
+					yyy : _container.mouseY - 30.0,
+					data : {
+						t_id : 1,
+						doScoop : true
+					}
+				};
+				updatePoiPos_debug(obj);
+			}
+		}
+		
+		public function updatePoiPos_debug(data:Object):void
+		{
+			var t_id:int = data.t_id - 1;
+			
+			var i:int;
+			var b:Boid;
+			for (i = 0; i < NUMBOIDS; i++) 
+			{  
+				b = _boids[i];
+				var hit:Boolean = b.hitJudge(_pois[t_id].x + _pois[t_id].width / 2.0, _pois[t_id].y + 30);
+				
+				if (data.data.doScoop && hit)	// すくったときにヒットしてたら
+				{
+					//trace('すくった', i, b.fishData.code, b.fishData.name, b.fishData.type);
+					deleteBoid(i);
+					
+					// 成功時
+//					_gotfishData.data.t_id = data.data.t_id ;
+//					_gotfishData.data.fish_info.size = "small";
+//					_gotfishData.data.fish_info.score = 200;//_scoreData["type1"];
+//					_idelegate.sendFish(_gotfishData);
+				}
+			}
+			
+			//			_pois[t_id].x += data.data.acg.x;
+			//			_pois[t_id].y -= data.data.acg.y;
+			
+			_pois[t_id].x = data.xxx;
+			_pois[t_id].y = data.yyy;
+		}
+		/**
+		 * ポイを動かす
+		 * @param data
+		 */
+		public function updatePoiPos(data:Object):void
+		{
+			var t_id:int = data.t_id - 1;
+			
+			var i:int;
+			var b:Boid;
+			for (i = 0; i < NUMBOIDS; i++) 
+			{  
+				b = _boids[i];
+				var hit:Boolean = b.hitJudge(_pois[t_id].x + _pois[t_id].width / 2.0, _pois[t_id].y + 30);
+
+				if (data.data.doScoop/* && hit*/)	// すくったときにヒットしてたら
+				{
+					//trace('すくった', i, b.fishData.code, b.fishData.name, b.fishData.type);
+					deleteBoid(i);
+					
+					// 成功時
+					_gotfishData.data.t_id = data.data.t_id ;
+					_gotfishData.data.fish_info.size = "small";
+					_gotfishData.data.fish_info.score = 200;//_scoreData["type1"];
+					_idelegate.sendFish(_gotfishData);
+				}
+				if (data.data.doShake/* && !hit*/)	// すくったときにヒットしてたら
+				{
+					// 失敗時
+					_pois[t_id].life = (_pois[t_id].life > 1) ? _pois[t_id].life - 1 : 0;	
+					_idelegate.sendLife({id:"game.life", data:{t_id:data.data.t_id , lastLife:_pois[t_id].life}});
+					_pois[t_id].updateLife();
+				}
+			}
+			
+			_pois[t_id].x += data.data.acg.x;
+			_pois[t_id].y -= data.data.acg.y;
+			
+		}
+		
+		
+		/**
+		 * 魚の毎フレーム関数
+		 */
+		public function updateBoids() : void 
+		{
+			var b:Boid;
+			var i:int;
+			for (i = 0; i < NUMBOIDS; i++) 
+			{
+				b = _boids[i];  
+				b.force(_boids, i, _pois);
+				b.update(i);
+			}  
+			/*
+			for (i = 0; i < NUMBOIDS; i++) 
+			{             
+				b = _boids[i];
+				b.update(i);
+			}*/
+		}
+		
+		/**
+		 * 魚を消す
+		 */
+		private function deleteBoid(index:int):void
+		{
+			_boids[index].initialize( 
+				0.0,
+				0.0,
+				Util.getRandom(-1, 1),
+				Util.getRandom(-1, 1),
+				index
+			);
+		}
+		
+		/**
+		 * JSON読み込み 
+		 * @param event
+		 */
+		private function loadJson():void
+		{
+			// スコアJSON読み込み
+			var scoreLoader:URLLoader = new URLLoader();
+			scoreLoader.dataFormat = URLLoaderDataFormat.TEXT;
+			scoreLoader.addEventListener(Event.COMPLETE, onLoadScore);
+			scoreLoader.load(new URLRequest("fish/collection/json/scorelist.json"));
+			
+			// 成功時送信JSON読み込み
+			var sendfishLoader:URLLoader = new URLLoader();
+			sendfishLoader.dataFormat = URLLoaderDataFormat.TEXT;
+			sendfishLoader.addEventListener(Event.COMPLETE, onLoadSendfish);
+			sendfishLoader.load(new URLRequest("fish/collection/json/sendfish.json"));
+		}
+		/**
+		 * スコアデータJSON読み込み完了 
+		 * @param event
+		 */
+		private function onLoadScore(event:Event):void
+		{
+			var json:String = URLLoader(event.currentTarget).data;
+			_scoreData = JSON.parse(json);
+			trace(_scoreData["type1"].normal, _scoreData["type2"].normal, _scoreData["type3"].normal, _scoreData["type4"].normal);
+		}
+		
+		/**
+		 * 成功時送信データ読み込み完了 
+		 * @param event
+		 */
+		private function onLoadSendfish(event:Event):void
+		{
+			var json:String = URLLoader(event.currentTarget).data;
+			_gotfishData = JSON.parse(json);
+		}
+	}
+}

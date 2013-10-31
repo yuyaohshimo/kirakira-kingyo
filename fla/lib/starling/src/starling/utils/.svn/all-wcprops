@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/utils
+END
+VAlign.as
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/utils/VAlign.as
+END
+VertexData.as
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/utils/VertexData.as
+END
+AssetManager.as
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/utils/AssetManager.as
+END
+HAlign.as
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/utils/HAlign.as
+END
+ScaleMode.as
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/utils/ScaleMode.as
+END
+transformCoords.as
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/utils/transformCoords.as
+END
+deg2rad.as
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/utils/deg2rad.as
+END
+getNextPowerOfTwo.as
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/utils/getNextPowerOfTwo.as
+END
+rad2deg.as
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/utils/rad2deg.as
+END
+formatString.as
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/utils/formatString.as
+END
+Color.as
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/utils/Color.as
+END
+MatrixUtil.as
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/utils/MatrixUtil.as
+END
+RectangleUtil.as
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/lib/starling/src/starling/utils/RectangleUtil.as
+END
