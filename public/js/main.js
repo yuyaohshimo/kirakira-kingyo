@@ -61,7 +61,7 @@ $.ready(function () {
 		}
 		kingyo.Socket = function (view) {
 			var self = this;
-			self.ws = new WebSocket('ws://172.30.4.205:8888'); // need to override
+			self.ws = new WebSocket('ws://172.30.8.218:8888'); // need to override
 			// self.ws = new WebSocket('ws://172.22.242.251:8888'); // need to override
 			// self.ws = new WebSocket('ws://172.22.247.45:8888');
 			// onを使おうかな
@@ -81,6 +81,7 @@ $.ready(function () {
 			self.ws.addEventListener('close', function (e) {
 				log.debug('close web socket');
 				$(w).off('devicemotion');
+				$(w).off('deviceorientation');
 				self.isOpen = false;
 				self.ws.close();
 			});
@@ -95,6 +96,39 @@ $.ready(function () {
 			}
 		};
 		kingyo.Socket.prototype = {
+			deviceorientation: function (callback) {
+				var self = this;
+				var isFirst = false;
+				$(w).on('deviceorientation', function (e) {
+					if (!self.isOpen) { return; }
+					var alpha  = e.alpha.toFixed(2);
+					var beta = e.beta.toFixed(2);
+					var gamma = e.gamma.toFixed(2);
+					var webkitCompassAccuracy = e.webkitCompassAccuracy;
+					var webkitCompassHeading = e.webkitCompassHeading.toFixed(2);
+					var sendObj = {
+						t_id: $.storage('t_id'),
+						data: {
+							alpha: alpha,
+							beta: beta,
+							gamma: gamma,
+							webkitCompassAccuracy: webkitCompassAccuracy,
+							webkitCompassHeading: webkitCompassHeading
+						}
+					};
+					if (!isFirst) {
+						sendObj.id = 'game.orientation.init';
+						self.send(sendObj);
+						isFirst = true;
+					} else {
+						sendObj.id = 'game.orientation';
+						self.send(sendObj);
+					}
+
+					// for debug
+					// callback(sendObj);
+				});
+			},
 			devicemotion: function (callback) {
 				var self = this;
 				// flags

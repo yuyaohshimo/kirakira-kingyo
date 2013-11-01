@@ -30,6 +30,7 @@
 				});
 				kingyo.pageReplace(_view);
 
+				socket.deviceorientation();
 				socket.devicemotion();
 
 				// for debug
@@ -37,6 +38,11 @@
 				// $('body').append(test.content);
 				// socket.devicemotion(function (obj) {
 				// 	test.update(obj);
+				// });
+				// var test2 = $.view('play.test2');
+				// $('body').append(test2.content);
+				// socket.deviceorientation(function (obj) {
+				// 	test2.update(obj);
 				// });
 			}
 		}
@@ -178,6 +184,63 @@
 				self.rrA.text(obj.data.rr.alpha);
 				self.rrB.text(obj.data.rr.beta);
 				self.rrG.text(obj.data.rr.gamma);
+			}
+		},
+		'play.test2': {
+			render: function () {
+				var self = this;
+				return tag('div.device_test')
+						.tag('p').text('rotate').gat()
+						.tag('ul')
+							.tag('li.alpha').text('alpha')
+								.tag('span.text')
+								.exec(function () {
+									self.alpha = this;
+								})
+								.gat()
+							.gat()
+							.tag('li.beta').text('beta')
+								.tag('span.text')
+								.exec(function () {
+									self.beta = this;
+								})
+								.gat()
+							.gat()
+							.tag('li.gamma').text('gamma')
+								.tag('span.text')
+								.exec(function () {
+									self.gamma = this;
+								})
+								.gat()
+							.gat()
+						.gat()
+						.tag('p').text('webkitCompass').gat()
+						.tag('ul')
+							.tag('li.webkitCompassAccuracy').text('webkitCompassAccuracy')
+								.tag('span.text')
+								.exec(function () {
+									self.webkitCompassAccuracy = this;
+								})
+								.gat()
+							.gat()
+							.tag('li.webkitCompassHeading').text('webkitCompassHeading')
+								.tag('span.text')
+								.exec(function () {
+									self.webkitCompassHeading = this;
+								})
+								.gat()
+							.gat()
+						.gat();
+			},
+			update: function (obj) {
+				var self = this;
+				self.alpha.text(obj.data.alpha);
+				self.beta.text(obj.data.beta);
+				self.gamma.text(obj.data.gamma);
+
+				self.webkitCompassAccuracy.text(obj.data.webkitCompassAccuracy);
+				self.webkitCompassHeading.text(obj.data.webkitCompassHeading);
+
 			}
 		}
 	});
