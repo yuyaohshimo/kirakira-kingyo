@@ -7,6 +7,7 @@ package fish.collection.game
 	import fish.collection.game.util.CustumEvent;
 	import fish.collection.game.util.Util;
 	import fish.collection.game.view.Boid;
+	import fish.collection.game.view.FishControlData;
 	import fish.collection.game.view.ui.DoubleSlider;
 	import fish.collection.game.view.ui.FishControlPanel;
 	
@@ -26,6 +27,10 @@ package fish.collection.game
 	
 	public class GameView extends Sprite
 	{
+		// ポイの大きさからの差
+		private const HIT_DIST_VALUE:Number = 0.5;
+		private const MISS_DIST_VALUE:Number = 1.0;	
+		
 		private var _idelegate:GameInternalDelegate;
 		private var _container:Sprite;
 		
@@ -58,17 +63,13 @@ package fish.collection.game
 		
 		private var _scoreData:Object = {};
 		private var _gotfishData:Object = {};
+		
+		
+		private var _scoop:Boolean;
 
 		public function get view():Sprite {return _container;}
 		
-		private const initPoiPos:Array = [
-			new Point(100, 0),
-			new Point(200, 0),
-			new Point(300, 0),
-			new Point(400, 0),
-			new Point(500, 0),
-			new Point(600, 0)
-			];
+		
 		
 		public function GameView()
 		{
@@ -107,11 +108,10 @@ package fish.collection.game
 		/**
 		 * 初期化
 		 */
-		public function initialize(idelegate:GameInternalDelegate):void
+		public function initialize(idelegate:GameInternalDelegate, startData:Object):void
 		{
+			_scoop = false;
 			loadJson();
-			
-			
 			_idelegate = idelegate;
 			_container = new Sprite();
 			addChild(_container);
@@ -119,7 +119,6 @@ package fish.collection.game
 			_container.addChild(_background);
 			_poiLayer = new Sprite();
 			_container.addChild(_poiLayer);
-			
 			
 			// Boid初期設定
 			var i:int;
@@ -138,7 +137,7 @@ package fish.collection.game
 					i,
 					_idelegate
 					);
-				b.setFishCode('いまはなにも設定できない', 0.7);
+				b.setFishCode();
 				_fishLayer.addChild(b);
 					
 				_boids[i] = b;
@@ -146,11 +145,13 @@ package fish.collection.game
 			_container.addChild(_fishLayer);
 			
 			// スライダー
-			_fishControlPanel = new FishControlPanel();
-			_container.addChild(_fishControlPanel);
+//			_fishControlPanel = new FishControlPanel();
+//			_container.addChild(_fishControlPanel);
 			
 			// PoiView初期設定
 			_pois = new Vector.<PoiView>(POI_NUM, true);
+			trace('ゲームスタートデータ', startData);
+			
 			for (var j:int = 0, len:int = _pois.length; j < len; j++)
 			{
 				_pois[j] = new PoiView(_idelegate);
@@ -158,13 +159,19 @@ package fish.collection.game
 				_poiLayer.addChild(_pois[j]);
 				// ダミーデータ
 				var obj:Object ={
-					t_id:"p1", 
-					name:"なまえなまえ"
+					data: {
+						t_id:"1", 
+						name:"なまえなまえ"
+					}
 				};
-				var data:PoiData = new PoiData(obj);
+				/*-------------------------------------------
+				デバッグ用
+				-------------------------------------------*/
+				var data:PoiData = new PoiData(startData);
+				//var data:PoiData = new PoiData(obj);
 				_pois[j].show(data);
-				_pois[j].x = initPoiPos[j].x;
-				_pois[j].y = initPoiPos[j].y;
+				_pois[j].x = FishControlData.initPoiPos[j].x;
+				_pois[j].y = FishControlData.initPoiPos[j].y;
 			}
 			
 			// アニメーション初期化
@@ -196,114 +203,39 @@ package fish.collection.game
 		{ 
 			// 毎フレーム関数
 			updateBoids();
-			for (var j:int = 0, len:int = _pois.length; j < len; j++)
-			{
-//				var obj:Object = {
-//					xxx : _container.mouseX - _pois[j].width / 2.0,
-//					yyy : _container.mouseY - 30.0,
-//					data : {
-//						t_id : 1,
-//						doScoop : true
+			/*-------------------------------------------
+			ここはデバッグ用
+			-------------------------------------------*/
+//			_container.mouseChildren = true;
+//			_container.mouseEnabled = true;
+//			_container.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
+//
+//			var obj:Object = {
+//				data : {
+//					t_id : 1,
+//					doScoop : _scoop,
+//					acg: {
+//						x : _container.mouseX,
+//						y : _container.mouseY
+////						x : Util.map(_container.mouseX, 0.0, 800.0, -5.0, 5.0),
+////						y : -Util.map(_container.mouseY, 0.0, 800.0, -5.0, 5.0)
 //					}
-//				};
-				//updatePoiPos(obj);
-			}
+//				}
+//			};
+//			
+//			if (_pois[obj.data.t_id-1].life <= 0)
+//				stopPoi(obj);
+//			else
+//				updatePoiPos(obj);
+//			_scoop = false; 
+			/*-------------------------------------------
+			ここまでデバッグ用コード
+			GameModelのupdatePoiPosをコメント解除するの忘れないように
+			-------------------------------------------*/
 		}
-		
-		public function updatePoiPos_debug(data:Object):void
+		private function onMouseUp(e:Event):void
 		{
-			var t_id:int = data.t_id - 1;
-			
-			var i:int;
-			var b:Boid;
-			for (i = 0; i < NUMBOIDS; i++) 
-			{  
-				b = _boids[i];
-				var hit:Boolean = b.hitJudge(_pois[t_id].x + _pois[t_id].width / 2.0, _pois[t_id].y + 30);
-				
-				if (data.data.doScoop && hit)	// すくったときにヒットしてたら
-				{
-					//trace('すくった', i, b.fishData.code, b.fishData.name, b.fishData.type);
-					deleteBoid(i);
-					
-					
-					if (_scoreData.type1)
-					{
-						// ピチャピチャアニメ
-						var waveGetMc:waveMc_get = new waveMc_get();
-						waveGetMc.x = b.x;
-						waveGetMc.y = b.y;
-						waveGetMc.scaleX = waveGetMc.scaleY = 0.6;
-						_container.addChild(waveGetMc);
-						Executor.cancelByName('_getMc1' + t_id);
-						Executor.executeAfterWithName( waveGetMc.totalFrames, 'waveMc_get' + t_id, onAnimationEnd, waveGetMc);
-						// 魚捕獲アニメーション
-						_getMc1[t_id].x = b.x;
-						_getMc1[t_id].y = b.y;
-						_getMc1[t_id].scaleX = _getMc1[t_id].scaleY = 0.5;
-						_container.addChild(_getMc1[t_id]);
-						_getMc1[t_id].gotoAndPlay(0);
-						_getMc1[t_id].score.text.text = _scoreData[b.fishData.type].normal + '\r';
-						Executor.cancelByName('_getMc1' + t_id);
-						Executor.executeAfterWithName( _getMc1[t_id].totalFrames, '_getMc1' + t_id, onAnimationEnd, _getMc1[t_id]);
-					}
-					
-					// 成功時
-					if (_gotfishData.data.fishInfo)
-					{
-						
-						cnt++;
-						if (cnt > 5)
-						{
-							// 失敗時
-							_pois[t_id].life = (_pois[t_id].life > 1) ? _pois[t_id].life - 1 : 0;
-							if (_pois[t_id].life > 0)
-							{
-								_idelegate.sendLife({id:"game.life", data:{t_id:data.data.t_id , lastLife:_pois[t_id].life}});
-								_pois[t_id].updateLife();
-								// 失敗アニメーション
-								_missMc3[t_id].x = _pois[t_id].x;
-								_missMc3[t_id].y = _pois[t_id].y;
-								_container.addChild(_missMc3[t_id]);
-								_missMc3[t_id].gotoAndPlay(0);
-								Executor.cancelByName('_missMc3' + t_id);
-								Executor.executeAfterWithName( _missMc3[t_id].totalFrames, '_missMc3', onAnimationEnd, _missMc3[t_id]);
-							}
-						}
-						else
-						{
-							// 成功時
-							_gotfishData.data.t_id = data.data.t_id ;
-							_gotfishData.data.fishInfo.size = "normal";
-							_gotfishData.data.fishInfo.type = b.fishData.type;
-							_gotfishData.data.fishInfo.score = _scoreData[b.fishData.type][_gotfishData.data.fishInfo.size];
-							_idelegate.sendFish(_gotfishData);
-						}
-					}
-				}
-			}
-			
-			//			_pois[t_id].x += data.data.acg.x;
-			//			_pois[t_id].y -= data.data.acg.y;
-			
-			_pois[t_id].x = data.xxx;
-			_pois[t_id].y = data.yyy;
-			if (_pois[t_id].x > _container.stage.stageWidth - _pois[t_id].width)
-			{
-				_pois[t_id].x = _container.stage.stageWidth - _pois[t_id].width;
-			}
-			else if (_pois[t_id].x < 0.0)
-			{
-				_pois[t_id].x = 0.0;
-			}
-			if (_pois[t_id].y > _container.stage.stageHeight - _pois[t_id].height / 2.0)
-			{
-				_pois[t_id].y = _container.stage.stageHeight - _pois[t_id].height / 2.0;
-			}
-			else if (_pois[t_id].y < 0.0)
-			{
-				_pois[t_id].y = 0.0;
-			}
+			_scoop = true;
 		}
 		
 		/**
@@ -316,19 +248,38 @@ package fish.collection.game
 			var i:int;
 			var b:Boid;
 			var hit:Boolean = false;
-			var distPoi:Number = 1000000000.0;
+			// もっとも近い魚との距離
+			var distPoiMin:Number = 1000000000.0;
+			if (data.data.doScoop)
+			{
+				// すくうアニメーション入れる
+				_pois[t_id].scoopAnimation();
+			}
+			/*-------------------------------------------
+			ポイの更新			
+			-------------------------------------------*/
 			for (i = 0; i < NUMBOIDS; i++) 
 			{  
 				b = _boids[i];
-				var __hit:Boolean = b.hitJudge(_pois[t_id].x + _pois[t_id].width / 2.0, _pois[t_id].y + 30);
-				if (__hit)
+				
+				// 魚とポイの距離
+				var boidDist:Number = b.getDist(_pois[t_id].getPosX(), _pois[t_id].getPosY());
+				if (distPoiMin > boidDist)
 				{
+					// もっとも近い魚との距離を算出
+					distPoiMin = boidDist;
+				}
+				
+				/*-------------------------------------------
+				当たり判定
+				-------------------------------------------*/
+				//var __hit:Boolean = b.hitJudge(_pois[t_id].x + _pois[t_id].width / 2.0, _pois[t_id].y + 30);
+				var __hit:Boolean = false;
+				if (boidDist < _pois[t_id].getPoiSize() * HIT_DIST_VALUE)	// 魚とポイの距離でヒット判定
+					__hit = true; 
+				if (__hit)	// 一匹はヒットした魚がいる状態
 					hit = true;
-				}
-				if (distPoi > b.distPoi)
-				{
-					distPoi = b.distPoi;
-				}
+				
 				if (data.data.doScoop && __hit)	// すくったときにヒットしてたら
 				{
 					deleteBoid(i);
@@ -350,70 +301,122 @@ package fish.collection.game
 						waveGetMc.x = b.x;
 						waveGetMc.y = b.y;
 						_container.addChild(waveGetMc);
+						Executor.executeAfterWithName(waveGetMc.totalFrames, 'waveMc_get' + t_id, onAnimationEnd, waveGetMc);
 						// 魚捕獲アニメーション
-						_getMc1[t_id].x = b.x;
-						_getMc1[t_id].y = b.y;
-						_getMc1[t_id].scaleX = _getMc1[t_id].scaleY = 0.5;
-						_container.addChild(_getMc1[t_id]);
-						_getMc1[t_id].gotoAndPlay(0);
-						_getMc1[t_id].score.text.text = _scoreData[b.fishData.type].normal + '\r';
-						Executor.cancelByName('_getMc1' + t_id);
-						Executor.executeAfterWithName( _getMc1[t_id].totalFrames, '_getMc1' + t_id, onAnimationEnd, _getMc1[t_id]);
+						var getMc:getMc1 = new getMc1();
+						getMc.x = b.x;
+						getMc.y = b.y;
+						getMc.scaleX = getMc.scaleY = 0.5;
+						_container.addChild(getMc);
+						getMc.gotoAndPlay(0);
+						getMc.score.text.text = _scoreData[b.fishData.type].normal + '\r';
+						Executor.executeAfterWithName( getMc.totalFrames, 'getMc' + t_id, onAnimationEnd, getMc);
 					}
 				}
-//				else if (data.data.doScoop && !hit)	// すくったときにヒットしてなかったら
-//				{
-//					trace('data.data.doShake', data.data.doShake);
-//					trace('data.data.doScoop', data.data.doScoop);
-//					// 失敗時
-//					_pois[t_id].life = (_pois[t_id].life > 1) ? _pois[t_id].life - 1 : 0;
-//					_idelegate.sendLife({id:"game.life", data:{t_id:data.t_id , lastLife:_pois[t_id].life}});
-//					_pois[t_id].updateLife();
-//					// 失敗アニメーション
-//					_missMc3[t_id].x = _pois[t_id].x;
-//					_missMc3[t_id].y = _pois[t_id].y;
-//					_container.addChild(_missMc3[t_id]);
-//					_missMc3[t_id].gotoAndPlay(0);
-//					Executor.cancelByName('_missMc3' + t_id);
-//					Executor.executeAfterWithName( _missMc3[t_id].totalFrames, '_missMc3', onAnimationEnd, _missMc3[t_id]);
-//				}
 			}
-			trace('distPoi', distPoi);
-			if (data.data.doScoop && !hit && distPoi < 100000)	// ヒットしてなくて一番近い魚の距離が○◯未満なら
+			/*-------------------------------------------
+			ミス処理
+			-------------------------------------------*/
+			if (data.data.doScoop && !hit && distPoiMin < _pois[t_id].getPoiSize() * MISS_DIST_VALUE)	// ヒットしてなくて一番近い魚の距離が○◯未満なら
 			{
+				trace('distPoi', distPoiMin);
 				// 失敗時
-				_pois[t_id].life = _pois[t_id].life - 1;
+				_pois[t_id].life--;
+				_pois[t_id].updateLife();
+				// ポイの失敗アニメーション
+				_pois[t_id].missAnimation();
+				// 失敗アニメーション
+				var missMc:missMc3 = new missMc3();
+				missMc.x = _pois[t_id].getPosX();
+				missMc.y = _pois[t_id].getPosY();
+				_container.addChild(missMc);
+				missMc.gotoAndPlay(0);
+				Executor.executeAfterWithName( missMc.totalFrames, '_missMc3', onAnimationEnd, missMc);
+				
+//				_missMc3[t_id].x = _pois[t_id].getPosX();
+//				_missMc3[t_id].y = _pois[t_id].getPosY();
+//				_container.addChild(_missMc3[t_id]);
+//				_missMc3[t_id].gotoAndPlay(0);
+//				Executor.cancelByName('_missMc3' + t_id);
+//				Executor.executeAfterWithName( _missMc3[t_id].totalFrames, '_missMc3', onAnimationEnd, _missMc3[t_id]);
+				
+				// ポイのライフ情報送信
 				if (_pois[t_id].life > -1)
 				{
 					_idelegate.sendLife({id:"game.life", data:{t_id:data.t_id , lastLife:_pois[t_id].life}});
 				}
-				_pois[t_id].updateLife();
-				// 失敗アニメーション
-				_missMc3[t_id].x = _pois[t_id].x;
-				_missMc3[t_id].y = _pois[t_id].y;
-				_container.addChild(_missMc3[t_id]);
-				_missMc3[t_id].gotoAndPlay(0);
-				Executor.cancelByName('_missMc3' + t_id);
-				Executor.executeAfterWithName( _missMc3[t_id].totalFrames, '_missMc3', onAnimationEnd, _missMc3[t_id]);
 			}
-			
+			/*-------------------------------------------
+			本番はここをコメント解除
+			-------------------------------------------*/
+//			_pois[t_id].setPosX(_pois[t_id].getPosX() + data.data.acg.x);
+//			_pois[t_id].setPosY(_pois[t_id].getPosY() - data.data.acg.y);
 			_pois[t_id].x += data.data.acg.x;
 			_pois[t_id].y -= data.data.acg.y;
-			if (_pois[t_id].x > _container.stage.stageWidth - _pois[t_id].width)
+			
+//			_pois[t_id].setPosX(data.data.acg.x);
+//			_pois[t_id].setPosY(data.data.acg.y);
+//			_pois[t_id].rotatePoi(data.data.acg.y);
+			
+			if (_pois[t_id].x > _container.stage.stageWidth)
 			{
-				_pois[t_id].x = _container.stage.stageWidth - _pois[t_id].width;
+				_pois[t_id].x = _container.stage.stageWidth;
 			}
 			else if (_pois[t_id].x < 0.0)
 			{
 				_pois[t_id].x = 0.0;
 			}
-			if (_pois[t_id].y > _container.stage.stageHeight - _pois[t_id].height / 2.0)
+			if (_pois[t_id].y > _container.stage.stageHeight)
 			{
-				_pois[t_id].y = _container.stage.stageHeight - _pois[t_id].height / 2.0;
+				_pois[t_id].y = _container.stage.stageHeight;
 			}
 			else if (_pois[t_id].y < 0.0)
 			{
 				_pois[t_id].y = 0.0;
+			}
+		}
+		
+		/**
+		 *ポイ回転初期化 
+		 * @param rotData
+		 * 
+		 */		
+		public function initPoiRot(rotData:Object = null):void
+		{
+			var t_id:int = rotData.t_id - 1;
+			var rot:Number = rotData.data.alpha;
+			_pois[t_id].initRotatePoi(rot);
+		}
+		/**
+		 *ポイ回転
+		 * @param rotData
+		 * 
+		 */		
+		public function setPoiRot(rotData:Object = null):void
+		{
+			var t_id:int = rotData.t_id - 1;
+			var rot:Number = rotData.data.alpha;
+			_pois[t_id].rotatePoi(rot);
+		}
+		
+		/**
+		 * ぽいを止める 
+		 * @param data
+		 * 
+		 */		
+		public function stopPoi(data:Object):void
+		{
+			var t_id:int = data.t_id - 1;
+			// poiViewのライフが0なら終了 0より大きければゲーム中断
+			if (_pois[t_id].life <= 0)
+			{
+				// ゲーム終了
+				// ポイの終了アニメーション　→　アニメーション終了したら消える
+				//_pois[t_id].missAnimation();
+			}
+			else
+			{
+				// ゲーム中断
 			}
 		}
 		
@@ -424,6 +427,7 @@ package fish.collection.game
 		private function onAnimationEnd(mc:MovieClip):void
 		{
 			removeFromParent(mc);
+			mc = null;
 		}
 		
 		/**
@@ -479,14 +483,9 @@ package fish.collection.game
 				b = _boids[i];  
 				b.force(_boids, i, _pois);
 				b.update(i);
-			}  
-			/*
-			for (i = 0; i < NUMBOIDS; i++) 
-			{             
-				b = _boids[i];
-				b.update(i);
-			}*/
+			} 
 		}
+		
 		
 		/**
 		 * 魚を消す

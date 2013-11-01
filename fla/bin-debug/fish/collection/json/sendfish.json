@@ -1,10 +1,9 @@
 {
     "id": "game.fish",
-    "data": {
+    "data":{
         "t_id": "",
-        "fishInfo": {
+        "fish_info": {
             "size": "",
-            "type": "",
             "score": "",
             "parts": {
                 "head": 0,

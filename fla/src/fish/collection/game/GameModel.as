@@ -37,13 +37,31 @@ package fish.collection.game
 			_gameView = null;
 		}
 		
-		public function showGame():void
+		public function showGame(startData:Object = null):void
 		{
 			_gameView = new GameView();
-			_gameView.initialize(_idelegate);
+			_gameView.initialize(_idelegate, startData);
 			_container.addUI(_gameView.view);
 			
 			trace('ゲーム開始');
+		}
+		/**
+		 *ポイ回転初期化 
+		 * @param rotData
+		 * 
+		 */		
+		public function initPoiRot(rotData:Object = null):void
+		{
+			_gameView.initPoiRot(rotData);
+		}
+		/**
+		 *ポイ回転
+		 * @param rotData
+		 * 
+		 */		
+		public function setPoiRot(rotData:Object = null):void
+		{
+			_gameView.setPoiRot(rotData);
 		}
 		
 		/**
@@ -61,6 +79,14 @@ package fish.collection.game
 		public function updatePoiPos(data:Object):void
 		{
 			_gameView.updatePoiPos(data);
+		}
+		/**
+		 * ポイを止める
+		 * @param data
+		 */
+		public function stopPoi(data:Object):void
+		{
+			_gameView.stopPoi(data);
 		}
 		
 		/**

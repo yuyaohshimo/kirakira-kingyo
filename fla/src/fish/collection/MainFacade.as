@@ -83,6 +83,21 @@ package fish.collection
 				case 'game.stop':
 				{
 					// 切断　t_idがくる
+					_model.stopPoi(data);
+					break;
+				}
+				case 'game.orientation.init':
+				{
+					// 回転の初期値
+					_model.initPoiRot(data);
+					log('game.orientation.init', data.t_id, data.data.alpha);
+					break;
+				}
+				case 'game.orientation':
+				{
+					// 回転の初期値
+					_model.setPoiRot(data);
+					log('game.orientation', data.t_id, data.data.alpha);
 					break;
 				}
 				default:

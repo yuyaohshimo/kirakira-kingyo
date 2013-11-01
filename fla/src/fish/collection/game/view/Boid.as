@@ -110,7 +110,7 @@ package fish.collection.game.view
 			_vxSpring = vx;
 			_vySpring = vy;
 			this.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-			trace('boid初期化' + index, _px, _py, _vx, _vy, _ax, _ay);
+			//trace('boid初期化' + index, _px, _py, _vx, _vy, _ax, _ay);
 			_index = index;
 			
 			_tailRot = new Vector.<Number>(TAIL_BUF, true);
@@ -137,7 +137,7 @@ package fish.collection.game.view
 		 * @param fishCode : 魚のコード
 		 * @return 
 		 */
-		public function setFishCode(fishCode:String, scale:Number = 0.7):void 
+		public function setFishCode():void 
 		{
 			// 出現させる魚の設定
 			var random:int = Math.random() * 100;
@@ -163,7 +163,6 @@ package fish.collection.game.view
 				type:typeStr
 			};
 			_fishData = new FishData(obj);
-			trace('ううううううううううううううううう', _fishData.type);
 			// FishViewの設定
 			_fishView = new FishView();
 			_fishView.initialize(_fishData);
@@ -178,6 +177,14 @@ package fish.collection.game.view
 			_fishView.filters = [drop_filter];
 			
 			addChild(_fishView);
+		}
+		
+		public function getDist(x:Number, y:Number):Number
+		{
+			var dx:Number = (x - _px);
+			var dy:Number = (y - _py);
+			var d:Number = Math.sqrt(dx * dx + dy * dy);
+			return d;
 		}
 		
 		/**
@@ -328,8 +335,8 @@ package fish.collection.game.view
 				dx = dy = .0;
 				dx = (pois[j].x - _px);
 				dy = (pois[j].y - _py);
-				_distPoi = dx * dx + dy * dy;
-				if (_distPoi > Util.getRandom(3000.0, 5000.0))
+				_distPoi = Math.sqrt(dx * dx + dy * dy);
+				if (_distPoi > Util.getRandom(50.0, 100.0))
 				{
 					continue;
 				}
@@ -429,7 +436,7 @@ package fish.collection.game.view
 				{
 					size = 'small';
 				}
-				trace(size, hanten);
+				//trace(size, hanten);
 				if (size != '')
 					_idelegate.createWave(this.x, this.y, size);
 				// 反転でしっぽが破綻しないようにさせる

@@ -95,7 +95,7 @@ package fish.collection
 		/**
 		 * ポイを表示 
 		 */
-		public function showPoi(data:Object):void
+		public function showPoi(startData:Object):void
 		{
 			// トップを消す
 			if (_topModel)
@@ -108,8 +108,26 @@ package fish.collection
 			{
 				_gameModel = new GameModel();
 				_gameModel.initialize(_delegate, _container);
-				_gameModel.showGame();
+				_gameModel.showGame(startData);
 			}
+		}
+		/**
+		 *ポイ回転の初期化 
+		 * @param data
+		 * 
+		 */		
+		public function initPoiRot(data:Object):void
+		{
+			_gameModel.initPoiRot(data);
+		}
+		/**
+		 *ポイ回転 
+		 * @param data
+		 * 
+		 */		
+		public function setPoiRot(data:Object):void
+		{
+			_gameModel.setPoiRot(data);	
 		}
 		
 		/**
@@ -153,6 +171,16 @@ package fish.collection
 		public function sendLife(data:Object):void
 		{
 			_facade.sendLife(data);
+		}
+		
+		/**
+		 * ぽいを止める 
+		 * @param data
+		 * 
+		 */		
+		public function stopPoi(data:Object):void
+		{
+			_gameModel.stopPoi(data);
 		}
 	}
 }
