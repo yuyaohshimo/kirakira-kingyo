@@ -70,6 +70,7 @@ package fish.collection.net
 		
 		/**
 		 * サーバーにデータを送信
+		 * {"id":"game.fish","data":{"t_id":"1","fishInfo":{"size":"normal","score":100,"parts":{"tail":0,"head":0,"body":0,"lFill":0,"rFill":0},"type":"1"}}}
 		 */
 		public function send(data:Object):void
 		{
