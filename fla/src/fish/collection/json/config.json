@@ -1,5 +1,5 @@
 {
-    "uri": "ws://localhost:8888",
+    "uri": "ws://172.22.241.56:8888",
     "origin": "*",
     "protocol": "lws-mirror-protocol"
 }

@@ -72,7 +72,7 @@ package fish.collection.game
 		// 魚の当たり判定可視化スプライト（デバッグ用）
 		private var _hitGraphic:Sprite;
 		private var _boidPosGraphic:Sprite;
-		private const _isHitGraphic:Boolean = true;
+		private const _isHitGraphic:Boolean = false;
 
 		public function get view():Sprite {return _container;}
 		
@@ -641,7 +641,9 @@ package fish.collection.game
 				// 成功時
 				_gotfishData.data.t_id = locateData.t_id ;
 				_gotfishData.data.fishInfo.size = "normal";
-				_gotfishData.data.fishInfo.type = b.fishData.type;
+				var splits:Array = b.fishData.type.split('ype');
+				//_gotfishData.data.fishInfo.type = b.fishData.type;
+				_gotfishData.data.fishInfo.type = splits[1];
 				_gotfishData.data.fishInfo.score = _scoreData[b.fishData.type][_gotfishData.data.fishInfo.size];
 				_idelegate.sendFish(_gotfishData);
 				

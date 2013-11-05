@@ -94,6 +94,18 @@ package fish.collection
 				}
 				case 'game.orientation':
 				{
+					/*
+					this	fish.collection.MainFacade (@b9f88f9)	
+					data	Object (@b9f82c9)	
+					data	Object (@ece1a31)	
+					alpha	"37.39"	
+					beta	"0.81"	
+					gamma	"0.36"	
+					webkitCompassAccuracy	26 [0x1a]	
+					webkitCompassHeading	"69.54"	
+					id	"game.orientation"	
+					t_id	"1"	
+					*/
 					// 回転の初期値
 					_model.setPoiRot(data);
 					break;
