@@ -37,21 +37,63 @@ package fish.collection.game
 			_gameView = null;
 		}
 		
+		/**
+		 * ゲーム画面を表示する 
+		 * @param startData
+		 * 
+		 */		
 		public function showGame():void
 		{
 			_gameView = new GameView();
 			_gameView.initialize(_idelegate);
+			updateBackground();
+			_gameView.initBoids();
 			_container.addUI(_gameView.view);
-			
-			trace('ゲーム開始');
 		}
 		
 		/**
-		 * ポイを表示(ポイが投入された時に呼び出される) 
+		 * 背景を更新 
 		 */
-		public function showPoi(data:Object):void
+		public function updateBackground():void
 		{
-			
+			_gameView.updateBackground();
+		}
+		/**
+		 * 魚のカラーバリエーションを更新 
+		 */
+		public function updateFishColor():void
+		{
+			_gameView.updateFishColor();
+		}
+		
+		
+		/**
+		 * ポイを追加する 
+		 * @param startData
+		 * 
+		 */		
+		public function addPoi(startData:Object):void
+		{
+			_gameView.addPoi(startData);
+		}
+		
+		/**
+		 *ポイ回転初期化 
+		 * @param rotData
+		 * 
+		 */		
+		public function initPoiRot(rotData:Object = null):void
+		{
+			_gameView.initPoiRot(rotData);
+		}
+		/**
+		 *ポイ回転
+		 * @param rotData
+		 * 
+		 */		
+		public function setPoiRot(rotData:Object = null):void
+		{
+			_gameView.setPoiRot(rotData);
 		}
 			
 		/**
@@ -61,6 +103,22 @@ package fish.collection.game
 		public function updatePoiPos(data:Object):void
 		{
 			_gameView.updatePoiPos(data);
+		}
+		/**
+		 * ポイを止める
+		 * @param data
+		 */
+		public function stopPoi(data:Object):void
+		{
+			_gameView.stopPoi(data);
+		}
+		
+		/**
+		 * 金魚の波紋アニメーション 
+		 */		
+		public function createWave(px:Number, py:Number, size:String):void 
+		{
+			_gameView.createWave(px, py, size);
 		}
 	}
 }

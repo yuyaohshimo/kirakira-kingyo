@@ -1,13 +1,13 @@
 K 25
 svn:wc:ra_dav:version-url
 V 95
-/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/src/fish/collection/game/view
+/svn/pigglife/!svn/ver/30099/branches/kawabata_satoshi/dotFes2013/src/fish/collection/game/view
 END
 FishControlData.as
 K 25
 svn:wc:ra_dav:version-url
 V 114
-/svn/pigglife/!svn/ver/29840/branches/kawabata_satoshi/dotFes2013/src/fish/collection/game/view/FishControlData.as
+/svn/pigglife/!svn/ver/30088/branches/kawabata_satoshi/dotFes2013/src/fish/collection/game/view/FishControlData.as
 END
 hogeSprite.as
 K 25
@@ -19,5 +19,11 @@ Boid.as
 K 25
 svn:wc:ra_dav:version-url
 V 103
-/svn/pigglife/!svn/ver/29840/branches/kawabata_satoshi/dotFes2013/src/fish/collection/game/view/Boid.as
+/svn/pigglife/!svn/ver/30095/branches/kawabata_satoshi/dotFes2013/src/fish/collection/game/view/Boid.as
+END
+BackgroundView.as
+K 25
+svn:wc:ra_dav:version-url
+V 113
+/svn/pigglife/!svn/ver/30099/branches/kawabata_satoshi/dotFes2013/src/fish/collection/game/view/BackgroundView.as
 END

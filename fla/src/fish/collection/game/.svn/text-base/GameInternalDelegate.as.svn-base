@@ -45,5 +45,23 @@ package fish.collection.game
 		{
 			_delegate.sendLife(data);
 		}
+		
+		/**
+		 * 金魚の波紋アニメーション 
+		 */		
+		public function createWave(px:Number, py:Number, size:String):void 
+		{
+			_model.createWave(px, py, size);
+		}
+		
+		/**
+		 * トップ画面を表示させる 
+		 */		
+		public function showTopView():void
+		{
+			_delegate.showTop();
+			_model.updateBackground();
+			_model.updateFishColor();
+		}
 	}
 }

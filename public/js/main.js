@@ -168,10 +168,11 @@ $.ready(function () {
 				}
 
 				function truncateNum (obj) {
+					var _obj = {};
 					for (var key in obj) {
-						obj[key] = obj[key].toFixed(2);
+						_obj[key] = obj[key].toFixed(2);
 					}
-					return obj;
+					return _obj;
 				}
 
 				// 加速度センサーがセンシングされたときの処理です（0.05秒くらい←超適当）

@@ -1,15 +1,15 @@
 10
 
 dir
-29773
+30099
 http://172.28.253.181/svn/pigglife/branches/kawabata_satoshi/dotFes2013/src/fish/collection/fish/configuration
 http://172.28.253.181/svn/pigglife
 
 
 
-2013-10-22T00:53:14.268433Z
-29773
-kawabata_satoshi
+2013-11-03T13:13:59.977040Z
+30099
+bamba_misaki
 
 
 svn:special svn:externals svn:needs-lock
@@ -28,15 +28,15 @@ df0d0e78-4098-450e-8ee5-523319f4b04c
 
 BodyConfiguration.as
 file
-29839
 
 
 
-2013-10-22T13:14:30.000000Z
-37f7267a66749be7609970c8755dc996
-2013-10-23T13:06:25.294018Z
-29839
-kawabata_satoshi
+
+2013-11-03T13:16:19.000000Z
+7ee86edcb153b19457549efacb31d43d
+2013-11-03T13:13:59.977040Z
+30099
+bamba_misaki
 has-props
 
 
@@ -58,7 +58,7 @@ has-props
 
 
 
-1152
+667
 
 TypeConfiguration.as
 file

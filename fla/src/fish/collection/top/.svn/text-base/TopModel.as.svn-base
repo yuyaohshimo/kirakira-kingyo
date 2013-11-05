@@ -61,5 +61,15 @@ package fish.collection.top
 			_topView.clean();
 			_topView = null;
 		}
+		
+		/**
+		 * フェードアウトさせる 
+		 * @param handler
+		 * 
+		 */		
+		public function fadeout(handler:Function):void
+		{
+			_topView.fadeout(handler);
+		}
 	}
 }

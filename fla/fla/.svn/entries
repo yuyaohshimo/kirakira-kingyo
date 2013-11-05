@@ -1,15 +1,15 @@
 10
 
 dir
-29773
+30099
 http://172.28.253.181/svn/pigglife/branches/kawabata_satoshi/dotFes2013/fla
 http://172.28.253.181/svn/pigglife
 
 
 
-2013-10-22T00:53:14.268433Z
-29773
-kawabata_satoshi
+2013-11-03T13:13:59.977040Z
+30099
+bamba_misaki
 
 
 svn:special svn:externals svn:needs-lock
@@ -25,17 +25,26 @@ svn:special svn:externals svn:needs-lock
 
 
 df0d0e78-4098-450e-8ee5-523319f4b04c
+
+
+
+
+
+
+
+
+((conflict 24 リカバリ_main_ui.fla file update deleted edited (version http://172.28.253.181/svn/pigglife 5 30098 branches/kawabata_satoshi/dotFes2013/fla/リカバリ_main_ui.fla file) (version http://172.28.253.181/svn/pigglife 5 30099 branches/kawabata_satoshi/dotFes2013/fla/リカバリ_main_ui.fla none)))
 
 fish.fla
 file
-29839
 
 
 
-2013-10-22T13:14:18.000000Z
-980718f3e8019a402cd98779d9cdad29
-2013-10-23T13:06:25.294018Z
-29839
+
+2013-10-28T10:06:20.000000Z
+cae147118119a8bf4cf2b476ad82e724
+2013-11-01T15:22:10.757610Z
+30086
 kawabata_satoshi
 has-props
 
@@ -58,18 +67,18 @@ has-props
 
 
 
-1435989
+4789744
 
 fish.swc
 file
-29839
 
 
 
-2013-10-22T08:57:14.000000Z
-391bf15294371b9b182994fc419f4afe
-2013-10-23T13:06:25.294018Z
-29839
+
+2013-10-28T10:06:19.000000Z
+691fa69efdb47f4563dfefb4535416d2
+2013-11-01T15:22:10.757610Z
+30086
 kawabata_satoshi
 has-props
 
@@ -92,18 +101,18 @@ has-props
 
 
 
-658058
+457727
 
 fish.swf
 file
-29839
 
 
 
-2013-10-22T08:57:14.000000Z
-e3d50307c46c7d2551e86f337f4f4e27
-2013-10-23T13:06:25.294018Z
-29839
+
+2013-10-28T10:06:19.000000Z
+a377f48628ca772be8f24c3e864bba95
+2013-11-01T15:22:10.757610Z
+30086
 kawabata_satoshi
 has-props
 
@@ -126,18 +135,18 @@ has-props
 
 
 
-657283
+457016
 
 fish_parts.fla
 file
-29839
 
 
 
-2013-10-23T13:02:02.000000Z
-68b91f4afe8776fa49eb4548dde4d578
-2013-10-23T13:06:25.294018Z
-29839
+
+2013-11-03T11:56:26.000000Z
+ee5a29dca5384bdd2ae008e9a38ac12d
+2013-11-03T13:06:37.644587Z
+30098
 kawabata_satoshi
 has-props
 
@@ -160,18 +169,18 @@ has-props
 
 
 
-78701
+276316
 
 fish_parts.swc
 file
-29839
 
 
 
-2013-10-23T13:02:05.000000Z
-05363ffed629ab427cc098991da61970
-2013-10-23T13:06:25.294018Z
-29839
+
+2013-11-03T07:08:17.000000Z
+a08572671962eb72f1589e01d51b3c52
+2013-11-03T09:14:06.910866Z
+30092
 kawabata_satoshi
 has-props
 
@@ -194,18 +203,18 @@ has-props
 
 
 
-6187
+14489
 
 fish_parts.swf
 file
-29839
 
 
 
-2013-10-23T13:02:05.000000Z
-1788630c734dc443215253868e3fa1de
-2013-10-23T13:06:25.294018Z
-29839
+
+2013-11-03T07:08:17.000000Z
+8ae75e53a7a5bf7a8c058ca77cc9cb1c
+2013-11-03T09:14:06.910866Z
+30092
 kawabata_satoshi
 has-props
 
@@ -228,18 +237,18 @@ has-props
 
 
 
-5222
+13631
 
 main_ui.fla
 file
-29839
+30100
 
 
 
-2013-10-22T15:23:46.000000Z
-4432b52e66944c34381f2de47dc33013
-2013-10-23T13:06:25.294018Z
-29839
+2013-11-03T13:32:15.000000Z
+b3332d2dcc009803cb2489cf5a0a2104
+2013-11-03T14:39:39.026684Z
+30100
 kawabata_satoshi
 has-props
 
@@ -262,18 +271,18 @@ has-props
 
 
 
-102655
+251733
 
 main_ui.swc
 file
-29839
+30100
 
 
 
-2013-10-22T14:53:18.000000Z
-a3678bf313e5b2fee044841d7b80b338
-2013-10-23T13:06:25.294018Z
-29839
+2013-11-03T13:32:07.000000Z
+c309fdc4a348a6f998ac593721ba98f8
+2013-11-03T14:39:39.026684Z
+30100
 kawabata_satoshi
 has-props
 
@@ -296,18 +305,18 @@ has-props
 
 
 
-1370125
+6410433
 
 main_ui.swf
 file
-29839
+30100
 
 
 
-2013-10-22T14:53:18.000000Z
-8dcb142a880c8abfc61a1d1aef1fd044
-2013-10-23T13:06:25.294018Z
-29839
+2013-11-03T13:32:07.000000Z
+80804e5454129047ba72a707650af72b
+2013-11-03T14:39:39.026684Z
+30100
 kawabata_satoshi
 has-props
 
@@ -330,19 +339,19 @@ has-props
 
 
 
-1369221
+6407154
 
-リカバリ_fish_parts.fla
+wave_poi.fla
 file
-29839
 
 
 
-2013-10-23T12:51:20.000000Z
-4639c3a403f379ef23e39e180715f222
-2013-10-23T13:06:25.294018Z
-29839
-kawabata_satoshi
+
+2013-11-03T13:16:21.000000Z
+109f0090572e12ed7864ec8ebf5bae9d
+2013-11-03T13:13:59.977040Z
+30099
+bamba_misaki
 has-props
 
 
@@ -364,5 +373,107 @@ has-props
 
 
 
-77483
+2325881
+
+wave_poi.swc
+file
+
+
+
+
+2013-11-03T13:16:21.000000Z
+125361a0be1fc816cfc4e6eecb8cd446
+2013-11-03T13:13:59.977040Z
+30099
+bamba_misaki
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+273696
+
+wave_poi.swf
+file
+
+
+
+
+2013-11-03T13:16:21.000000Z
+3d4d6aec01c28a0210c550f0514e608a
+2013-11-03T13:13:59.977040Z
+30099
+bamba_misaki
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+272971
+
+リカバリ_main_ui.fla
+file
+30098
+
+
+add
+2013-11-03T12:58:07.000000Z
+4f482c95819d763ea81e532027507a75
+2013-11-03T13:06:37.644587Z
+30098
+kawabata_satoshi
+has-props
+
+
+
+
+
+
+
+copied
+http://172.28.253.181/svn/pigglife/branches/kawabata_satoshi/dotFes2013/fla/%E3%83%AA%E3%82%AB%E3%83%90%E3%83%AA_main_ui.fla
+30098
+
+
+
+
+
+
+
+
+
+
+254735
 

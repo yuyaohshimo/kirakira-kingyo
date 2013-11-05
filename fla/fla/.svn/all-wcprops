@@ -1,65 +1,83 @@
 K 25
 svn:wc:ra_dav:version-url
 V 69
-/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/fla
+/svn/pigglife/!svn/ver/30099/branches/kawabata_satoshi/dotFes2013/fla
+END
+wave_poi.fla
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/pigglife/!svn/ver/30099/branches/kawabata_satoshi/dotFes2013/fla/wave_poi.fla
+END
+リカバリ_main_ui.fla
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/pigglife/!svn/ver/30098/branches/kawabata_satoshi/dotFes2013/fla/%E3%83%AA%E3%82%AB%E3%83%90%E3%83%AA_main_ui.fla
 END
 fish.fla
 K 25
 svn:wc:ra_dav:version-url
 V 78
-/svn/pigglife/!svn/ver/29839/branches/kawabata_satoshi/dotFes2013/fla/fish.fla
+/svn/pigglife/!svn/ver/30086/branches/kawabata_satoshi/dotFes2013/fla/fish.fla
+END
+wave_poi.swc
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/pigglife/!svn/ver/30099/branches/kawabata_satoshi/dotFes2013/fla/wave_poi.swc
 END
 fish_parts.fla
 K 25
 svn:wc:ra_dav:version-url
 V 84
-/svn/pigglife/!svn/ver/29839/branches/kawabata_satoshi/dotFes2013/fla/fish_parts.fla
+/svn/pigglife/!svn/ver/30098/branches/kawabata_satoshi/dotFes2013/fla/fish_parts.fla
 END
 main_ui.fla
 K 25
 svn:wc:ra_dav:version-url
 V 81
-/svn/pigglife/!svn/ver/29839/branches/kawabata_satoshi/dotFes2013/fla/main_ui.fla
+/svn/pigglife/!svn/ver/30100/branches/kawabata_satoshi/dotFes2013/fla/main_ui.fla
+END
+wave_poi.swf
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/pigglife/!svn/ver/30099/branches/kawabata_satoshi/dotFes2013/fla/wave_poi.swf
 END
 fish.swc
 K 25
 svn:wc:ra_dav:version-url
 V 78
-/svn/pigglife/!svn/ver/29839/branches/kawabata_satoshi/dotFes2013/fla/fish.swc
+/svn/pigglife/!svn/ver/30086/branches/kawabata_satoshi/dotFes2013/fla/fish.swc
 END
 fish_parts.swc
 K 25
 svn:wc:ra_dav:version-url
 V 84
-/svn/pigglife/!svn/ver/29839/branches/kawabata_satoshi/dotFes2013/fla/fish_parts.swc
-END
-リカバリ_fish_parts.fla
-K 25
-svn:wc:ra_dav:version-url
-V 121
-/svn/pigglife/!svn/ver/29839/branches/kawabata_satoshi/dotFes2013/fla/%E3%83%AA%E3%82%AB%E3%83%90%E3%83%AA_fish_parts.fla
+/svn/pigglife/!svn/ver/30092/branches/kawabata_satoshi/dotFes2013/fla/fish_parts.swc
 END
 main_ui.swc
 K 25
 svn:wc:ra_dav:version-url
 V 81
-/svn/pigglife/!svn/ver/29839/branches/kawabata_satoshi/dotFes2013/fla/main_ui.swc
+/svn/pigglife/!svn/ver/30100/branches/kawabata_satoshi/dotFes2013/fla/main_ui.swc
 END
 fish.swf
 K 25
 svn:wc:ra_dav:version-url
 V 78
-/svn/pigglife/!svn/ver/29839/branches/kawabata_satoshi/dotFes2013/fla/fish.swf
+/svn/pigglife/!svn/ver/30086/branches/kawabata_satoshi/dotFes2013/fla/fish.swf
 END
 fish_parts.swf
 K 25
 svn:wc:ra_dav:version-url
 V 84
-/svn/pigglife/!svn/ver/29839/branches/kawabata_satoshi/dotFes2013/fla/fish_parts.swf
+/svn/pigglife/!svn/ver/30092/branches/kawabata_satoshi/dotFes2013/fla/fish_parts.swf
 END
 main_ui.swf
 K 25
 svn:wc:ra_dav:version-url
 V 81
-/svn/pigglife/!svn/ver/29839/branches/kawabata_satoshi/dotFes2013/fla/main_ui.swf
+/svn/pigglife/!svn/ver/30100/branches/kawabata_satoshi/dotFes2013/fla/main_ui.swf
 END

@@ -1,15 +1,15 @@
 10
 
 dir
-29773
+30099
 http://172.28.253.181/svn/pigglife/branches/kawabata_satoshi/dotFes2013/src/fish/collection/net
 http://172.28.253.181/svn/pigglife
 
 
 
-2013-10-22T00:53:14.268433Z
-29773
-kawabata_satoshi
+2013-11-03T13:13:59.977040Z
+30099
+bamba_misaki
 
 
 svn:special svn:externals svn:needs-lock
@@ -32,10 +32,10 @@ file
 
 
 
-2013-10-21T11:15:10.000000Z
-774e0a5d8e14c3f77420ce1ce47717d3
-2013-10-22T00:53:14.268433Z
-29773
+2013-10-30T11:54:57.000000Z
+fa83ed397f398a8ffeade2731afd6197
+2013-11-01T15:22:10.757610Z
+30086
 kawabata_satoshi
 has-props
 
@@ -58,19 +58,19 @@ has-props
 
 
 
-3377
+3351
 
 FishClientWebSocket.as
 file
-29839
 
 
 
-2013-10-22T13:55:12.000000Z
-71d322031d2bc1e1b1f6923e682778b1
-2013-10-23T13:06:25.294018Z
-29839
-kawabata_satoshi
+
+2013-11-03T13:16:19.000000Z
+69bd86e16f2d9052f838ce73bbd27654
+2013-11-03T13:13:59.977040Z
+30099
+bamba_misaki
 has-props
 
 
@@ -92,7 +92,7 @@ has-props
 
 
 
-2811
+3512
 
 websocket
 dir

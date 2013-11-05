@@ -57,5 +57,14 @@ package fish.collection
 		{
 			_model.sendLife(data);
 		}
+		
+		/**
+		 * トップ画面を表示させる 
+		 * 
+		 */		
+		public function showTop():void
+		{
+			_model.showTop();
+		}
 	}
 }

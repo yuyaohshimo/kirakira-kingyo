@@ -1,15 +1,17 @@
 {
     "id": "game.fish",
-    "t_id": "",
-    "fish_info": {
-        "size": "",
-        "score": "",
-        "parts": {
-            "head": 0,
-            "body": 0,
-            "lFill": 0,
-            "rFill": 0,
-            "tail": 0
+    "data": {
+        "t_id": "",
+        "fishInfo": {
+            "size": "",
+            "score": "",
+            "parts": {
+                "head": 0,
+                "body": 0,
+                "lFill": 0,
+                "rFill": 0,
+                "tail": 0
+            }
         }
     }
 }

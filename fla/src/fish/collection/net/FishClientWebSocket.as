@@ -1,13 +1,16 @@
 package fish.collection.net
 {
-	import flash.events.Event;
-	import flash.events.IOErrorEvent;
-	import flash.events.SecurityErrorEvent;
-	
 	import fish.collection.net.websocket.WebSocket;
 	import fish.collection.net.websocket.WebSocketErrorEvent;
 	import fish.collection.net.websocket.WebSocketEvent;
 	import fish.collection.net.websocket.WebSocketHandler;
+	
+	import flash.events.Event;
+	import flash.events.IOErrorEvent;
+	import flash.events.SecurityErrorEvent;
+	import flash.net.URLLoader;
+	import flash.net.URLLoaderDataFormat;
+	import flash.net.URLRequest;
 
 	public class FishClientWebSocket
 	{
@@ -32,8 +35,41 @@ package fish.collection.net
 			{
 				_websocket.close();
 			}
-			_websocket = new WebSocket("ws://172.22.242.251:8888", "*", "lws-mirror-protocol", 5000);
-			//_websocket = new WebSocket("ws://localhost:8888", "*", "lws-mirror-protocol", 5000);
+
+			loadJson();
+		}
+		
+		/**
+		 * JSON読み込み 
+		 * @param event
+		 */
+		private function loadJson():void
+		{
+			var scoreLoader:URLLoader = new URLLoader();
+			scoreLoader.dataFormat = URLLoaderDataFormat.TEXT;
+			scoreLoader.addEventListener(Event.COMPLETE, onLoadScore);
+			scoreLoader.load(new URLRequest("fish/collection/json/config.json"));
+		}
+		
+		/**
+		 * JSON読み込み完了 
+		 * @param event
+		 */
+		private function onLoadScore(event:Event):void
+		{
+			var json:String = URLLoader(event.currentTarget).data;
+			var data:Object = {};
+			data = JSON.parse(json);
+			connect(data);
+		}
+		
+		/**
+		 * websocketに接続
+		 * @param data
+		 */
+		private function connect(data:Object):void 
+		{
+			_websocket = new WebSocket(data.uri, data.origin, data.protocol, 5000);
 			_websocket.debug = true;
 			_websocket.connect();
 			_websocket.addEventListener(WebSocketEvent.CLOSED, handleWebSocketClosed);

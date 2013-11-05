@@ -74,6 +74,14 @@ package fish.collection
 		 */
 		public function showTop():void
 		{
+			// ゲーム画面を表示
+			if (!_gameModel)	// ゲームモデルがなければ作ってゲーム画面へ遷移する
+			{
+				_gameModel = new GameModel();
+				_gameModel.initialize(_delegate, _container);
+				_gameModel.showGame();
+			}
+			// トップモデル作成してトップ画面表示
 			if (!_topModel)
 			{
 				_topModel = new TopModel();
@@ -87,15 +95,41 @@ package fish.collection
 		 */
 		public function showTitle():void
 		{
+			// トップ画面表示
 			if (!_topModel)
 				return;
 			_topModel.showTitle();
 		}
+		/**
+		 * ゲーム画面を表示 
+		 * @param startData
+		 * 
+		 */		
+		public function showGame(startData:Object = null):void
+		{
+			// トップをフェードアウトさせる
+			if (_topModel)
+				_topModel.fadeout(topFadeoutHandler);
+			
+			// ゲーム画面を表示
+			if (!_gameModel)	// ゲームモデルがなければ作ってゲーム画面へ遷移する
+			{
+				_gameModel = new GameModel();
+				_gameModel.initialize(_delegate, _container);
+				_gameModel.showGame();
+				_gameModel.addPoi(startData);
+			}
+			else	// ゲームモデルが存在すればポイを追加する
+			{
+				_gameModel.addPoi(startData);
+			}
+		}
 		
 		/**
-		 * ポイを表示 
-		 */
-		public function showPoi(data:Object):void
+		 * トップ画面がフェードアウトしたハンドラ 
+		 * 
+		 */		
+		private function topFadeoutHandler():void
 		{
 			// トップを消す
 			if (_topModel)
@@ -103,13 +137,25 @@ package fish.collection
 				_topModel.clean();
 				_topModel = null;
 			}
-			
-			if (!_gameModel)
-			{
-				_gameModel = new GameModel();
-				_gameModel.initialize(_delegate, _container);
-				_gameModel.showGame();
-			}
+		}
+		
+		/**
+		 *ポイ回転の初期化 
+		 * @param data
+		 * 
+		 */		
+		public function initPoiRot(data:Object):void
+		{
+			_gameModel.initPoiRot(data);
+		}
+		/**
+		 *ポイ回転 
+		 * @param data
+		 * 
+		 */		
+		public function setPoiRot(data:Object):void
+		{
+			_gameModel.setPoiRot(data);	
 		}
 		
 		/**
@@ -121,20 +167,6 @@ package fish.collection
 			if (!_gameModel)
 				return;
 			_gameModel.updatePoiPos(data);
-		}
-		
-		/**
-		 * ゲームモジュールを表示
-		 */
-		public function showGame():void
-		{
-			if (!_gameModel)
-			{
-				_gameModel = new GameModel();
-				_gameModel.initialize(_delegate, _container);
-			}
-			_gameModel.showGame();
-			
 		}
 		
 		/**
@@ -153,6 +185,16 @@ package fish.collection
 		public function sendLife(data:Object):void
 		{
 			_facade.sendLife(data);
+		}
+		
+		/**
+		 * ぽいを止める 
+		 * @param data
+		 * 
+		 */		
+		public function stopPoi(data:Object):void
+		{
+			_gameModel.stopPoi(data);
 		}
 	}
 }

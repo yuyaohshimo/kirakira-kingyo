@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 104
-/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/src/fish/collection/fish/configuration
+/svn/pigglife/!svn/ver/30099/branches/kawabata_satoshi/dotFes2013/src/fish/collection/fish/configuration
 END
 TypeConfiguration.as
 K 25
@@ -13,5 +13,5 @@ BodyConfiguration.as
 K 25
 svn:wc:ra_dav:version-url
 V 125
-/svn/pigglife/!svn/ver/29839/branches/kawabata_satoshi/dotFes2013/src/fish/collection/fish/configuration/BodyConfiguration.as
+/svn/pigglife/!svn/ver/30099/branches/kawabata_satoshi/dotFes2013/src/fish/collection/fish/configuration/BodyConfiguration.as
 END

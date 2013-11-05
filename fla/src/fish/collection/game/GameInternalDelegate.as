@@ -53,5 +53,15 @@ package fish.collection.game
 		{
 			_model.createWave(px, py, size);
 		}
+		
+		/**
+		 * トップ画面を表示させる 
+		 */		
+		public function showTopView():void
+		{
+			_delegate.showTop();
+			_model.updateBackground();
+			_model.updateFishColor();
+		}
 	}
 }

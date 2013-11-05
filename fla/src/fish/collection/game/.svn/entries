@@ -1,15 +1,15 @@
 10
 
 dir
-29773
+30099
 http://172.28.253.181/svn/pigglife/branches/kawabata_satoshi/dotFes2013/src/fish/collection/game
 http://172.28.253.181/svn/pigglife
 
 
 
-2013-10-22T00:53:14.268433Z
-29773
-kawabata_satoshi
+2013-11-03T13:13:59.977040Z
+30099
+bamba_misaki
 
 
 svn:special svn:externals svn:needs-lock
@@ -66,10 +66,10 @@ file
 
 
 
-2013-10-21T13:15:37.000000Z
-ce1ddfb6cd8a5b9844f197013ad29371
-2013-10-22T00:53:14.268433Z
-29773
+2013-11-03T10:41:36.000000Z
+601fd992ac75bfec836564fff3944c87
+2013-11-03T10:48:39.080038Z
+30095
 kawabata_satoshi
 has-props
 
@@ -92,18 +92,18 @@ has-props
 
 
 
-795
+1154
 
 GameModel.as
 file
-29839
 
 
 
-2013-10-22T08:40:50.000000Z
-452fc77ac96beea46e7eab7a46c8f338
-2013-10-23T13:06:25.294018Z
-29839
+
+2013-11-03T10:42:13.000000Z
+3fc7e0cdfc5e8c2e98c77e6367dd6f5b
+2013-11-03T10:48:39.080038Z
+30095
 kawabata_satoshi
 has-props
 
@@ -126,18 +126,18 @@ has-props
 
 
 
-1243
+2257
 
 GameView.as
 file
-29840
+30101
 
 
 
-2013-10-23T15:03:45.000000Z
-c05f7a0db256a2738b331d63dbc8a81b
-2013-10-23T15:07:01.673040Z
-29840
+2013-11-03T14:05:51.000000Z
+87c40af0c6169df096817dbfa532af95
+2013-11-03T14:39:54.348030Z
+30101
 kawabata_satoshi
 has-props
 
@@ -160,7 +160,7 @@ has-props
 
 
 
-7944
+17310
 
 poi
 dir

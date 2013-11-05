@@ -1,15 +1,15 @@
 10
 
 dir
-29773
+30099
 http://172.28.253.181/svn/pigglife/branches/kawabata_satoshi/dotFes2013/src
 http://172.28.253.181/svn/pigglife
 
 
 
-2013-10-22T00:53:14.268433Z
-29773
-kawabata_satoshi
+2013-11-03T13:13:59.977040Z
+30099
+bamba_misaki
 
 
 svn:special svn:externals svn:needs-lock
@@ -65,14 +65,14 @@ has-props
 
 fishcollection.as
 file
-29839
 
 
 
-2013-10-22T15:09:08.000000Z
-0735aefdd63641fd89842531ba5fef6b
-2013-10-23T13:06:25.294018Z
-29839
+
+2013-10-31T12:37:17.000000Z
+53013ccd94040b165f4c01a605cb3907
+2013-11-01T15:22:10.757610Z
+30086
 kawabata_satoshi
 has-props
 

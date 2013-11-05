@@ -71,7 +71,7 @@ package fish.collection
 				case 'game.start':
 				{
 					// ポイが接続された時
-					_model.showPoi(data);
+					_model.showGame(data);
 					break;
 				}
 				case 'game.locate':
@@ -83,6 +83,19 @@ package fish.collection
 				case 'game.stop':
 				{
 					// 切断　t_idがくる
+					_model.stopPoi(data);
+					break;
+				}
+				case 'game.orientation.init':
+				{
+					// 回転の初期値
+					_model.initPoiRot(data);
+					break;
+				}
+				case 'game.orientation':
+				{
+					// 回転の初期値
+					_model.setPoiRot(data);
 					break;
 				}
 				default:

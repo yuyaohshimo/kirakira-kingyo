@@ -1,5 +1,7 @@
 package fish.collection.game.view
 {
+	import flash.geom.Point;
+
 	public class FishControlData
 	{
 		public static var params:Object = {
@@ -46,6 +48,16 @@ package fish.collection.game.view
 				SIN_VALUE		: 2.0	// 変動パラメータ
 			}
 		};
+		
+		public static const STAGE_WIDTH:int = 1600;
+		public static const STAGE_HEIGHT:int = 800;
+		
+		public static const initPoiPos:Array = [
+			new Point(30.0, 30.0),
+			new Point(STAGE_WIDTH, 0.0),
+			new Point(STAGE_WIDTH, STAGE_HEIGHT),
+			new Point(0.0, STAGE_HEIGHT)
+		];
 		
 		public function FishControlData()
 		{

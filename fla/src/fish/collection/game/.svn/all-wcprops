@@ -1,7 +1,7 @@
 K 25
 svn:wc:ra_dav:version-url
 V 90
-/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/src/fish/collection/game
+/svn/pigglife/!svn/ver/30099/branches/kawabata_satoshi/dotFes2013/src/fish/collection/game
 END
 GameComponent.as
 K 25
@@ -13,17 +13,17 @@ GameModel.as
 K 25
 svn:wc:ra_dav:version-url
 V 103
-/svn/pigglife/!svn/ver/29839/branches/kawabata_satoshi/dotFes2013/src/fish/collection/game/GameModel.as
+/svn/pigglife/!svn/ver/30095/branches/kawabata_satoshi/dotFes2013/src/fish/collection/game/GameModel.as
 END
 GameView.as
 K 25
 svn:wc:ra_dav:version-url
 V 102
-/svn/pigglife/!svn/ver/29840/branches/kawabata_satoshi/dotFes2013/src/fish/collection/game/GameView.as
+/svn/pigglife/!svn/ver/30101/branches/kawabata_satoshi/dotFes2013/src/fish/collection/game/GameView.as
 END
 GameInternalDelegate.as
 K 25
 svn:wc:ra_dav:version-url
 V 114
-/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/src/fish/collection/game/GameInternalDelegate.as
+/svn/pigglife/!svn/ver/30095/branches/kawabata_satoshi/dotFes2013/src/fish/collection/game/GameInternalDelegate.as
 END

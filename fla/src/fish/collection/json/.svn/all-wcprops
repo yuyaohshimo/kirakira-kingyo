@@ -1,17 +1,23 @@
 K 25
 svn:wc:ra_dav:version-url
 V 90
-/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/src/fish/collection/json
+/svn/pigglife/!svn/ver/30091/branches/kawabata_satoshi/dotFes2013/src/fish/collection/json
+END
+config.json
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/pigglife/!svn/ver/30091/branches/kawabata_satoshi/dotFes2013/src/fish/collection/json/config.json
 END
 scorelist.json
 K 25
 svn:wc:ra_dav:version-url
 V 105
-/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/src/fish/collection/json/scorelist.json
+/svn/pigglife/!svn/ver/30091/branches/kawabata_satoshi/dotFes2013/src/fish/collection/json/scorelist.json
 END
 sendfish.json
 K 25
 svn:wc:ra_dav:version-url
 V 104
-/svn/pigglife/!svn/ver/29773/branches/kawabata_satoshi/dotFes2013/src/fish/collection/json/sendfish.json
+/svn/pigglife/!svn/ver/30091/branches/kawabata_satoshi/dotFes2013/src/fish/collection/json/sendfish.json
 END

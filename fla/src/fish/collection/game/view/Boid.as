@@ -3,21 +3,18 @@ package fish.collection.game.view
 	import com.greensock.easing.Back;
 	
 	import fish.collection.fish.FishView;
-	import fish.collection.fish.configuration.BodyConfiguration;
 	import fish.collection.fish.data.FishData;
 	import fish.collection.game.GameInternalDelegate;
 	import fish.collection.game.poi.PoiView;
 	import fish.collection.game.util.Util;
 	
-	import flash.display.DisplayObjectContainer;
-	import flash.display.MovieClip;
 	import flash.display.Sprite;
-	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.filters.DropShadowFilter;
-	import flash.geom.Matrix;
 	import flash.geom.Point;
+	import flash.media.Sound;
 	
+	import pigglife.util.Executor;
 	import pigglife.util.Tween;
 
 	/**
@@ -64,6 +61,8 @@ package fish.collection.game.view
 		// ポイとの距離
 		private var _distPoi:Number;
 		
+		// sound
+		private var _dropSound:Sound;
 		
 		private var _temp:Boolean = false;;
 		
@@ -73,8 +72,14 @@ package fish.collection.game.view
 		public function Boid() 
 		{
 			super();
+			initSound();
 		}
 		
+		public function get isCatched():Boolean
+		{
+			return _isCatched;
+		}
+
 		public function get distPoi():Number
 		{
 			return _distPoi;
@@ -99,18 +104,17 @@ package fish.collection.game.view
 		public function initialize(px:Number, py:Number, vx:Number, vy:Number, index:int, idelegate:GameInternalDelegate):void 
 		{
 			_idelegate = idelegate;
-			_px = px;
-			_py = py;
-			_vx = vx;
-			_vy = vy;
+			_px = Number(px);
+			_py = Number(py);
+			_vx = Number(vx);
+			_vy = Number(vy);
 			_ax = 0.0;
 			_ay = 0.0;
-			_vxSmooth = vx;
-			_vySmooth = vy;
-			_vxSpring = vx;
-			_vySpring = vy;
+			_vxSmooth = Number(vx);
+			_vySmooth = Number(vy);
+			_vxSpring = Number(vx);
+			_vySpring = Number(vy);
 			this.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
-			trace('boid初期化' + index, _px, _py, _vx, _vy, _ax, _ay);
 			_index = index;
 			
 			_tailRot = new Vector.<Number>(TAIL_BUF, true);
@@ -122,6 +126,58 @@ package fish.collection.game.view
 			_isCatched = false;
 			_distPoi = 0.0;
 		}
+		
+		private function initSound():void
+		{
+			//サウンドの読み込み
+			var rand:int = int(Math.random() * 13) + 1;
+			switch (rand)
+			{
+				case 1:
+					_dropSound = new drop_1();
+					break;
+				case 2:
+					_dropSound = new drop_2();
+					break;
+				case 3:
+					_dropSound = new drop_3();
+					break;
+				case 4:
+					_dropSound = new drop_4();
+					break;
+				case 5:
+					_dropSound = new drop_5();
+					break;
+				case 6:
+					_dropSound = new drop_6();
+					break;
+				case 7:
+					_dropSound = new drop_7();
+					break;
+				case 8:
+					_dropSound = new drop_8();
+					break;
+				case 9:
+					_dropSound = new drop_9();
+					break;
+				case 10:
+					_dropSound = new drop_10();
+					break;
+				case 11:
+					_dropSound = new drop_11();
+					break;
+				case 12:
+					_dropSound = new drop_12();
+					break;
+				case 13:
+					_dropSound = new drop_13();
+					break;
+				default:
+					_dropSound = new drop_1();
+					break;
+			}
+		}
+			
 		/**
 		 * ステージ配置イベントリスナ
 		 */
@@ -137,7 +193,7 @@ package fish.collection.game.view
 		 * @param fishCode : 魚のコード
 		 * @return 
 		 */
-		public function setFishCode(fishCode:String, scale:Number = 0.7):void 
+		public function setFishCode():void 
 		{
 			// 出現させる魚の設定
 			var random:int = Math.random() * 100;
@@ -159,16 +215,31 @@ package fish.collection.game.view
 			var typeStr:String = 'type' + type;
 			var obj:Object = {
 				code:"fish1", 
-				name:"わたしだ",
+				name:"テスト",
 				type:typeStr
 			};
 			_fishData = new FishData(obj);
-			trace('ううううううううううううううううう', _fishData.type);
-			// FishViewの設定
-			_fishView = new FishView();
+		}
+		
+		/**
+		 * 魚の外観を設定 
+		 * @param colorVariationID
+		 * 
+		 */		
+		public function setFishView(colorVariationID:int):void
+		{
+			if (!_fishView)
+			{
+				_fishView = new FishView();
+			}
+			else
+			{
+				_fishView.clean();
+				_fishView = null;
+				_fishView = new FishView();
+			}
 			_fishView.initialize(_fishData);
-			_fishView.show();
-			
+			_fishView.show(colorVariationID);
 			// ドロップシャドウ
 			var drop_filter:DropShadowFilter = new DropShadowFilter();
 			drop_filter.distance = 20.0;
@@ -176,8 +247,23 @@ package fish.collection.game.view
 			drop_filter.blurX = 10.0;
 			drop_filter.blurY = 10.0;
 			_fishView.filters = [drop_filter];
-			
 			addChild(_fishView);
+		}
+		
+		
+		/**
+		 * 魚との距離を取得する 
+		 * @param x
+		 * @param y
+		 * @return 
+		 * 
+		 */		
+		public function getDist(x:Number, y:Number):Number
+		{
+			var dx:Number = (x - _px);
+			var dy:Number = (y - _py);
+			var d:Number = Math.sqrt(dx * dx + dy * dy);
+			return d;
 		}
 		
 		/**
@@ -188,38 +274,93 @@ package fish.collection.game.view
 		{
 			// 捕獲フラグをONにする
 			_isCatched = true;
-			Tween.applyTo(_fishView, 2.0, {alpha:0, scaleX:0.0, scaleY:0.0, ease:Back.easeOut,onComplete: onCatchedAnimationEnd}); 
+			Tween.applyTo(_fishView, 2.0, {alpha:0, scaleX:0.0, scaleY:0.0, ease:Back.easeOut,onComplete: onCatchedAnimationEnd});
+			// サウンドを再生する(ランダムで時間差つける)
+			//Executor.executeAfter(int(Math.random()*10), playSound);
+			Executor.executeAfterWithName(int(Math.random()*10), 'dropSound' + String(_index), playSound);
 		}
+		/**
+		 * サウンドを再生させる 
+		 * 
+		 */		
+		private function playSound():void
+		{
+			_dropSound.play(0.0, 1);
+			Executor.cancelByName('dropSound' + String(_index));
+		}
+		/**
+		 * 捕獲アニメーション終了フラグ 
+		 * 
+		 */		
 		private function onCatchedAnimationEnd():void
 		{
 			trace('捕獲アニメーション終了');
-			var randX:int = Math.random() * 2;
-			var randY:int = Math.random() * 2;
-			initialize( 
-				BOUNDING_WIDTH * randX,
-				BOUNDING_HEIGHT * randY,
-				Util.getRandom(-1, 1),
-				Util.getRandom(-1, 1),
-				_index,
-				_idelegate
-			);
+			var rand:int = Math.random() * 4;
+			var initSpeedMax:Number = 1000.0;
+			switch (rand)
+			{
+				case 0:
+					initialize( 
+						BOUNDING_WIDTH * 0,
+						BOUNDING_HEIGHT * 0,
+						Util.getRandom(0, initSpeedMax),
+						Util.getRandom(0, initSpeedMax),
+						_index,
+						_idelegate
+					);
+					break;
+				case 1:
+					initialize( 
+						BOUNDING_WIDTH * 1,
+						BOUNDING_HEIGHT * 0,
+						Util.getRandom(-initSpeedMax, 0),
+						Util.getRandom(0, initSpeedMax),
+						_index,
+						_idelegate
+					);
+					break;
+				case 2:
+					initialize( 
+						BOUNDING_WIDTH * 1,
+						BOUNDING_HEIGHT * 1,
+						Util.getRandom(-initSpeedMax, 0),
+						Util.getRandom(-initSpeedMax, 0),
+						_index,
+						_idelegate
+					);
+					break;
+				case 3:
+					initialize( 
+						BOUNDING_WIDTH * 0,
+						BOUNDING_HEIGHT * 1,
+						Util.getRandom(0, -initSpeedMax),
+						Util.getRandom(-initSpeedMax, 0),
+						_index,
+						_idelegate
+					);
+					break;
+				default:
+					initialize( 
+						BOUNDING_WIDTH * 0,
+						BOUNDING_HEIGHT * 0,
+						Util.getRandom(0, initSpeedMax),
+						Util.getRandom(0, initSpeedMax),
+						_index,
+						_idelegate
+					);
+					break;
+			}
 			Tween.applyTo(_fishView, 2.0, {alpha:1.0, scaleX:1.0, scaleY:1.0, ease:Back.easeOut});
-//			_fishView.alpha = 1.0;
-//			_fishView.scaleX = _fishView.scaleY = 1.0;
 		}
 		/**
 		 * 魚との当たり判定
 		 */
 		public function hitJudge(x:Number, y:Number):Boolean
 		{
-			if (_isCatched)
-			{
+			if (_isCatched)	// 捕獲フラグONのときはヒットしない
 				return false;
-			}
 			else
-			{
 				return _fishView.hitTestPoint(x, y, true);
-			}
 		}
 		
 		/**
@@ -268,7 +409,7 @@ package fish.collection.game.view
 				}
 				if (x == 0 || y == 0)
 				{
-					//trace('動いていない', i, index, x, y, _px, _py, _vx, _vy, _ax, _ay, _temp, dist2, dx * dx + dy * dy, mindist2, b._px, b._py, count);
+					trace('動いていない', i, index, x, y, _px, _py, _vx, _vy, _ax, _ay, _temp, dist2, dx * dx + dy * dy, mindist2, b._px, b._py, count);
 				}
 			}
 			
@@ -290,8 +431,8 @@ package fish.collection.game.view
 			dy = (npy - _py);
 			dist2 = dx * dx + dy * dy;
 			// 直近のBoidからの距離が遠すぎれば抜ける
-			if (dist2 > 20000000)
-				return;
+//			if (dist2 > 20000000)
+//				return;
 			
 			
 			var date:Date = new Date();
@@ -328,13 +469,16 @@ package fish.collection.game.view
 				dx = dy = .0;
 				dx = (pois[j].x - _px);
 				dy = (pois[j].y - _py);
-				_distPoi = dx * dx + dy * dy;
-				if (_distPoi > Util.getRandom(3000.0, 5000.0))
+				_distPoi = Math.sqrt(dx * dx + dy * dy);
+				if (_distPoi > Util.getRandom(50.0, 100.0))
 				{
 					continue;
 				}
-				_ax += dx / dist * (dist - Util.getRandom(400, 1000)) * Util.getRandom(0.7, 1.7);
-				_ay += dy / dist * (dist - Util.getRandom(500, 1200)) * Util.getRandom(0.7, 1.7);
+				if (dist > 0)
+				{
+					_ax += dx / dist * (dist - Util.getRandom(400, 1000)) * Util.getRandom(0.7, 1.7);
+					_ay += dy / dist * (dist - Util.getRandom(500, 1200)) * Util.getRandom(0.7, 1.7);
+				}
 			}
 			
 			// boundary(境界)
@@ -370,8 +514,6 @@ package fish.collection.game.view
 			_vx += _ax * (1.0 / speedDecay); 
 			_vy += _ay * (1.0 / speedDecay);
 			
-			//trace(_fishCtrlData.ALIGNMENT_X);
-			
 			// speed limit
 			var v:Number = Math.sqrt(_vx * _vx + _vy * _vy);
 			if (v > 50.0) 
@@ -401,20 +543,7 @@ package fish.collection.game.view
 			
 			_fishView.tail.x = Util.smoothMoveFunc(_fishView.tail.x, - _fishView.tailDist * Math.sin(nextRotVal * Math.PI / 180.0), 0.5);
 			_fishView.tail.y = Util.smoothMoveFunc(_fishView.tail.y,   _fishView.tailDist * Math.cos(nextRotVal * Math.PI / 180.0), 0.5);
-			/*
-			_vxSmooth += (_vx - _vxSpring) * 0.9;
-			_vySmooth += (_vy - _vySpring) * 0.9;
-			
-			var vs:Number = Math.sqrt(_vxSmooth * _vxSmooth + _vySmooth * _vySmooth);
-			
-			_vxSpring += _vxSmooth;
-			_vySpring += _vySmooth;
-			
-			_vxSmooth *= 0.9;
-			_vySmooth *= 0.9;
-			
-			var tailRotVal:Number = Math.atan2(_vySpring, _vxSpring) * 180 / Math.PI + 90;
-			*/
+
 			var length:int = _tailRot.length;
 			var hanten:Number = Math.abs(_tailRot[0] - _tailRot[length - 1]);
 			if (hanten > 180)// 反転した時
@@ -429,7 +558,7 @@ package fish.collection.game.view
 				{
 					size = 'small';
 				}
-				trace(size, hanten);
+				//trace(size, hanten);
 				if (size != '')
 					_idelegate.createWave(this.x, this.y, size);
 				// 反転でしっぽが破綻しないようにさせる
@@ -462,6 +591,22 @@ package fish.collection.game.view
 			}
 		}
 	}
+	
+	/*-------------------------------------------
+	サウンド
+	-------------------------------------------*/
+	drop_1;
+	drop_2;
+	drop_3;
+	drop_4;
+	drop_5;
+	drop_6;
+	drop_7;
+	drop_8;
+	drop_9;
+	drop_11;
+	drop_12;
+	drop_13;
 }
 
 

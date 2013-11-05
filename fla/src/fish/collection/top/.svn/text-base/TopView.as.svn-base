@@ -2,9 +2,11 @@ package fish.collection.top
 {
 	
 	import flash.display.Bitmap;
+	import flash.display.Graphics;
 	import flash.display.Sprite;
 	
 	import pigglife.util.ButtonHelper;
+	import pigglife.util.Tween;
 	import pigglife.view.RootStage;
 
 	/**
@@ -48,8 +50,16 @@ package fish.collection.top
 		 */
 		public function show():void
 		{
+			// 背景の白バック
+			var g:Graphics = _container.graphics;
+			g.beginFill(0xFFFFFF, 0.8);
+			g.drawRect(0.0, 0.0, _container.stage.stageWidth, _container.stage.stageHeight);
+			g.endFill();
 			// ロゴ
 			createLogo();
+			// フェードインさせる
+			_container.alpha = 0.0;
+			Tween.applyTo(_container, 1.0, {alpha: 1.0});
 		}
 		
 		/**
@@ -59,6 +69,16 @@ package fish.collection.top
 		{
 			// タイトル表示
 			createTitle();
+		}
+		
+		/**
+		 * フェードアウトさせる 
+		 * @param handler
+		 * 
+		 */		
+		public function fadeout(handler:Function):void
+		{
+			Tween.applyTo(_container, 1.0, {alpha: 0.0, onComplete: handler});
 		}
 		
 		/**

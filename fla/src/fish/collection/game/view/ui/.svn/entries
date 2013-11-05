@@ -1,14 +1,14 @@
 10
 
 dir
-29773
+30099
 http://172.28.253.181/svn/pigglife/branches/kawabata_satoshi/dotFes2013/src/fish/collection/game/view/ui
 http://172.28.253.181/svn/pigglife
 
 
 
-2013-10-22T00:53:14.268433Z
-29773
+2013-10-23T15:07:01.673040Z
+29840
 kawabata_satoshi
 
 
@@ -62,7 +62,7 @@ has-props
 
 FishControlPanel.as
 file
-29840
+
 
 
 
@@ -96,7 +96,7 @@ has-props
 
 MySlider.as
 file
-29839
+
 
 
 

@@ -1,16 +1,10 @@
 package fish.collection.fish
 {
 	import fish.collection.fish.configuration.BodyConfiguration;
-	import fish.collection.fish.data.BodyPositionData;
 	import fish.collection.fish.data.FishData;
-	import fish.collection.game.util.Util;
 	
-	import flash.display.DisplayObject;
-	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
-	import flash.geom.ColorTransform;
-	import flash.geom.Matrix;
 	import flash.utils.getDefinitionByName;
 
 	/**
@@ -24,7 +18,6 @@ package fish.collection.fish
 		//=========================================================
 		private var _container:Sprite;
 		private var _data:FishData;
-		private var _positionData:BodyPositionData;
 		private var _head:Sprite;
 		private var _body:Sprite;
 		private var _rFin:Sprite;
@@ -102,14 +95,14 @@ package fish.collection.fish
 		/**
 		 * 金魚を表示 
 		 */
-		public function show():void
+		public function show(colorVariationID:int):void
 		{
 			// MCを各パーツにアタッチ
-			_head.addChild(addParts(_data.type, BodyConfiguration.HEAD));
-			_body.addChild(addParts(_data.type, BodyConfiguration.BODY));
-			_rFin.addChild(addParts(_data.type, BodyConfiguration.R_FIN));
-			_lFin.addChild(addParts(_data.type, BodyConfiguration.L_FIN));
-			_tail.addChild(addParts(_data.type, BodyConfiguration.TAIL));
+			_head.addChild(addParts(_data.type, BodyConfiguration.HEAD, colorVariationID));
+			_body.addChild(addParts(_data.type, BodyConfiguration.BODY, colorVariationID));
+			_rFin.addChild(addParts(_data.type, BodyConfiguration.R_FIN, colorVariationID));
+			_lFin.addChild(addParts(_data.type, BodyConfiguration.L_FIN, colorVariationID));
+			_tail.addChild(addParts(_data.type, BodyConfiguration.TAIL, colorVariationID));
 		}
 		
 		/**
@@ -154,137 +147,20 @@ package fish.collection.fish
 		// PRIVATE METHODS
 		//===========================================================
 		/**
-		 * コンテナ c2 に所属するオブジェクトを c1 に移動します。　
-		 */
-		private function copyShapes(
-			c1:DisplayObjectContainer,
-			c2:DisplayObjectContainer,
-			shapeOnly:Boolean = false,
-			keepPosition:Boolean = false):void
-		{
-			if (keepPosition)
-			{
-				c1.transform.matrix = c2.transform.matrix;
-			}
-			
-			if (c2.name.indexOf("instance") < 0)
-			{
-				c1.name = c2.name;
-			}
-			
-			while (c2.numChildren > 0)
-			{
-				var dobj:DisplayObject = c2.getChildAt(0);
-				var name:String = dobj.name;
-				var ct:ColorTransform = null;
-
-				if (shapeOnly && dobj is MovieClip)
-				{
-					var mat:Matrix = dobj.transform.matrix;
-					var c3:MovieClip = MovieClip(dobj);
-					if (c3.totalFrames > 1)
-					{
-						c1.addChild(c3);
-					}
-					else
-					{
-						while (c3.numChildren > 0)
-						{
-							var c3c:DisplayObject = c3.getChildAt(0);
-							var c3m:Matrix = c3c.transform.matrix;
-							c3m.concat(mat);
-							c3c.transform.matrix = c3m;
-							c1.addChild(c3c);
-						}
-						c2.removeChild(dobj);
-					}
-				}
-				else
-				{
-					c1.addChild(dobj);
-				}
-			}
-		}
-		
-		/**
-		 * 各パーツを表示 
-		 * @param obj
-		 * @param index
-		 */
-		private function showPart(obj:DisplayObject, index:int = -1):void
-		{
-			if (obj != null)
-			{
-				if (index == -1)
-					addChild(obj);
-				else
-					addChildAt(obj, index);
-			}
-		}
-		
-		/**
 		 * MCを各パーツにアタッチ 
 		 * @param code
 		 * @param part
 		 * @return 
 		 */
-		private function addParts(type:String, part:String):MovieClip
+		private function addParts(type:String, part:String, colorVariationID:int):MovieClip
 		{
-			deme_body_1;
-			deme_head_1;
-			deme_rFin_1;
-			deme_lFin_1;
-			deme_tail_1;
-			deme_body_2;
-			deme_head_2;
-			deme_rFin_2;
-			deme_lFin_2;
-			deme_tail_2;
-			type1_body_1;
-			type1_head_1;
-			type1_lFin_1;
-			type1_rFin_1;
-			type1_tail_1;
-			type1_whole;
-			
-			type2_body_1;
-			type2_head_1;
-			type2_lFin_1;
-			type2_rFin_1;
-			type2_tail_1;
-			type2_whole;
-			
-			type3_body_1;
-			type3_head_1;
-			type3_lFin_1;
-			type3_rFin_1;
-			type3_tail_1;
-			type3_whole;
-			
-			type4_body_1;
-			type4_head_1;
-			type4_lFin_1;
-			type4_rFin_1;
-			type4_tail_1;
-			type4_whole;
-			
-			type5_body_1;
-			type5_head_1;
-			type5_lFin_1;
-			type5_rFin_1;
-			type5_tail_1;
-			type5_whole;
-			
-			type6_body_1;
-			type6_head_1;
-			type6_lFin_1;
-			type6_rFin_1;
-			type6_tail_1;
-			type6_whole;
-			
-			
+			log('カラバリID', colorVariationID);
+			// パーツのカラバリをランダムで出す
+			//var colorID:int = int(Math.random() * 6) + 1  + 6 * colorVariationID;
+			var colorID:int = int(Math.random() * 6) + 1;
+			//var rand:int = int(Util.getRandom() + 1;
 			//trace('MCを各パーツにアタッチ', type, part);
-			var mcName:String = type + "_" + part + "_" + 1;
+			var mcName:String = type + "_" + part + "_" + colorID;
 			var myClass:Class = Class(getDefinitionByName(mcName));
 			var mc:MovieClip = new myClass();
 			
@@ -306,22 +182,213 @@ package fish.collection.fish
 				mc.x = wholeMc[part].x;
 				mc.y = wholeMc[part].y;
 			}
-			
-			// パーツの座標を設定する
-			//getPos(mc, part);
 			return mc;
 		}
-		
-		
-		/**
-		 * 各パーツの位置を調整 
-		 * @param part
-		 * @param name
-		 */
-		private function getPos(mc:DisplayObject, partName:String):void
-		{
-			mc.x = BodyConfiguration.DEFAULT_POSITION[partName].x;
-			mc.y = BodyConfiguration.DEFAULT_POSITION[partName].y;	
-		}
 	}
+	
+	/*-------------------------------------------
+	FishViewで使用するMovieClipの型を記述？
+	-------------------------------------------*/
+	deme_body_1;
+	deme_head_1;
+	deme_rFin_1;
+	deme_lFin_1;
+	deme_tail_1;
+	deme_body_2;
+	deme_head_2;
+	deme_rFin_2;
+	deme_lFin_2;
+	deme_tail_2;
+	type1_body_1;
+	type1_head_1;
+	type1_lFin_1;
+	type1_rFin_1;
+	type1_tail_1;
+	type1_whole;
+	type1_body_2;
+	type1_head_2;
+	type1_lFin_2;
+	type1_rFin_2;
+	type1_tail_2;
+	type1_body_3;
+	type1_head_3;
+	type1_lFin_3;
+	type1_rFin_3;
+	type1_tail_3;
+	type1_body_4;
+	type1_head_4;
+	type1_lFin_4;
+	type1_rFin_4;
+	type1_tail_4;
+	type1_body_5;
+	type1_head_5;
+	type1_lFin_5;
+	type1_rFin_5;
+	type1_tail_5;
+	type1_body_6;
+	type1_head_6;
+	type1_lFin_6;
+	type1_rFin_6;
+	type1_tail_6;
+	
+	
+	type2_body_1;
+	type2_head_1;
+	type2_lFin_1;
+	type2_rFin_1;
+	type2_tail_1;
+	type2_whole;
+	type2_body_2;
+	type2_head_2;
+	type2_lFin_2;
+	type2_rFin_2;
+	type2_tail_2;
+	type2_body_3;
+	type2_head_3;
+	type2_lFin_3;
+	type2_rFin_3;
+	type2_tail_3;
+	type2_body_4;
+	type2_head_4;
+	type2_lFin_4;
+	type2_rFin_4;
+	type2_tail_4;
+	type2_body_5;
+	type2_head_5;
+	type2_lFin_5;
+	type2_rFin_5;
+	type2_tail_5;
+	type2_body_6;
+	type2_head_6;
+	type2_lFin_6;
+	type2_rFin_6;
+	type2_tail_6;
+	
+	type3_body_1;
+	type3_head_1;
+	type3_lFin_1;
+	type3_rFin_1;
+	type3_tail_1;
+	type3_whole;
+	type3_body_2;
+	type3_head_2;
+	type3_lFin_2;
+	type3_rFin_2;
+	type3_tail_2;
+	type3_body_3;
+	type3_head_3;
+	type3_lFin_3;
+	type3_rFin_3;
+	type3_tail_3;
+	type3_body_4;
+	type3_head_4;
+	type3_lFin_4;
+	type3_rFin_4;
+	type3_tail_4;
+	type3_body_5;
+	type3_head_5;
+	type3_lFin_5;
+	type3_rFin_5;
+	type3_tail_5;
+	type3_body_6;
+	type3_head_6;
+	type3_lFin_6;
+	type3_rFin_6;
+	type3_tail_6;
+	
+	type4_body_1;
+	type4_head_1;
+	type4_lFin_1;
+	type4_rFin_1;
+	type4_tail_1;
+	type4_whole;
+	type4_body_2;
+	type4_head_2;
+	type4_lFin_2;
+	type4_rFin_2;
+	type4_tail_2;
+	type4_body_3;
+	type4_head_3;
+	type4_lFin_3;
+	type4_rFin_3;
+	type4_tail_3;
+	type4_body_4;
+	type4_head_4;
+	type4_lFin_4;
+	type4_rFin_4;
+	type4_tail_4;
+	type4_body_5;
+	type4_head_5;
+	type4_lFin_5;
+	type4_rFin_5;
+	type4_tail_5;
+	type4_body_6;
+	type4_head_6;
+	type4_lFin_6;
+	type4_rFin_6;
+	type4_tail_6;
+	
+	type5_body_1;
+	type5_head_1;
+	type5_lFin_1;
+	type5_rFin_1;
+	type5_tail_1;
+	type5_whole;
+	type5_body_2;
+	type5_head_2;
+	type5_lFin_2;
+	type5_rFin_2;
+	type5_tail_2;
+	type5_body_3;
+	type5_head_3;
+	type5_lFin_3;
+	type5_rFin_3;
+	type5_tail_3;
+	type5_body_4;
+	type5_head_4;
+	type5_lFin_4;
+	type5_rFin_4;
+	type5_tail_4;
+	type5_body_5;
+	type5_head_5;
+	type5_lFin_5;
+	type5_rFin_5;
+	type5_tail_5;
+	type5_body_6;
+	type5_head_6;
+	type5_lFin_6;
+	type5_rFin_6;
+	type5_tail_6;
+	
+	type6_body_1;
+	type6_head_1;
+	type6_lFin_1;
+	type6_rFin_1;
+	type6_tail_1;
+	type6_whole;
+	type6_body_2;
+	type6_head_2;
+	type6_lFin_2;
+	type6_rFin_2;
+	type6_tail_2;
+	type6_body_3;
+	type6_head_3;
+	type6_lFin_3;
+	type6_rFin_3;
+	type6_tail_3;
+	type6_body_4;
+	type6_head_4;
+	type6_lFin_4;
+	type6_rFin_4;
+	type6_tail_4;
+	type6_body_5;
+	type6_head_5;
+	type6_lFin_5;
+	type6_rFin_5;
+	type6_tail_5;
+	type6_body_6;
+	type6_head_6;
+	type6_lFin_6;
+	type6_rFin_6;
+	type6_tail_6;
 }

@@ -1,24 +1,18 @@
 package fish.collection.game.poi
 {
-	import fish.collection.configuration.FontNames;
+	import com.greensock.easing.Back;
+	
 	import fish.collection.game.GameInternalDelegate;
 	import fish.collection.game.poi.configuration.PoiConfiguration;
 	import fish.collection.game.poi.data.PoiData;
-	import fish.collection.game.util.CustumEvent;
+	import fish.collection.game.util.Util;
 	
-	import flash.display.Bitmap;
-	import flash.display.BitmapData;
+	import flash.debugger.enterDebugger;
 	import flash.display.Sprite;
-	import flash.events.Event;
-	import flash.net.URLLoader;
-	import flash.net.URLLoaderDataFormat;
-	import flash.net.URLRequest;
 	import flash.text.TextField;
-	import flash.text.TextFormat;
-	import flash.text.TextFormatAlign;
 	
-	import pigglife.util.ButtonHelper;
 	import pigglife.util.Executor;
+	import pigglife.util.Tween;
 	
 	/**
 	 * ポイ 
@@ -30,40 +24,35 @@ package fish.collection.game.poi
 		// VARIABLES
 		//=========================================================
 		private var _idelegate:GameInternalDelegate;
-		//private var _container:Sprite;
-		private var _data:PoiData;
-		private var _buttonHelper:ButtonHelper;
+		private var _poiData:PoiData;
 		private var _scoreData:Object;
 		private var _gotfishData:Object;
-		private var _poi:Sprite;
 		private var _userName:TextField;
 		private var _userLife:Sprite;
 		private var _life:int;
-		
-		private const EXECUTE_NAME:String = "poi";
+		private var _poiMc:PoiMc;
+		private var _initRot:Number;
+		private var _onGame:Boolean;
 		
 		//=========================================================
 		// GETTER/SETTER
 		//=========================================================
-		//public function get view():Sprite {return _container;}
 
+		public function get onGame():Boolean
+		{
+			return _onGame;
+		}
 		public function set life(value:int):void
 		{
 			_life = value;
 		}
-
 		public function get life():int
 		{
 			return _life;
 		}
-
-		public function getPosX():Number
+		public function getPoiSize():Number
 		{
-			return _poi.x + this.width / 2.0;
-		}
-		public function getPosY():Number
-		{
-			return _poi.y + 30.0;
+			return _poiMc.poiInner.width;
 		}
 		
 		//===========================================================
@@ -78,16 +67,21 @@ package fish.collection.game.poi
 		/**
 		 * 初期化 
 		 */
-		public function initialize():void
+		public function initialize(id:int):void
 		{
-//			_container = new Sprite();
-//			addChild(_container);
-			
 			// ポイ残数初期化
 			_life = PoiConfiguration.MAX_LIFE;
+			// 初期回転を保存
+			_initRot = 0.0;
+			// ポイ本体の表示
+			_poiMc = new PoiMc();
+			// ぽいを元に戻す
+			_poiMc.gotoAndStop('normal');
+			_poiMc.poiInner.gotoAndStop("t_id" + id);
+			_poiMc.poiInner_miss.gotoAndStop("t_id" + id);
 			
-			// JSON読み込み
-			loadJson();
+			this.addChild(_poiMc);
+			hidePoi();
 		}
 		
 		/**
@@ -95,24 +89,17 @@ package fish.collection.game.poi
 		 */
 		public function show(data:PoiData):void
 		{
-			_data = data;
-			
-			// ポイ本体の表示
-			_poi = new Sprite();
-			_poi.addChild(createPoiBitmap());
-			addChild(_poi);
-			
+			// ポイデータ
+			_poiData = data;
+			showPoi();
 			// ユーザー名
 			createName();
-			
-			// 「残り」
-			createLife();
-			
 			// ポイの残数
 			updateLife();
-			
-			
-			_buttonHelper = new ButtonHelper(_poi).click(onClick);
+			// ぽいを元に戻す
+			_poiMc.gotoAndStop('normal');
+			_poiMc.poiInner.gotoAndStop("t_id" + String(int(_poiData.t_id) - 1));
+			_poiMc.poiInner_miss.gotoAndStop("t_id" + String(int(_poiData.t_id) - 1));
 		}
 		
 		/**
@@ -120,156 +107,138 @@ package fish.collection.game.poi
 		 */
 		public function clean():void
 		{
-			Executor.cancelByName(EXECUTE_NAME);
 			removeAllChild(this);
-//			if (_container)
-//			{
-//				removeAllChild(_container);
-//				removeFromParent(_container);
-//			}
-//			_container = null;
-			if (_buttonHelper)
-				_buttonHelper.clean();
-			_buttonHelper = null;
+			_poiMc = null;
 		}
 		
-		
-		
-		//===========================================================
-		// PRIVATE METHODS
-		//===========================================================
-		private function onClick():void
+		/**
+		 * ポイの位置更新 
+		 * @param __x
+		 * @param __y
+		 * 
+		 */		
+		public function updatePoiPos(__x:Number, __y:Number):void
 		{
-			// 成功時
-			//_gotfishData.data.t_id = "p1";
-			//_gotfishData.data.fish_info.size = "small";
-			//_gotfishData.data.fish_info.score = _scoreData["type1"];
-			_idelegate.sendFish(_gotfishData);
+			//_poiMc.poiInner.rotationY = Util.smoothMoveFunc(_poiMc.poiInner.rotationY, - __x * 4, 0.2);
 			
-			// 失敗時
-			_life = (_life > 1) ? _life - 1 : 0;	
-			_idelegate.sendLife({id:"game.life", data:{t_id:"1", lastLife:_life}});
-			
-			// ポイを一時的に消す
+			// 回転を考慮した位置更新（バイオハザード方式）
+			var nowRotation:Number = this.rotationZ;
+			var dist:Number = Math.sqrt(__x * __x + __y * __y);
+			var angle:Number = Math.atan2(__y, __x);
+			this.x += dist * Math.cos(angle + nowRotation * Math.PI / 180.0);
+			this.y += dist * Math.sin(angle + nowRotation * Math.PI / 180.0);
+		}
+		
+		/**
+		 *　ポイの死亡アニメーション 
+		 * 
+		 */		
+		public function missAnimation():void
+		{
+			// ポイが敗れる
+			_poiMc.gotoAndStop('miss');
+			_poiMc.poiInner_miss.gotoAndStop("t_id" + String(int(_poiData.t_id) - 1));
+			// ミスアニメーション
+			Tween.applyTo(this, 1.5, {alpha: 0.0, scaleX: 0.5, scaleY: 0.5, ease:Back.easeOut, onComplete: onMissAnimationEnd});
+			if (_life <= 0)
+				_onGame = false;
+		}
+		
+		/**
+		 * ポイの死亡アニメーション終了ハンドラ 
+		 * 
+		 */		
+		private function onMissAnimationEnd():void
+		{
+			if (_life <= 0)
+			{
+				// もろもろ戻す
+				this.alpha = 1.0;
+				this.scaleX = 1.0;
+				this.scaleY = 1.0;
+				// ライフ元に戻す
+				_life = PoiConfiguration.MAX_LIFE;;
+				// ポイを非表示にする
+				hidePoi();
+				// ポイの回転初期値を戻す
+				_initRot = 0.0;
+			}
+			else
+			{
+				this.alpha = 1.0;
+				this.scaleX = 1.0;
+				this.scaleY = 1.0;
+			}
+			// ぽいを元に戻す
+			_poiMc.gotoAndStop('normal');
+			_poiMc.poiInner.gotoAndStop("t_id" + String(int(_poiData.t_id) - 1));
+			_poiMc.poiInner_miss.gotoAndStop("t_id" + String(int(_poiData.t_id) - 1));
+		}
+		
+		/**
+		 * ポイをリセットする 
+		 * 
+		 */		
+		public function resetPoi():void
+		{
+			// もろもろ戻す
+			this.alpha = 1.0;
+			this.scaleX = 1.0;
+			this.scaleY = 1.0;
+			// ライフ元に戻す
+			_life = PoiConfiguration.MAX_LIFE;;
+			// ポイを非表示にする
 			hidePoi();
-		}
-		
-		// ここをgameViewでやる
-		/**
-		 * JSON読み込み 
-		 * @param event
-		 */
-		private function loadJson():void
-		{
-			// スコアJSON読み込み
-			var scoreLoader:URLLoader = new URLLoader();
-			scoreLoader.dataFormat = URLLoaderDataFormat.TEXT;
-			scoreLoader.addEventListener(Event.COMPLETE, onLoadScore);
-			scoreLoader.load(new URLRequest("fish/collection/json/scorelist.json"));
-			
-			// 成功時送信JSON読み込み
-			var sendfishLoader:URLLoader = new URLLoader();
-			sendfishLoader.dataFormat = URLLoaderDataFormat.TEXT;
-			sendfishLoader.addEventListener(Event.COMPLETE, onLoadSendfish);
-			sendfishLoader.load(new URLRequest("fish/collection/json/sendfish.json"));
+			// ポイの回転初期値を戻す
+			_initRot = 0.0;
+			// ぽいを元に戻す
+			_poiMc.gotoAndStop('normal');
+			_poiMc.poiInner.gotoAndStop("t_id" + String(int(_poiData.t_id) - 1));
+			_poiMc.poiInner_miss.gotoAndStop("t_id" + String(int(_poiData.t_id) - 1));
+			// ゲーム中フラグOFF
+			_onGame = false;
 		}
 		
 		/**
-		 * スコアデータJSON読み込み完了 
-		 * @param event
-		 */
-		private function onLoadScore(event:Event):void
+		 * すくうアニメーション 
+		 * 
+		 */		
+		public function scoopAnimation():void
 		{
-			var json:String = URLLoader(event.currentTarget).data;
-			_scoreData = JSON.parse(json);
-			trace(_scoreData["type1"].normal, _scoreData["type2"].normal, _scoreData["type3"].normal, _scoreData["type4"].normal);
+			_poiMc.gotoAndPlay("scoop");
+			_poiMc.poiInner.gotoAndStop("t_id" + String(int(_poiData.t_id) - 1));
+			_poiMc.poiInner_miss.gotoAndStop("t_id" + String(int(_poiData.t_id) - 1));
+			Executor.executeAfterWithName(17, "poiScoop" + _poiData.t_id, onComplete);
 		}
-		
 		/**
-		 * 成功時送信データ読み込み完了 
-		 * @param event
-		 */
-		private function onLoadSendfish(event:Event):void
+		 * すくうアニメーション終了ハンドラ 
+		 * 
+		 */		
+		private function onComplete():void
 		{
-			var json:String = URLLoader(event.currentTarget).data;
-			_gotfishData = JSON.parse(json);
+			Executor.cancelByName("poiScoop" + _poiData.t_id);
+			_poiMc.gotoAndStop('normal');
+			_poiMc.poiInner.gotoAndStop("t_id" + String(int(_poiData.t_id) - 1));
+			_poiMc.poiInner_miss.gotoAndStop("t_id" + String(int(_poiData.t_id) - 1));
 		}
-		
 		/**
-		 * タイプに応じたポイのbitmapを生成 
-		 * @return 
-		 */
-		private function createPoiBitmap():Bitmap
+		 * ポイの回転初期化
+		 * @param rotation
+		 * 
+		 */		
+		public function initRotatePoi(rot:Number):void
 		{
-			var poi:Bitmap;
-			poi = new Bitmap(new Poi1);
-			poi.scaleX = poi.scaleY = 0.5;
-			return poi
+			_initRot = rot;
 		}
-		
 		/**
-		 * ユーザー名を表示 
+		 * ポイを回転させる 
+		 * @param rotation
+		 * 
 		 */
-		private function createName():void
+		public function rotatePoi(rot:Number):void
 		{
-			// TextFormat
-			var format:TextFormat = new TextFormat();
-			format.size = 24;
-			format.font = FontNames.HELVETICA;
-			format.align = TextFormatAlign.CENTER;
-			
-			// TextField
-			_userName = new TextField();
-			_userName.defaultTextFormat = format;
-			_userName.text = _data.name;
-			_userName.width = 200;
-			
-			_userName.x = _poi.x;
-			_userName.y = _poi.y - 60;
-			_userName.scaleX = _userName.scaleY = 0.5;
-			
-			// テキストフィールドをビットマップ化
-			var nameBm:Bitmap = tf2Bm(_userName);
-			nameBm.x = _poi.x;//int((_poi.width - nameBm.width) *.5);
-			nameBm.y = _poi.y - 60;
-			// テキストフィールドを非使用に
-			//_userName.visible = false;
-			
-			_poi.addChild(_userName);
-		}
-		
-		
-		
-		/**
-		 * ポイの残数表示 
-		 */
-		private function createLife():void
-		{
-			var uin:uin_font = new uin_font();
-			// TextFormat
-			var format:TextFormat = new TextFormat();
-			format.size = 20;
-			format.font = FontNames.HELVETICA;
-			
-			// TextField
-			var rest:TextField = new TextField();
-			rest.defaultTextFormat = format;
-			rest.text = "残り";
-			
-			rest.x = _poi.x;
-			rest.y = _poi.y - 30;
-			rest.scaleX = rest.scaleY = 0.5;
-			// テキストフィールドをビットマップ化
-			var restBm:Bitmap = tf2Bm(rest);
-			restBm.x = _poi.x;
-			restBm.y = _poi.y - 30;
-			//rest.visible = false;
-			_poi.addChild(rest);
-			
-			// ポイの残数表示位置
-			_userLife = new Sprite();
-			_userLife.x = rest.width;
-			_userLife.y = rest.y;
+			rot = -rot;
+			this.rotationZ = rot;
 		}
 		
 		/**
@@ -277,45 +246,40 @@ package fish.collection.game.poi
 		 */
 		public function updateLife():void
 		{
-			if (_userLife)
-				removeAllChild(_userLife);
-			
 			// ポイ残数
-			var lifes:Sprite = new Sprite();
-			for (var i:int = 0; i < _life; i++) 
-			{
-				var life:Bitmap = new Bitmap(new Life);
-				life.scaleX = life.scaleY = 0.5;
-				life.x = life.width*i;
-				lifes.addChild(life);
-			}
-			_userLife.addChild(lifes);
-			_poi.addChild(_userLife);
+			if (_life >= 0 && _life <= 3)
+				_poiMc.life.gotoAndStop('life_' + _life);
 		}
 		
-		private function hidePoi():void
-		{
-			_poi.visible = false;
-			Executor.executeAfterWithName(18, EXECUTE_NAME, showPoi);
-		}
-		
-		private function showPoi():void
-		{
-			_poi.visible = true;
+		//===========================================================
+		// PRIVATE METHODS
+		//===========================================================
+		/**
+		 * ユーザー名を表示 
+		 */
+		private function createName():void
+		{	
+			_poiMc.userName.userName.text = _poiData.name;
 		}
 		
 		/**
-		 * テキストフィールドをビットマップに
-		 * @param tf : TextFieald
-		 * @return Bitmap
-		 */
-		private function tf2Bm(tf:TextField):Bitmap 
+		 * ポイを非表示にする 
+		 * 
+		 */		
+		private function hidePoi():void
 		{
-			// テキストフィールドをビットマップ化
-			var bmData:BitmapData = new BitmapData(tf.width, tf.height, true, 0x000000);
-			bmData.draw(tf);
-			var bm:Bitmap = new Bitmap(bmData);
-			return bm;
+			this.visible = false;
+		}
+		/**
+		 * ポイを表示する 
+		 * 
+		 */		
+		private function showPoi():void
+		{
+			this.visible = true;
+			_onGame = true;
+			_poiMc.poiInner.gotoAndStop("t_id" + String(int(_poiData.t_id) - 1));
+			_poiMc.poiInner_miss.gotoAndStop("t_id" + String(int(_poiData.t_id) - 1));
 		}
 	}
 }

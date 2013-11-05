@@ -1,14 +1,14 @@
 10
 
 dir
-29773
+30099
 http://172.28.253.181/svn/pigglife/branches/kawabata_satoshi/dotFes2013/src/fish/collection/game/poi/data
 http://172.28.253.181/svn/pigglife
 
 
 
-2013-10-22T00:53:14.268433Z
-29773
+2013-11-02T08:42:09.685610Z
+30088
 kawabata_satoshi
 
 
@@ -32,10 +32,10 @@ file
 
 
 
-2013-10-21T13:39:34.000000Z
-49fa510115ec4f7ef73c09918a0dd7f8
-2013-10-22T00:53:14.268433Z
-29773
+2013-11-01T15:45:04.000000Z
+770cd7960c3049016f4e773d4f8ecccf
+2013-11-02T08:42:09.685610Z
+30088
 kawabata_satoshi
 has-props
 
@@ -58,5 +58,5 @@ has-props
 
 
 
-282
+310
 

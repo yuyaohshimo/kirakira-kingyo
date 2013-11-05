@@ -1,15 +1,15 @@
 10
 
 dir
-29773
+30099
 http://172.28.253.181/svn/pigglife/branches/kawabata_satoshi/dotFes2013/src/fish/collection/json
 http://172.28.253.181/svn/pigglife
 
 
 
-2013-10-22T00:53:14.268433Z
-29773
-kawabata_satoshi
+2013-11-03T09:05:04.357684Z
+30091
+bamba_misaki
 
 
 svn:special svn:externals svn:needs-lock
@@ -26,17 +26,51 @@ svn:special svn:externals svn:needs-lock
 
 df0d0e78-4098-450e-8ee5-523319f4b04c
 
+config.json
+file
+
+
+
+
+2013-11-03T09:10:37.000000Z
+b7f12ca0c40bba8220f9890f44c01c46
+2013-11-03T09:05:04.357684Z
+30091
+bamba_misaki
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+94
+
 scorelist.json
 file
 
 
 
 
-2013-10-21T11:15:11.000000Z
-93b58f49e2b3e53a70da3be65dde4811
-2013-10-22T00:53:14.268433Z
-29773
-kawabata_satoshi
+2013-11-03T09:10:26.000000Z
+8ad5dd03c396912e92b9df3be6f6cc1f
+2013-11-03T09:05:04.357684Z
+30091
+bamba_misaki
 has-props
 
 
@@ -58,7 +92,7 @@ has-props
 
 
 
-222
+266
 
 sendfish.json
 file
@@ -66,11 +100,11 @@ file
 
 
 
-2013-10-21T11:15:11.000000Z
-978c04371e2776155d91c8ebafe9a60b
-2013-10-22T00:53:14.268433Z
-29773
-kawabata_satoshi
+2013-11-03T09:10:21.000000Z
+597fe69648281e4f1321c42db734efd7
+2013-11-03T09:05:04.357684Z
+30091
+bamba_misaki
 has-props
 
 
@@ -92,5 +126,5 @@ has-props
 
 
 
-253
+320
 

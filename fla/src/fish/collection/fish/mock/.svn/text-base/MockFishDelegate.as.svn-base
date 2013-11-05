@@ -2,7 +2,6 @@ package fish.collection.fish.mock
 {
 	import fish.collection.fish.FishView;
 	import fish.collection.fish.data.FishData;
-	import fish.collection.poi.PoiView;
 	
 	import pigglife.font.FontNames;
 	import pigglife.view.RootStage;

@@ -1,15 +1,15 @@
 10
 
 dir
-29773
+30099
 http://172.28.253.181/svn/pigglife/branches/kawabata_satoshi/dotFes2013/src/fish/collection/game/view
 http://172.28.253.181/svn/pigglife
 
 
 
-2013-10-22T00:53:14.268433Z
-29773
-kawabata_satoshi
+2013-11-03T13:13:59.977040Z
+30099
+bamba_misaki
 
 
 svn:special svn:externals svn:needs-lock
@@ -26,16 +26,50 @@ svn:special svn:externals svn:needs-lock
 
 df0d0e78-4098-450e-8ee5-523319f4b04c
 
+BackgroundView.as
+file
+
+
+
+
+2013-11-03T13:16:19.000000Z
+a2c1045a06fdbaa566ce9ee02e0c9df5
+2013-11-03T13:13:59.977040Z
+30099
+bamba_misaki
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+912
+
 Boid.as
 file
-29840
 
 
 
-2013-10-23T15:05:48.000000Z
-5c02b41d4b36d3a20882cde79a727b87
-2013-10-23T15:07:01.673040Z
-29840
+
+2013-11-03T10:38:27.000000Z
+25e4108a7e691f882c88dabd74c39538
+2013-11-03T10:48:39.080038Z
+30095
 kawabata_satoshi
 has-props
 
@@ -58,18 +92,18 @@ has-props
 
 
 
-9558
+14417
 
 FishControlData.as
 file
-29840
 
 
 
-2013-10-23T14:24:13.000000Z
-426ca05ccd3a20ffbbaf109234bdead7
-2013-10-23T15:07:01.673040Z
-29840
+
+2013-11-02T06:54:00.000000Z
+8f026d73ceb6b15f29893a5c95b939a4
+2013-11-02T08:42:09.685610Z
+30088
 kawabata_satoshi
 has-props
 
@@ -92,7 +126,7 @@ has-props
 
 
 
-1758
+2067
 
 hogeSprite.as
 file
