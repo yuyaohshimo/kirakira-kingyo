@@ -7,6 +7,7 @@ package fish.collection.game
 	import fish.collection.game.view.Boid;
 	import fish.collection.game.view.FishControlData;
 	import fish.collection.game.view.ui.FishControlPanel;
+	import fish.collection.json.ExternalConfig;
 	
 	import flash.display.Graphics;
 	import flash.display.MovieClip;
@@ -73,6 +74,7 @@ package fish.collection.game
 		private var _hitGraphic:Sprite;
 		private var _boidPosGraphic:Sprite;
 		private const _isHitGraphic:Boolean = false;
+		
 
 		public function get view():Sprite {return _container;}
 		
@@ -116,7 +118,15 @@ package fish.collection.game
 		public function initialize(idelegate:GameInternalDelegate):void
 		{
 			_scoop = false;
-			loadJson();
+			
+			if (ExternalConfig.IS_USE_EXTERNAL_JSON) 
+			{
+				loadJson();
+			}
+			else
+			{
+				setConfigData();
+			}
 			_idelegate = idelegate;
 			_container = new Sprite();
 			addChild(_container);
@@ -531,6 +541,19 @@ package fish.collection.game
 			sendfishLoader.addEventListener(Event.COMPLETE, onLoadSendfish);
 			sendfishLoader.load(new URLRequest("fish/collection/json/sendfish.json"));
 		}
+		
+		/**
+		 * 外部コンフィグデータを設定 
+		 * 
+		 */		
+		private function setConfigData():void
+		{
+			// スコアデータを設定
+			_scoreData = ExternalConfig.scorelist;
+			// 成功時送信データ設定
+			_gotfishData = ExternalConfig.sendfish;
+		}
+		
 		/**
 		 * スコアデータJSON読み込み完了 
 		 * @param event
