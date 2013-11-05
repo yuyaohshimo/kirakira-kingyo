@@ -26,7 +26,7 @@
 				return tag('div#score')
 							.tag('p.title').text('SCORE').gat()
 							.tag('p.total_score')
-								.tag('span.text').text(self.data.totalScore).gat()
+								.tag('span.text').text(String(self.data.totalScore)).gat()
 							.gat()
 							.tag('ul.fish')
 								.exec(function () {
