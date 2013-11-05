@@ -48,18 +48,19 @@
 									.tag('span').text('1').gat()
 									.appendText('スマートフォンを傾けてポイを動かそう')
 								.gat()
-								.tag('img', { src: '../img/top_procedure_1.png' }).gat()
+								.tag('img', { src: '../img/top_procedure_1.png', width: 223, height: 130 }).gat()
 							.gat()
 							.tag('li')
 								.tag('p.text')
 									.tag('span').text('2').gat()
 									.appendText('素早く手前に引いて金魚をすくおう')
 								.gat()
-								.tag('img', { src: '../img/top_procedure_2.png' }).gat()
+								.tag('img', { src: '../img/top_procedure_2.png', width: 223, height: 130 }).gat()
 							.gat()
 						.gat()
 						.tag('div.form_container')
-							.tag('label').text('ニックネームを入力してください')
+							.tag('label')
+								.tag('span.text').text('ニックネームを入力してください（任意）').gat()
 								.tag('input', {
 									type: 'text',
 									name: 'nickname',

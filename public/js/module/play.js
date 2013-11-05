@@ -17,7 +17,7 @@
 								this.updateLife(data.lastLife);
 								break;
 							case 'game.fish':
-								console.log(data);
+								this.updateFish(data.type);
 								break;
 							case 'game.prep':
 								log.info('set playerId -->', data.playerId);
@@ -62,36 +62,40 @@
 						.gat()
 						.tag('p.player_info')
 							.tag('span.num').text('P{1}', $.storage('t_id')).gat()
-							.tag('span.name').text('パジェロ').gat()
+							.tag('span.name').text($.storage('name')).gat()
 						.gat()
 						.tag('div.main')
 							.tag('div.poi')
 								.tag('ul')
-									.tag('li').text('残り3').gat()
-									.tag('li').gat()
-									.tag('li').gat()
+									.tag('li.poi_list')
+										.tag('span.text').text('3').gat()
+									.gat()
+									.tag('li.poi_list').gat()
+									.tag('li.poi_list').gat()
 								.gat()
 							.gat()
-							.tag('div.fish')
-								.tag('ul')
-									.tag('li.fish_thumb').gat()
-									.tag('li.fish_thumb').gat()
-									.tag('li.fish_thumb').gat()
-								.gat()
+							.tag('div.fish_list')
+								.tag('ul').gat()
 							.gat()
 						.gat();
 			},
 			updateLife: function (lastLife) {
 				var self = this;
-				var poi = self.content.find('.poi');
-				// $(poi.get(poi.length()).remove();
 				if (lastLife === 0) {
 					self.trigger('close');
 					kingyo.executeHash('score', 'top');
+					return;
 				}
-			},
-			updateFish: function () {
+				var poi = self.content.find('.poi_list');
+				$(poi.get(poi.length() - 1)).remove();
+				$(poi.get(0)).text(String(lastLife));
 				
+			},
+			updateFish: function (type) {
+				var self = this;
+				self.content.find('.fish_list').find('ul')
+				.tag('li.fish_sprite').cls($.format('fish_{1}', type))
+				.gat()
 			}
 		},
 		'play.test': {

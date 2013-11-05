@@ -39,6 +39,32 @@ button {
 	content:'pt';
 }
 
+.fish_sprite {
+	background-image:url("../img/common_fish.png");
+	background-repeat:no-repeat;
+	width:63px;
+	height:92px;
+}
+.fish_1 {
+	background-position:-128px -93px;
+}
+.fish_2 {
+	background-position:-64px -93px;
+}
+.fish_3 {
+	background-position:0 -93px;
+}
+.fish_4 {
+	background-position:-128px 0;
+}
+.fish_5 {
+	background-position:-64px 0;
+}
+.fish_6 {
+	background-position:0 0;
+}
+
+
 /* main */
 body {
 	font-family:"HelveticaNeue-UltraLight","mplus-1p-light";
@@ -46,6 +72,7 @@ body {
 	background-repeat:no-repeat;
 	background-size:cover;
 	-webkit-background-size:cover;
+	padding:7px;
 }
 /*.poi {
 	position:absolute;
@@ -76,6 +103,44 @@ body {
 	background-size:cover;
 	width:276px;
 	height:41px;
+	margin:0 auto;
+}
+#top .procedure .text {
+	font-size:14px;
+}
+#top .procedure .text span {
+	padding-right:14px;
+	font-size:50px;
+}
+#top .procedure img {
+	padding-top:17px;
+	width:223px;
+	height:130px;
+	margin:0 auto;
+	display:block;
+}
+#top .form_container label .text {
+	display:block;
+	font-size:14px;
+	text-align:center;
+}
+#top input {
+	border:none;
+	background-color:transparent;
+	height:40px;
+	width:100%;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+	-webkit-box-shadow:rgba(0, 0, 0, 0.4) 0px 0px 5px 5px inset;
+	box-shadow:rgba(0, 0, 0, 0.4) 0px 0px 5px 5px inset;
+	border-radius:5px;
+	-webkit-border-radius:5px;
+	text-align:center;
+	font-size:14px;
+	margin:6px 0;
+	font-family:"HelveticaNeue-UltraLight","mplus-1p-light";
+	-webkit-appearance:none;
+	appearance:none;
 }
 #top button {
 	height:50px;
@@ -85,8 +150,8 @@ body {
 /* play */
 #play button {
 	position:absolute;
-	left:0;
-	top:0;
+	left:7px;
+	top:7px;
 	background-position:0 -172px;
 	width:97px;
 	height:29px;
@@ -94,22 +159,84 @@ body {
 #play .player_info > span {
 	text-align:center;
 	display:block;
+	font-size:15px;
+}
+#play .poi {
+	padding-top:50px;
 }
 #play .poi ul {
 	display:-webkit-box;
 	display:box;
+	-webkit-box-align:end;
+	box-align:end;
 }
 #play .poi ul li {
-	width:38px;
-	height:62px;
-	background-size:38px 62px;
+	width:110px;
+	height:80px;
+	background-size:50px 80px;
 	background-image:url("../img/common_poi.png");
+	background-repeat:no-repeat;
+	margin-left:-50px;
 }
 #play .poi ul li:first-child {
-	width:157px;
-	height:261px;
-	background-size:157px 261px;
+	position:relative;
+	margin-left:66px;
+	width:173px;
+	height:277px;
+	background-size:173px 277px;
+	text-align:center;
+	font-size:130px;
+	padding-top:19px;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
 }
+#play .poi ul li:first-child::before {
+	content:'残り';
+	display:block;
+	position:absolute;
+	top:-20px;
+	width:173px;
+	color:#fff;
+	font-size:14px;
+}
+/* TODO */
+#play .fish_list ul {
+}
+#play .fish_list ul li {
+	float:left;
+}
+
+/* score */
+#score .title {
+	font-size:30px;
+	text-align:center;
+}
+#score .total_score {
+	text-align:center;
+	font-size:60px;
+}
+#score .total_score::after {
+	padding-left:10px;
+	content:"pt";
+	font-size:40px;
+}
+#score .fish li {
+	float:left;
+	width:50%;
+}
+#score .fish_num {
+	display:-webkit-box;
+	display:box;
+}
+#score .fish_sprite {
+	display:block;
+}
+#score .fish_num .num {
+	padding-left:25px;
+	line-height:92px;
+	font-size:30px;
+}
+
 /* ranking */
 #ranking button {
 	background-position:0 -61px;
