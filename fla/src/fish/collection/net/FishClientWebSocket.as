@@ -1,5 +1,6 @@
 package fish.collection.net
 {
+	import fish.collection.json.ExternalConfig;
 	import fish.collection.net.websocket.WebSocket;
 	import fish.collection.net.websocket.WebSocketErrorEvent;
 	import fish.collection.net.websocket.WebSocketEvent;
@@ -35,8 +36,16 @@ package fish.collection.net
 			{
 				_websocket.close();
 			}
-
-			loadJson();
+			
+			if (ExternalConfig.IS_USE_EXTERNAL_JSON)
+			{
+				loadJson();
+			}
+			else
+			{
+				setConfigData();
+			}
+			
 		}
 		
 		/**
@@ -61,6 +70,15 @@ package fish.collection.net
 			var data:Object = {};
 			data = JSON.parse(json);
 			connect(data);
+		}
+		
+		/**
+		 * 外部コンフィグデータを設定 
+		 * 
+		 */				
+		public function setConfigData():void
+		{
+			connect(ExternalConfig.config);
 		}
 		
 		/**
