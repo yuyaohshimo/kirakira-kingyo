@@ -37,7 +37,7 @@
 											.tag('p.text')
 												.tag('span.rank').text(self.array[i].rank).gat()
 												.tag('span.name').text(self.array[i].name).gat()
-												.tag('span.pt').text(self.array[i].score).gat()
+												.tag('span.pt').text(String(self.array[i].score)).gat()
 											.gat()
 										.gat()
 									}
@@ -50,7 +50,7 @@
 										.tag('p.text')
 											.tag('span.rank').text(self.extra.rank).gat()
 											.tag('span.name').text(self.extra.name).gat()
-											.tag('span.pt').text(self.extra.score).gat()
+											.tag('span.pt').text(String(self.extra.score)).gat()
 										.gat()
 									.gat()
 								}
