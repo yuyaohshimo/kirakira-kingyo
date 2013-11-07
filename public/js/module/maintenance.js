@@ -62,16 +62,30 @@
 						.gat()
 						.tag('div.send_btn')
 							.tag('div.button')
-							.click(function () {
+							.on('mousedown', function () {
+								var target = $(this);
 								var t_id = $('.select_t_id').value();
-								self.trigger('send', 'down', t_id);
+								var timer = setInterval(function () {
+									self.trigger('send', 'down', t_id);
+								}, 25);
+								target.on('mouseup', function () {
+									clearInterval(timer);
+									target.off(arguments.callee);
+								});
 							})
 							.text('ー')
 							.gat()
 							.tag('div.button')
-							.click(function () {
+							.on('mousedown', function () {
+								var target = $(this);
 								var t_id = $('.select_t_id').value();
-								self.trigger('send', 'up', t_id);
+								var timer = setInterval(function () {
+									self.trigger('send', 'up', t_id);
+								}, 25);
+								target.on('mouseup', function () {
+									clearInterval(timer);
+									target.off(arguments.callee);
+								});
 							})
 							.text('＋')
 							.gat()
