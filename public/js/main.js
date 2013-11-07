@@ -61,14 +61,13 @@ $.ready(function () {
 		}
 		kingyo.Socket = function (view) {
 			var self = this;
-			self.ws = new WebSocket('ws://172.22.241.56:8888'); // need to override
+			self.ws = new WebSocket('ws://172.30.4.205:8888'); // need to override
 			// self.ws = new WebSocket('ws://172.22.242.251:8888'); // need to override
 			// self.ws = new WebSocket('ws://172.22.247.45:8888');
 			// onを使おうかな
 			self.isOpen = false;
 			self.ws.addEventListener('open', function (e) {
 				self.isOpen = true;
-				log.info('open ws');
 				var t_id = $.storage('t_id');
 				var name = $.storage('name');
 				log.debug('open web socket');
@@ -106,32 +105,35 @@ $.ready(function () {
 		kingyo.Socket.prototype = {
 			deviceorientation: function (callback) {
 				var self = this;
-				var isFirst = false;
+				var alpha = 0;
+				var webkitCompassAccuracy = 0;
+				var webkitCompassHeading = 0;
+				var sendObj = {};
+
+
 				$(w).on('deviceorientation', function (e) {
 					if (!self.isOpen) { return; }
-					var alpha  = e.alpha.toFixed(2);
-					var beta = e.beta.toFixed(2);
-					var gamma = e.gamma.toFixed(2);
-					var webkitCompassAccuracy = e.webkitCompassAccuracy;
-					var webkitCompassHeading = e.webkitCompassHeading.toFixed(2);
-					var sendObj = {
+					alpha  = e.alpha.toFixed(2);
+					// var beta = e.beta.toFixed(2);
+					// var gamma = e.gamma.toFixed(2);
+					webkitCompassAccuracy = e.webkitCompassAccuracy;
+					if (webkitCompassAccuracy < 0) {
+						return;
+					}
+					webkitCompassHeading = e.webkitCompassHeading.toFixed(2);
+					sendObj = {
+						id: 'game.orientation',
 						t_id: $.storage('t_id'),
 						data: {
 							alpha: alpha,
-							beta: beta,
-							gamma: gamma,
+							// beta: beta,
+							// gamma: gamma,
 							webkitCompassAccuracy: webkitCompassAccuracy,
 							webkitCompassHeading: webkitCompassHeading
 						}
 					};
-					if (!isFirst) {
-						sendObj.id = 'game.orientation.init';
-						self.send(sendObj);
-						isFirst = true;
-					} else {
-						sendObj.id = 'game.orientation';
-						self.send(sendObj);
-					}
+
+					self.send(sendObj);
 
 					// for debug
 					// callback(sendObj);
@@ -187,12 +189,13 @@ $.ready(function () {
 				$(w).on('devicemotion', function (e) {
 					if (doEvent || !self.isOpen) { return; }
 					doEvent = true;
-					var ac = truncateNum(e.acceleration);
+					// var ac = truncateNum(e.acceleration);
 					var acg = truncateNum(e.accelerationIncludingGravity);
-					var rr = truncateNum(e.rotationRate);
+					// var rr = truncateNum(e.rotationRate);
 
 					// shake
-					doShake = evalShake(acg.x, acg.y, acg.z);
+					// doShake = evalShake(acg.x, acg.y, acg.z);
+
 					// scoop
 					doScoop = evalScoop(acg.y, acg.z);
 
@@ -205,9 +208,9 @@ $.ready(function () {
 						id: 'game.locate',
 						t_id: $.storage('t_id'),
 						data: {
-							ac: ac,
+							// ac: ac,
 							acg: acg,
-							rr: rr,
+							// rr: rr,
 							doShake: doShake,
 							doScoop: doScoop
 						}

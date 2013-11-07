@@ -9,11 +9,11 @@
 					start: function (callback) {
 						var name = $('input[name="nickname"]').value();
 						var t_id = $.storage('t_id');
-						if (name.indexOf('amebastorage') !== -1) {
+						if (name.indexOf('strg') !== -1) {
 							t_id = name.split('_')[1];
 							$.storage('t_id', t_id);
 							callback({
-								message: 't_idを登録しました'
+								message: $.format('t_idを登録しました：{1}', t_id)
 							});
 						} else if (!name) {
 							callback({
@@ -21,7 +21,7 @@
 							});
 						} else if (!t_id) {
 							callback({
-								message: 't_idが無いよ。hint: amebastorage_1'
+								message: 't_idが無いよ。hint: strg_1'
 							});
 						} else {
 							$.storage('name', name);
@@ -64,7 +64,7 @@
 								.tag('input', {
 									type: 'text',
 									name: 'nickname',
-									maxlength: 15,
+									maxlength: 7,
 									value: $.storage('t_id') ? $.format('プレイヤー{1}', $.storage('t_id')) : ''
 								})
 								.gat()

@@ -18,7 +18,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-	NSURLRequest* req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://172.22.241.56:8888"]];
+	NSURLRequest* req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://172.22.242.39:8888"]];
 	[self.webView loadRequest:req];
 	self.webView.scrollView.scrollEnabled = NO;
 	self.webView.scrollView.bounces = NO;
