@@ -74,7 +74,7 @@ $.ready(function () {
 				self.ws.send(JSON.stringify({ id:'game.prep', data:{ t_id: t_id, name: name }}));
 
 				// for debug
-				// self.ws.send(JSON.stringify({ id: 'game.fish', data: { t_id :t_id, fishInfo: { type: "1", score: "100" } } }));
+				// self.ws.send(JSON.stringify({ id: 'game.fish', data: { t_id :t_id, fishInfo: { type: "1", score: "1000" } } }));
 				// self.ws.send(JSON.stringify({ id: 'game.fish', data: { t_id :t_id, fishInfo: { type: "2", score: "100" } } }));
 				// self.ws.send(JSON.stringify({ id: 'game.fish', data: { t_id :t_id, fishInfo: { type: "3", score: "100" } } }));
 				// self.ws.send(JSON.stringify({ id: 'game.fish', data: { t_id :t_id, fishInfo: { type: "4", score: "100" } } }));
@@ -83,7 +83,7 @@ $.ready(function () {
 
 				// self.ws.send(JSON.stringify({ id: 'game.life', data: { t_id :t_id, lastLife: 2 } }));
 				// self.ws.send(JSON.stringify({ id: 'game.life', data: { t_id :t_id, lastLife: 1 } }));
-				// self.ws.send(JSON.stringify({ id: 'game.life', data: { t_id :t_id, lastLife: 0 } }));
+				self.ws.send(JSON.stringify({ id: 'game.life', data: { t_id :t_id, lastLife: 0 } }));
 			});
 			self.ws.addEventListener('close', function (e) {
 				log.debug('close web socket');

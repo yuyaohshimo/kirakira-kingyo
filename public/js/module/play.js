@@ -4,9 +4,16 @@
 		'/': {
 			name: 'top',
 			action: function (args) {
+				// audio
+				// var audio = new Audio();
+				// audio.src = '../../audio/11.mp3';
+
+				// view
 				var _view = $.view('play');
+
 				// websocket
 				var socket = new kingyo.Socket(_view);
+
 				_view.on({
 					close: function () {
 						socket.send({ id: 'game.stop', data: { t_id: $.storage('t_id') } });
@@ -94,8 +101,9 @@
 			updateFish: function (type) {
 				var self = this;
 				self.content.find('.fish_list').find('ul')
-				.tag('li.fish_sprite').cls($.format('fish_{1}', type))
-				.gat()
+				.tag('li')
+				.tag('img', { src: $.format('../../img/common_fish_{1}.png', type), width: '100%', height: '100%' }).gat()
+				.gat();
 			}
 		},
 		'play.test': {

@@ -29,6 +29,7 @@ button {
 	background-image:url("../img/common_btn.png");
 	background-repeat:no-repeat;
 	background-size:306px 201px;
+	-webkit-background-size:306px 201px;
 	background-position:0 0;
 	width:306px;
 	height:60px;
@@ -64,8 +65,6 @@ button {
 	background-position:0 0;
 }
 
-
-/* main */
 body {
 	font-family:"HelveticaNeue-UltraLight","mplus-1p-light";
 	background-image:url("../img/common_bg.jpg");
@@ -163,6 +162,7 @@ body {
 }
 #play .poi {
 	padding-top:50px;
+	overflow:hidden;
 }
 #play .poi ul {
 	display:-webkit-box;
@@ -199,12 +199,17 @@ body {
 	color:#fff;
 	font-size:14px;
 }
-/* TODO */
 #play .fish_list ul {
+	overflow:hidden;
+	padding:14px 0;
+	max-height:155px;
 }
 #play .fish_list ul li {
 	float:left;
+	width:15px;
+	height:auto;
 }
+
 
 /* score */
 #score .title {
@@ -213,6 +218,7 @@ body {
 }
 #score .total_score {
 	text-align:center;
+	padding-top:15px;
 	font-size:60px;
 }
 #score .total_score::after {
@@ -220,9 +226,16 @@ body {
 	content:"pt";
 	font-size:40px;
 }
+#score .fish {
+	padding-top:5px;
+	overflow:hidden;
+}
 #score .fish li {
 	float:left;
 	width:50%;
+	-webkit-box-sizing:border-box;
+	box-sizing:border-box;
+	padding:5px 0 5px 10px;
 }
 #score .fish_num {
 	display:-webkit-box;
@@ -232,17 +245,83 @@ body {
 	display:block;
 }
 #score .fish_num .num {
-	padding-left:25px;
+	padding-left:10px;
 	line-height:92px;
 	font-size:30px;
 }
+#score .pt {
+	padding:5px 0 0 10px;
+}
+#score button {
+	position:absolute;
+	left:7px;
+	bottom:7px;
+}
 
 /* ranking */
+#ranking .title {
+	font-size:30px;
+	text-align:center;
+}
+#ranking ol {
+	padding-top:10px;
+}
+#ranking ol li {
+	padding:7px 7px 7px 0;
+	border-bottom:1px solid rgba(0,0,0,0.2);
+}
+#ranking .extra .text,
+#ranking ol li .text {
+	display:box;
+	display:-webkit-box;
+	box-pack: justify;
+	-webkit-box-pack:justify;
+}
+#ranking .extra .text > span,
+#ranking ol li .text > span {
+	font-size:18px;
+	display:block;
+}
+#ranking .name {
+	padding-left:10px;
+	box-flex:1;
+	-webkit-box-flex:1;
+}
 #ranking button {
+	position:absolute;
+	left:7px;
+	bottom:7px;
 	background-position:0 -61px;
 }
 #ranking .rank {
 	color:#fff;
+	font-weight:bold;
+	width:23px;
+	text-align:right;
+}
+#ranking .pt::after {
+	padding-left:3px;
+}
+#ranking .extra {
+	position:relative;
+	padding:70px 7px 7px 7px;
+	border-bottom:1px solid rgba(0,0,0,0.2);
+}
+#ranking .extra::before {
+	content:'・・・';
+	position:absolute;
+	top:25px;
+	color:#fff;
+	font-weight:bold;
+	transo:rotateZ(90deg);
+	-webkit-transform:rotateZ(90deg);
+	display:block;
+	width:100%;
+	text-align:center;
+}
+#ranking ol .me .text > span,
+#ranking .extra .text > span {
+	font-size:24px;
 }
 
 /* maintenance_rotate */

@@ -17,15 +17,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-	NSURLRequest* req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://172.22.242.39:8888"]];
-	[self.webView loadRequest:req];
-	self.webView.scrollView.scrollEnabled = NO;
-	self.webView.scrollView.bounces = NO;
+	// webview
+	NSURLRequest* req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://172.30.4.205:8888"]];
+	[_webView loadRequest:req];
+	_webView.scrollView.scrollEnabled = NO;
+	_webView.scrollView.bounces = NO;
+	
+	
+	UIApplication *application = [UIApplication sharedApplication];
 	
 	// stop auto sleep
-	UIApplication *application = [UIApplication sharedApplication];
 	application.idleTimerDisabled = YES;
+	
+	// prevent typing event with gesture
+	application.applicationSupportsShakeToEdit = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,9 +44,8 @@
     return YES;
 }
 
-- (void)dealloc
-{
-	self.webView.delegate = nil;
+- (void)viewWillDisappear:(BOOL)animated {
+	_webView.delegate = nil;
 }
 
 @end

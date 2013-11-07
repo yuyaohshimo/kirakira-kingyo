@@ -34,6 +34,11 @@
 									for (var i = 0; i < self.array.length; i++) {
 										this
 										.tag('li')
+											.exec(function () {
+												if (self.array[i].playerId === $.storage('playerId')) {
+													this.cls({ me: 1 });
+												}
+											})
 											.tag('p.text')
 												.tag('span.rank').text(self.array[i].rank).gat()
 												.tag('span.name').text(self.array[i].name).gat()
