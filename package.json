@@ -9,6 +9,7 @@
 	"ws": "*",
 	"mongodb": "*",
 	"mongoose": "*",
-	"log4js": "*"
+	"log4js": "*",
+	"twitter": "*"
 	}
 }
