@@ -25,6 +25,21 @@ package fish.collection.game.util
 			}
 			return resultVal;
 		}
+		public static function smoothMoveRotateFunc(changeVal:Number, zoomVal:Number, smoothVal:Number):Number
+		{
+			var resultVal:Number = 0;
+			var margin:Number = zoomVal - changeVal;
+			if (Math.abs(margin) < 1.0 || Math.abs(margin) > 180) 
+			{
+				resultVal = zoomVal;
+			}
+			else
+			{
+				resultVal = changeVal + margin * smoothVal;
+			}
+			
+			return resultVal;
+		}
 		
 		public static function getRandom(low:Number,high:Number):Number
 		{
@@ -45,6 +60,12 @@ package fish.collection.game.util
 			}
 			
 			return mapVal;
+		}
+		
+		public static function dist(x1:Number, y1:Number, x2:Number, y2:Number):Number
+		{
+			var dist:Number = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+			return dist;
 		}
 	}
 }

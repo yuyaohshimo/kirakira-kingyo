@@ -34,5 +34,14 @@ package fish.collection.top
 		{
 			_delegate.showGame();
 		}
+		
+		/**
+		 * コントロールパネルを開く
+		 * 
+		 */		
+		public function openControlPanel():void
+		{
+			_delegate.openControlPanel();
+		}
 	}
 }

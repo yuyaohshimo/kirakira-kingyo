@@ -12,7 +12,10 @@ package fish.collection.json
 		}
 		
 		// 外部コンフィグJSONを使用するかどうかフラグ
-		public static const IS_USE_EXTERNAL_JSON:Boolean = false; 
+		public static const IS_USE_EXTERNAL_JSON:Boolean = false;
+		
+		// チュートリアルモードをつかうかどうかフラグ
+		public static const IS_USE_TUTORIAL:Boolean = true;;
 		
 		public static const scorelist:Object = {
 			type1: {

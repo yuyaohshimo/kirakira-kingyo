@@ -103,8 +103,9 @@ package fish.collection.top
 		//===========================================================
 		private function onClick():void
 		{
-			_idelegate.clean();
-			_idelegate.showGame()
+//			_idelegate.clean();
+//			_idelegate.showGame()
+			//_idelegate.openControlPanel();
 		}
 		
 		/**
