@@ -1,5 +1,7 @@
 package fish.collection.game
 {
+	import com.greensock.easing.Back;
+	
 	import fish.collection.game.poi.PoiView;
 	import fish.collection.game.poi.data.PoiData;
 	import fish.collection.game.util.Util;
@@ -13,7 +15,9 @@ package fish.collection.game
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.geom.Point;
 	import flash.net.URLLoader;
 	import flash.net.URLLoaderDataFormat;
 	import flash.net.URLRequest;
@@ -21,6 +25,7 @@ package fish.collection.game
 	import flash.utils.setTimeout;
 	
 	import pigglife.util.Executor;
+	import pigglife.util.Tween;
 	
 	
 	
@@ -75,6 +80,7 @@ package fish.collection.game
 		private var _boidPosGraphic:Sprite;
 		private const _isHitGraphic:Boolean = false;
 		
+		
 
 		public function get view():Sprite {return _container;}
 		
@@ -119,6 +125,7 @@ package fish.collection.game
 		{
 			_scoop = false;
 			
+			// 外部コンフィグの読み込み
 			if (ExternalConfig.IS_USE_EXTERNAL_JSON) 
 			{
 				loadJson();
@@ -127,6 +134,7 @@ package fish.collection.game
 			{
 				setConfigData();
 			}
+			// もろもろ初期化
 			_idelegate = idelegate;
 			_container = new Sprite();
 			addChild(_container);
@@ -139,8 +147,9 @@ package fish.collection.game
 			_container.addChild(_fishLayer);
 			
 			// スライダー
-//			_fishControlPanel = new FishControlPanel();
-//			_container.addChild(_fishControlPanel);
+			_fishControlPanel = new FishControlPanel();
+			_container.addChild(_fishControlPanel);
+			_fishControlPanel.visible = false;
 			
 			// ポイView初期化
 			initPoiView();
@@ -159,7 +168,38 @@ package fish.collection.game
 				_boidPosGraphic = new Sprite();
 				_container.addChild(_boidPosGraphic);
 			}
+			
+			_container.addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+			
 		}
+		
+		/**
+		 * ステージにaddされたイベントハンドラ 
+		 * @param event
+		 * 
+		 */		
+		protected function onAddedToStage(event:Event):void
+		{
+			// TODO Auto-generated method stub
+			_container.addEventListener(MouseEvent.CLICK, onClick);
+			_container.removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+			event.stopPropagation();
+		}
+		
+		/**
+		 * クリックハンドラ 
+		 * @param event
+		 * 
+		 */		
+		protected function onClick(event:MouseEvent):void
+		{
+			// スライダーを表示
+			_fishControlPanel.visible = !_fishControlPanel.visible;
+			for (var i:int = 0, len:int = _pois.length; i < len; i++)
+			{
+				_pois[i].rotSmooth = _fishControlPanel.visible; 
+			}
+		}				
 		
 		/**
 		 * ポイを追加する 
@@ -174,8 +214,6 @@ package fish.collection.game
 			_pois[t_id].show(data);
 			_pois[t_id].x = FishControlData.initPoiPos[t_id].x;
 			_pois[t_id].y = FishControlData.initPoiPos[t_id].y;
-			
-			
 			
 			// トップに戻るタイムアウト関数のクリア
 			clearTimeout(timeoutID);
@@ -242,6 +280,9 @@ package fish.collection.game
 			/*-------------------------------------------
 			ポイと魚の更新	
 			-------------------------------------------*/
+			// 救った魚の合計数
+			var catchFishNum:int = 0;
+			var catchBoids:Vector.<Boid> = new Vector.<Boid>();
 			for (i = 0; i < NUMBOIDS; i++) 
 			{  
 				b = _boids[i];
@@ -257,19 +298,59 @@ package fish.collection.game
 				{
 					__hit = true;
 					hitOnce = true;	// 一匹はヒットしてる魚がいる
+					_pois[t_id].isTutorial = false;	// チュートリアル終了
 				}
-					
 				
 				// すくったときにヒットしてたら
 				if (locateData.data.doScoop && __hit)
 				{
 					// 捕獲した時の処理
 					catchFish(t_id, b, locateData);
+					// すくった魚の数インクリメント
+					catchFishNum++;
+					catchBoids.push(b);
 				}
 				
 				// 一番近い魚の距離を算出
 				if (distPoiMin > boidDist)
 					distPoiMin = boidDist;
+			}
+			// スコア表示アニメーション
+			var len:int = catchBoids.length;
+			var j:int = 0;
+			if (len > 0)
+			{
+				for(i = 0; i < len; i++)
+				{
+					// スコア表示アニメーション
+					var getMc:getMc1 = new getMc1();
+					getMc.x = catchBoids[i].x;
+					getMc.y = catchBoids[i].y;
+					getMc.rotationZ = _pois[t_id].rotationZ;
+					getMc.scaleX = getMc.scaleY = 0.5;
+					getMc.score.text.text = _scoreData[catchBoids[i].fishData.type].normal + '\r';
+					var rate:Number = (_pois[t_id].y - catchBoids[i].y) / (_pois[t_id].x - catchBoids[i].x);
+					var zoomX:Number = getMc.x + 10;
+					var zoomY:Number = getMc.y + 10 * rate;
+					if (_pois[t_id].x > catchBoids[i].x)
+					{
+						zoomX =　getMc.x - 40;
+					}
+					else
+					{
+						zoomX =　getMc.x + 40;
+					}
+					if (_pois[t_id].y > catchBoids[i].y)
+					{
+						zoomY = getMc.y - 40;
+					}
+					else
+					{
+						zoomY = getMc.y + 40;
+					}
+					//Tween.applyTo(getMc, 2.0, {x: getMc.x + zoomX, y: getMc.y + zoomY, ease:Back.easeOut});
+					Executor.executeAfterWithName(i*5, 'getMc' + t_id, scoreAnimation, getMc, t_id, zoomX, zoomY);
+				}
 			}
 			
 			/*-------------------------------------------
@@ -277,23 +358,25 @@ package fish.collection.game
 			-------------------------------------------*/
 			if (locateData.data.doScoop)
 			{
-				// すくうアニメーション入れる
-				_pois[t_id].scoopAnimation();
-				
 				/*-------------------------------------------
 				ミス処理
 				-------------------------------------------*/
-				if (!hitOnce && distPoiMin < _pois[t_id].getPoiSize() * MISS_DIST_VALUE)	// ヒットしてなくて一番近い魚の距離が○◯未満なら
+				if (!hitOnce && distPoiMin < _pois[t_id].getPoiSize() * MISS_DIST_VALUE && !_pois[t_id].isTutorial)	// ヒットしてなくて一番近い魚の距離が○◯未満なら かつ　チュートリアルじゃない時
 				{
 					// ミスした時の処理
 					miss(t_id, locateData);
+				}
+				else
+				{
+					// すくうアニメーション入れる
+					_pois[t_id].scoopAnimation();
 				}
 			}
 			
 			// ポイの位置更新
 			_pois[t_id].updatePoiPos(
-				 Number(locateData.data.acg.x) * 1.5,
-				-Number(locateData.data.acg.y) * 1.5);
+				 Number(locateData.data.acg.x) * 1.8,
+				-Number(locateData.data.acg.y) * 1.8);
 			
 			// ポイが画面外に行かないようにする処理
 			poiStopper(t_id);
@@ -331,8 +414,14 @@ package fish.collection.game
 		public function setPoiRot(rotData:Object = null):void
 		{
 			var t_id:int = rotData.t_id - 1;
-			var rot:Number = rotData.data.alpha;
-			_pois[t_id].rotatePoi(rot);
+//			var rot:Number = rotData.data.alpha;
+			var rot:Number = rotData.data.webkitCompassHeading;
+			_pois[t_id].rotatePoi(rot, rotData.data.webkitCompassAccuracy);
+		}
+		
+		public function setRotateCorrection(correctionData:Object):void
+		{
+			FishControlData.paramsPoi[correctionData.t_id].ORIENTATION += correctionData.data.val;
 		}
 		
 		/**
@@ -343,17 +432,11 @@ package fish.collection.game
 		public function stopPoi(data:Object):void
 		{
 			var t_id:int = data.data.t_id - 1;
-			// poiViewのライフが0なら終了 0より大きければゲーム中断
+			// poiViewがonGame　かつ　ライフがない時 ゲームオーバー
 			if (_pois[t_id].life <= 0)
-			{
-				// ゲーム終了
-			}
+				_pois[t_id].gameOverAnimation();	// ゲームオーバーアニメーション再生
 			else
-			{
-				// ゲーム中断
-			}
-			// 問答無用でゲーム終了
-			_pois[t_id].resetPoi();
+				_pois[t_id].resetPoi();	// 強制終了
 			
 			// トップ画面表示処理（待機画面）
 			var onGame:Boolean = false;
@@ -610,6 +693,7 @@ package fish.collection.game
 				_pois[t_id].y = 0.0;
 			}
 		}
+		
 		/**
 		 * 
 		 * 
@@ -676,16 +760,16 @@ package fish.collection.game
 				waveGetMc.y = b.y;
 				_container.addChild(waveGetMc);
 				Executor.executeAfterWithName(waveGetMc.totalFrames, 'waveMc_get' + t_id, onAnimationEnd, waveGetMc);
-				// 魚捕獲アニメーション
-				var getMc:getMc1 = new getMc1();
-				getMc.x = b.x;
-				getMc.y = b.y;
-				getMc.scaleX = getMc.scaleY = 0.5;
-				_container.addChild(getMc);
-				getMc.gotoAndPlay(0);
-				getMc.score.text.text = _scoreData[b.fishData.type].normal + '\r';
-				Executor.executeAfterWithName( getMc.totalFrames, 'getMc' + t_id, onAnimationEnd, getMc);
 			}
+		}
+		
+		private function scoreAnimation(mc:MovieClip, tid:int, zoomX:Number, zoomY:Number):void
+		{
+			_container.addChild(mc);
+			mc.gotoAndPlay(0);
+			Tween.applyTo(mc, 2.0, {x: zoomX, y: zoomY/*, ease:Back.easeOut*/});
+			Tween.applyFromTo(mc, 1.0, {x: mc.x, y: mc.y}, {x: zoomX, y: zoomY});
+			Executor.executeAfterWithName( mc.totalFrames, 'getMc' + tid, onAnimationEnd, mc);
 		}
 		/**
 		 * ミスした時の処理 
@@ -698,15 +782,30 @@ package fish.collection.game
 			// 失敗時
 			_pois[t_id].life--;
 			_pois[t_id].updateLife();
-			// ポイの失敗アニメーション
-			_pois[t_id].missAnimation();
-			// 失敗アニメーション
-			var missMc:missMc3 = new missMc3();
-			missMc.x = _pois[t_id].x;
-			missMc.y = _pois[t_id].y;
-			_container.addChild(missMc);
-			missMc.gotoAndPlay(0);
-			Executor.executeAfterWithName( missMc.totalFrames, '_missMc3', onAnimationEnd, missMc);
+			if (_pois[t_id].life > 0)
+			{
+				// ポイの失敗アニメーション
+				_pois[t_id].missAnimation();
+				// 失敗アニメーション
+				var missMc:missMc3 = new missMc3();
+				missMc.x = _pois[t_id].x;
+				missMc.y = _pois[t_id].y;
+				missMc.rotationZ = _pois[t_id].rotationZ;
+				_container.addChild(missMc);
+				missMc.gotoAndPlay(0);
+				Executor.executeAfterWithName( missMc.totalFrames, '_missMc3', onAnimationEnd, missMc);
+			}
+			else
+			{
+				// ゲームオーバーアニメーション
+				var gameOverMc:gameOver = new gameOver();
+				gameOverMc.x = _pois[t_id].x;
+				gameOverMc.y = _pois[t_id].y;
+				gameOverMc.rotationZ = _pois[t_id].rotationZ;
+				_container.addChild(gameOverMc);
+				gameOverMc.gotoAndPlay(0);
+				Executor.executeAfterWithName( gameOverMc.totalFrames, 'gameOverMc', onAnimationEnd, gameOverMc);
+			}
 			// ポイのライフ情報送信
 			if (_pois[t_id].life > -1)
 			{

@@ -4,6 +4,8 @@ package fish.collection
 	import fish.collection.net.FishClient;
 	import fish.collection.top.TopModel;
 	
+	import flash.display.Stage;
+	
 	import pigglife.view.ViewContainer;
 
 	/**
@@ -158,6 +160,11 @@ package fish.collection
 			_gameModel.setPoiRot(data);	
 		}
 		
+		public function setRotateCorrection(data:Object):void
+		{
+			_gameModel.setRotateCorrection(data);
+		}
+		
 		/**
 		 * ポイを動かす
 		 * @param data
@@ -195,6 +202,15 @@ package fish.collection
 		public function stopPoi(data:Object):void
 		{
 			_gameModel.stopPoi(data);
+		}
+		
+		/**
+		 * コントロールパネルを開く
+		 * 
+		 */		
+		public function openControlPanel():void
+		{
+			_gameModel.openControlPanel();
 		}
 	}
 }

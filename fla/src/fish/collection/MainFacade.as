@@ -59,7 +59,7 @@ package fish.collection
 		 */
 		public function onData(data:Object):void
 		{
-			log("onData", data.id);
+			//log("onData", data.id);
 			switch(data.id)
 			{
 				case 'open':
@@ -108,6 +108,11 @@ package fish.collection
 					*/
 					// 回転の初期値
 					_model.setPoiRot(data);
+					break;
+				}
+				case 'maintenance.rotate':
+				{
+					_model.setRotateCorrection(data);
 					break;
 				}
 				default:

@@ -63,5 +63,14 @@ package fish.collection.game
 			_model.updateBackground();
 			_model.updateFishColor();
 		}
+		
+		/**
+		 * コントロールパネルを開く 
+		 * 
+		 */		
+		public function openControlPanel():void
+		{
+			_model.openControlPanel();
+		}
 	}
 }

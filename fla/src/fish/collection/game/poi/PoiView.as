@@ -6,9 +6,12 @@ package fish.collection.game.poi
 	import fish.collection.game.poi.configuration.PoiConfiguration;
 	import fish.collection.game.poi.data.PoiData;
 	import fish.collection.game.util.Util;
+	import fish.collection.game.view.FishControlData;
+	import fish.collection.json.ExternalConfig;
 	
 	import flash.debugger.enterDebugger;
 	import flash.display.Sprite;
+	import flash.geom.Orientation3D;
 	import flash.text.TextField;
 	
 	import pigglife.util.Executor;
@@ -32,11 +35,35 @@ package fish.collection.game.poi
 		private var _life:int;
 		private var _poiMc:PoiMc;
 		private var _initRot:Number;
+		private var _nowRot:Number;
 		private var _onGame:Boolean;
+		private var _rotSmooth:Boolean;
+		private var _isTutorial:Boolean;
+//		private var tf:TextField;
 		
 		//=========================================================
 		// GETTER/SETTER
 		//=========================================================
+
+		public function set isTutorial(value:Boolean):void
+		{
+			_isTutorial = value;
+		}
+
+		public function get isTutorial():Boolean
+		{
+			return _isTutorial;
+		}
+
+		public function get rotSmooth():Boolean
+		{
+			return _rotSmooth;
+		}
+
+		public function set rotSmooth(value:Boolean):void
+		{
+			_rotSmooth = value;
+		}
 
 		public function get onGame():Boolean
 		{
@@ -73,15 +100,23 @@ package fish.collection.game.poi
 			_life = PoiConfiguration.MAX_LIFE;
 			// 初期回転を保存
 			_initRot = 0.0;
+			_nowRot = 0.0;
+			_rotSmooth = false;
 			// ポイ本体の表示
 			_poiMc = new PoiMc();
 			// ぽいを元に戻す
-			_poiMc.gotoAndStop('normal');
+			_poiMc.gotoAndStop('start');
 			_poiMc.poiInner.gotoAndStop("t_id" + id);
 			_poiMc.poiInner_miss.gotoAndStop("t_id" + id);
 			
 			this.addChild(_poiMc);
 			hidePoi();
+			
+			// デバッグ用テキストフィールド
+//			tf = new TextField();
+//			tf.scaleX = 1.5;
+//			tf.scaleY = 1.5;
+//			this.addChild(tf);
 		}
 		
 		/**
@@ -97,9 +132,12 @@ package fish.collection.game.poi
 			// ポイの残数
 			updateLife();
 			// ぽいを元に戻す
-			_poiMc.gotoAndStop('normal');
 			_poiMc.poiInner.gotoAndStop("t_id" + String(int(_poiData.t_id) - 1));
 			_poiMc.poiInner_miss.gotoAndStop("t_id" + String(int(_poiData.t_id) - 1));
+			_poiMc.gotoAndPlay('start');
+			
+			// チュートリアルモードつかうかどうか
+			_isTutorial = ExternalConfig.IS_USE_TUTORIAL;
 		}
 		
 		/**
@@ -125,6 +163,9 @@ package fish.collection.game.poi
 			var nowRotation:Number = this.rotationZ;
 			var dist:Number = Math.sqrt(__x * __x + __y * __y);
 			var angle:Number = Math.atan2(__y, __x);
+			
+//			this.x = 800;
+//			this.y = 450;
 			this.x += dist * Math.cos(angle + nowRotation * Math.PI / 180.0);
 			this.y += dist * Math.sin(angle + nowRotation * Math.PI / 180.0);
 		}
@@ -136,12 +177,26 @@ package fish.collection.game.poi
 		public function missAnimation():void
 		{
 			// ポイが敗れる
-			_poiMc.gotoAndStop('miss');
 			_poiMc.poiInner_miss.gotoAndStop("t_id" + String(int(_poiData.t_id) - 1));
+			_poiMc.gotoAndPlay('miss');
 			// ミスアニメーション
-			Tween.applyTo(this, 1.5, {alpha: 0.0, scaleX: 0.5, scaleY: 0.5, ease:Back.easeOut, onComplete: onMissAnimationEnd});
-			if (_life <= 0)
-				_onGame = false;
+//			Tween.applyTo(this, 2.0, {alpha: 0.1, scaleX: 0.2, scaleY: 0.2, ease:Back.easeOut, onComplete: onMissAnimationEnd});
+			Executor.executeAfterWithName(16, "poiMiss" + _poiData.t_id, onMissAnimationEnd);
+			
+		}
+		
+		/**
+		 * ゲームオーバーアニメーション 
+		 * 
+		 */		
+		public function gameOverAnimation():void
+		{	
+			// ポイが敗れる
+			_poiMc.poiInner_miss.gotoAndStop("t_id" + String(int(_poiData.t_id) - 1));
+			_poiMc.gotoAndPlay('gameOver');
+			// ミスアニメーション
+//			Tween.applyTo(this, 2.0, {alpha: 0.1, scaleX: 0.2, scaleY: 0.2, ease:Back.easeOut, onComplete: onMissAnimationEnd});
+			Executor.executeAfterWithName(16, "poiMiss" + _poiData.t_id, onMissAnimationEnd);
 		}
 		
 		/**
@@ -162,6 +217,8 @@ package fish.collection.game.poi
 				hidePoi();
 				// ポイの回転初期値を戻す
 				_initRot = 0.0;
+				// ゲームを終了
+				_onGame = false;
 			}
 			else
 			{
@@ -170,9 +227,10 @@ package fish.collection.game.poi
 				this.scaleY = 1.0;
 			}
 			// ぽいを元に戻す
-			_poiMc.gotoAndStop('normal');
+			Executor.cancelByName("poiMiss" + _poiData.t_id);
 			_poiMc.poiInner.gotoAndStop("t_id" + String(int(_poiData.t_id) - 1));
 			_poiMc.poiInner_miss.gotoAndStop("t_id" + String(int(_poiData.t_id) - 1));
+			_poiMc.gotoAndPlay('start');
 		}
 		
 		/**
@@ -186,13 +244,13 @@ package fish.collection.game.poi
 			this.scaleX = 1.0;
 			this.scaleY = 1.0;
 			// ライフ元に戻す
-			_life = PoiConfiguration.MAX_LIFE;;
+			_life = PoiConfiguration.MAX_LIFE;
 			// ポイを非表示にする
 			hidePoi();
 			// ポイの回転初期値を戻す
 			_initRot = 0.0;
 			// ぽいを元に戻す
-			_poiMc.gotoAndStop('normal');
+			_poiMc.gotoAndStop('start');
 			_poiMc.poiInner.gotoAndStop("t_id" + String(int(_poiData.t_id) - 1));
 			_poiMc.poiInner_miss.gotoAndStop("t_id" + String(int(_poiData.t_id) - 1));
 			// ゲーム中フラグOFF
@@ -206,9 +264,10 @@ package fish.collection.game.poi
 		public function scoopAnimation():void
 		{
 			_poiMc.gotoAndPlay("scoop");
+			//_poiMc.gotoAndPlay('start');
 			_poiMc.poiInner.gotoAndStop("t_id" + String(int(_poiData.t_id) - 1));
 			_poiMc.poiInner_miss.gotoAndStop("t_id" + String(int(_poiData.t_id) - 1));
-			Executor.executeAfterWithName(17, "poiScoop" + _poiData.t_id, onComplete);
+			Executor.executeAfterWithName(12, "poiScoop" + _poiData.t_id, onComplete);
 		}
 		/**
 		 * すくうアニメーション終了ハンドラ 
@@ -235,10 +294,19 @@ package fish.collection.game.poi
 		 * @param rotation
 		 * 
 		 */
-		public function rotatePoi(rot:Number):void
+		public function rotatePoi(rot:Number, accuracy:int):void
 		{
-			rot = -rot;
-			this.rotationZ = rot;
+			
+			// テキスト表示
+			//tf.text = String(rot);
+			//			tf.text = String(_nowRot) + '::' + String(rot);
+			//			tf.rotationZ = -this.rotationZ;
+			//if (!_rotSmooth)
+				rot = int(rot / 45) * 45;
+			_nowRot = Util.smoothMoveRotateFunc(_nowRot, rot, 0.3);
+			this.rotationZ = _nowRot + FishControlData.paramsPoi[_poiData.t_id].ORIENTATION;
+			//this.rotationZ = rot;
+			
 		}
 		
 		/**
@@ -248,7 +316,7 @@ package fish.collection.game.poi
 		{
 			// ポイ残数
 			if (_life >= 0 && _life <= 3)
-				_poiMc.life.gotoAndStop('life_' + _life);
+				_poiMc.life.gotoAndStop(_poiData.t_id + 'life_' + _life);	// t_idごとに「残り」の色を変える
 		}
 		
 		//===========================================================

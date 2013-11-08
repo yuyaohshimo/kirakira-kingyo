@@ -577,7 +577,6 @@ package fish.collection.game.view
 			// 座標更新
 			x = _px;
 			y = _py;
-		
 		}
 		
 		/**

@@ -95,6 +95,11 @@ package fish.collection.game
 		{
 			_gameView.setPoiRot(rotData);
 		}
+		
+		public function setRotateCorrection(correctionData:Object):void
+		{
+			_gameView.setRotateCorrection(correctionData);
+		}
 			
 		/**
 		 * ポイを動かす
@@ -119,6 +124,14 @@ package fish.collection.game
 		public function createWave(px:Number, py:Number, size:String):void 
 		{
 			_gameView.createWave(px, py, size);
+		}
+		
+		/**
+		 * コントロールパネルを開く
+		 * 
+		 */		
+		public function openControlPanel():void
+		{
 		}
 	}
 }

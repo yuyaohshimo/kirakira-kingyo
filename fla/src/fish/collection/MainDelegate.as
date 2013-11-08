@@ -66,5 +66,13 @@ package fish.collection
 		{
 			_model.showTop();
 		}
+		/**
+		 * コントロールパネルを開く
+		 * 
+		 */		
+		public function openControlPanel():void
+		{
+			_model.openControlPanel();
+		}
 	}
 }
