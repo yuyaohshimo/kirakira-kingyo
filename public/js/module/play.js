@@ -96,7 +96,6 @@
 				var poi = self.content.find('.poi_list');
 				$(poi.get(poi.length() - 1)).remove();
 				$(poi.get(0)).text(String(lastLife));
-				
 			},
 			updateFish: function (type) {
 				var self = this;

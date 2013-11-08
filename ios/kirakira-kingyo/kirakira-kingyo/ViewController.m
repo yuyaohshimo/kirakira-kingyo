@@ -9,6 +9,7 @@
 #import "ViewController.h"
 
 @interface ViewController ()
+<UIWebViewDelegate>
 
 @end
 
@@ -18,10 +19,11 @@
 {
     [super viewDidLoad];
 	// webview
-	NSURLRequest* req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://172.30.4.205:8888"]];
+	NSURLRequest* req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://172.30.8.218:8888"]];
 	[_webView loadRequest:req];
-	_webView.scrollView.scrollEnabled = NO;
+//	_webView.scrollView.scrollEnabled = NO;
 	_webView.scrollView.bounces = NO;
+	_webView.delegate = self;
 	
 	
 	UIApplication *application = [UIApplication sharedApplication];
@@ -44,8 +46,10 @@
     return YES;
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-	_webView.delegate = nil;
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+	NSLog(@"url:%@", request);
+	return YES;
 }
 
 @end

@@ -61,7 +61,7 @@ $.ready(function () {
 		}
 		kingyo.Socket = function (view) {
 			var self = this;
-			self.ws = new WebSocket('ws://172.30.4.205:8888'); // need to override
+			self.ws = new WebSocket('ws://172.30.8.218:8888'); // need to override
 			// self.ws = new WebSocket('ws://172.22.242.251:8888'); // need to override
 			// self.ws = new WebSocket('ws://172.22.247.45:8888');
 			// onを使おうかな
@@ -83,7 +83,7 @@ $.ready(function () {
 
 				// self.ws.send(JSON.stringify({ id: 'game.life', data: { t_id :t_id, lastLife: 2 } }));
 				// self.ws.send(JSON.stringify({ id: 'game.life', data: { t_id :t_id, lastLife: 1 } }));
-				self.ws.send(JSON.stringify({ id: 'game.life', data: { t_id :t_id, lastLife: 0 } }));
+				// self.ws.send(JSON.stringify({ id: 'game.life', data: { t_id :t_id, lastLife: 0 } }));
 			});
 			self.ws.addEventListener('close', function (e) {
 				log.debug('close web socket');
