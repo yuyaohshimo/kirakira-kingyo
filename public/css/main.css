@@ -66,6 +66,7 @@ button {
 }
 
 body {
+	-webkit-user-select:none;
 	font-family:"HelveticaNeue-UltraLight","mplus-1p-light";
 	background-image:url("../img/common_bg.jpg");
 	background-repeat:no-repeat;
