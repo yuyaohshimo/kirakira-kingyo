@@ -283,7 +283,7 @@ body {
 	display:block;
 }
 #ranking .name {
-	padding-left:10px;
+	padding-left:25px;
 	box-flex:1;
 	-webkit-box-flex:1;
 }
@@ -324,11 +324,30 @@ body {
 	font-size:24px;
 }
 
-/* maintenance_rotate */
-#maintenance_rotate .button {
+/* maintenance */
+#maintenance .button {
 	background-color:#fff;
 	opacity:0.5;
-	margin:5px;
+	margin:5px 0;
 	padding:10px;
 	text-align:center;
+}
+#maintenance select {
+	-webkit-appearance:none;
+	appearance:none;
+	border:none;
+	width:100%;
+	padding:10px;
+}
+#maintenance select[data-t_id="1"] {
+	background-color:#DB6A5C;
+}
+#maintenance select[data-t_id="2"] {
+	background-color:#A87FC9;
+}
+#maintenance select[data-t_id="3"] {
+	background-color:#77B4C0;
+}
+#maintenance select[data-t_id="4"] {
+	background-color:#5FB87C;
 }

@@ -39,6 +39,39 @@
 				});
 				kingyo.pageReplace(_view);
 			}
+		},
+		'/kill': {
+			name: 'kill',
+			action: function (args) {
+				var ws = new WebSocket('ws://localhost:8888');
+				var isOpen = false;
+				var _view = $.view('maintenance.kill');
+				_view.on({
+					close: function () {
+						ws.send(JSON.stringify({id: 'maintenance.close'}));
+					},
+					send: function (t_id) {
+						var val = 0;
+						var obj = {};
+						obj = {
+							id: 'maintenance.kill',
+							data: {
+								t_id: t_id
+							}
+						}
+						ws.send(JSON.stringify(obj));
+					}
+				});
+				ws.addEventListener('open', function (e) {
+					isOpen = true;
+					log.debug('open web socket');
+				});
+				ws.addEventListener('close', function (e) {
+					isOpen = false;
+					log.debug('close web socket');
+				});
+				kingyo.pageReplace(_view);
+			}
 		}
 	});
 	$.views({
@@ -47,7 +80,7 @@
 			},
 			render: function () {
 				var self = this;
-				return tag('div#maintenance_rotate')
+				return tag('div#maintenance')
 						.tag('div.button')
 							.click(function () {
 								self.trigger('close');
@@ -55,6 +88,11 @@
 							.text('Close Web Socket')
 						.gat()
 						.tag('select.select_t_id')
+							.data({ t_id: 1 })
+							.change(function () {
+								var target = $(this);
+								target.data({ t_id: target.value() })
+							})
 							.tag('option', { value: 1 }).text('t_id: 1').gat()
 							.tag('option', { value: 2 }).text('t_id: 2').gat()
 							.tag('option', { value: 3 }).text('t_id: 3').gat()
@@ -88,6 +126,40 @@
 								});
 							})
 							.text('＋')
+							.gat()
+						.gat()
+			}
+		},
+		'maintenance.kill': {
+			init: function () {
+			},
+			render: function () {
+				var self = this;
+				return tag('div#maintenance')
+						.tag('div.button')
+							.click(function () {
+								self.trigger('close');
+							})
+							.text('Close Web Socket')
+						.gat()
+						.tag('select.select_t_id')
+							.data({ t_id: 1 })
+							.change(function () {
+								var target = $(this);
+								target.data({ t_id: target.value() })
+							})
+							.tag('option', { value: 1 }).text('t_id: 1').gat()
+							.tag('option', { value: 2 }).text('t_id: 2').gat()
+							.tag('option', { value: 3 }).text('t_id: 3').gat()
+							.tag('option', { value: 4 }).text('t_id: 4').gat()
+						.gat()
+						.tag('div.send_btn')
+							.tag('div.button')
+							.on('click', function () {
+								var t_id = $('.select_t_id').value();
+								self.trigger('send', t_id);
+							})
+							.text('KILL')
 							.gat()
 						.gat()
 			}

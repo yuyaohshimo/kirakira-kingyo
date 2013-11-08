@@ -19,9 +19,9 @@
 {
     [super viewDidLoad];
 	// webview
-	NSURLRequest* req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://172.30.8.218:8888"]];
+	NSURLRequest* req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://172.22.242.39:8888"]];
 	[_webView loadRequest:req];
-//	_webView.scrollView.scrollEnabled = NO;
+	_webView.scrollView.scrollEnabled = NO;
 	_webView.scrollView.bounces = NO;
 	_webView.delegate = self;
 	
