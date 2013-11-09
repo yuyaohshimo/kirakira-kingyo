@@ -100,13 +100,13 @@
 						.gat()
 						.tag('div.send_btn')
 							.tag('div.button')
-							.on('mousedown', function () {
+							.on('touchstart', function () {
 								var target = $(this);
 								var t_id = $('.select_t_id').value();
 								var timer = setInterval(function () {
 									self.trigger('send', 'down', t_id);
 								}, 25);
-								target.on('mouseup', function () {
+								target.on('touchend', function () {
 									clearInterval(timer);
 									target.off(arguments.callee);
 								});
@@ -114,13 +114,13 @@
 							.text('ー')
 							.gat()
 							.tag('div.button')
-							.on('mousedown', function () {
+							.on('touchstart', function () {
 								var target = $(this);
 								var t_id = $('.select_t_id').value();
 								var timer = setInterval(function () {
 									self.trigger('send', 'up', t_id);
 								}, 25);
-								target.on('mouseup', function () {
+								target.on('touchend', function () {
 									clearInterval(timer);
 									target.off(arguments.callee);
 								});
@@ -137,7 +137,7 @@
 				var self = this;
 				return tag('div#maintenance')
 						.tag('div.button')
-							.click(function () {
+							.tap(function () {
 								self.trigger('close');
 							})
 							.text('Close Web Socket')
@@ -155,7 +155,7 @@
 						.gat()
 						.tag('div.send_btn')
 							.tag('div.button')
-							.on('click', function () {
+							.tap(function () {
 								var t_id = $('.select_t_id').value();
 								self.trigger('send', t_id);
 							})

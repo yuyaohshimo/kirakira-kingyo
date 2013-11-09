@@ -35,10 +35,8 @@
 										// debugger;
 										that
 										.tag('li')
-											.tag('p.fish_num')
-												.tag('span.fish_sprite').cls($.format('fish_{1}', key)).gat()
-												.tag('span.num').text('×{1}', self.data.fishResult[key].count).gat()
-											.gat()
+											.tag('img', { src: $.format('../../img/common_fish_{1}.png', key), width: '31px', height: '46px' }).gat()
+											.tag('p.fish_num').text('×{1}', self.data.fishResult[key].count).gat()
 											.tag('p.pt').text(self.data.fishResult[key].score).gat()
 										.gat()
 									}

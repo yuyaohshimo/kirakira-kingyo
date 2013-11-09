@@ -36,35 +36,13 @@ button {
 	cursor:pointer;
 	background-color:transparent;
 }
+.pt {
+	font-family:"HelveticaNeue-Light";
+}
 .pt::after {
+	font-family:"HelveticaNeue-UltraLightLight";
 	content:'pt';
 }
-
-.fish_sprite {
-	background-image:url("../img/common_fish.png");
-	background-repeat:no-repeat;
-	width:63px;
-	height:92px;
-}
-.fish_1 {
-	background-position:-128px -93px;
-}
-.fish_2 {
-	background-position:-64px -93px;
-}
-.fish_3 {
-	background-position:0 -93px;
-}
-.fish_4 {
-	background-position:-128px 0;
-}
-.fish_5 {
-	background-position:-64px 0;
-}
-.fish_6 {
-	background-position:0 0;
-}
-
 body {
 	-webkit-user-select:none;
 	font-family:"HelveticaNeue-UltraLight","mplus-1p-light";
@@ -97,13 +75,7 @@ body {
 
 /* top */
 #top .title {
-	text-indent:-9999px;
-	background-image:url("../img/common_logo.png");
-	background-repeat:no-repeat;
-	background-size:cover;
-	width:276px;
-	height:41px;
-	margin:0 auto;
+	text-align:center;
 }
 #top .procedure .text {
 	font-size:14px;
@@ -113,7 +85,7 @@ body {
 	font-size:50px;
 }
 #top .procedure img {
-	padding-top:17px;
+	padding-top:10px;
 	width:223px;
 	height:130px;
 	margin:0 auto;
@@ -123,16 +95,17 @@ body {
 	display:block;
 	font-size:14px;
 	text-align:center;
+	padding-top:5px;
 }
 #top input {
 	border:none;
-	background-color:transparent;
+	background-color:rgba(255,255,255,0.2);
 	height:40px;
 	width:100%;
 	-webkit-box-sizing:border-box;
 	box-sizing:border-box;
-	-webkit-box-shadow:rgba(0, 0, 0, 0.4) 0px 0px 5px 5px inset;
-	box-shadow:rgba(0, 0, 0, 0.4) 0px 0px 5px 5px inset;
+	-webkit-box-shadow:rgba(0,0,0,0.4) 0px 0px 5px 0 inset;
+	box-shadow:rgba(0, 0, 0, 0.4) 0px 0px 5px 0 inset;
 	border-radius:5px;
 	-webkit-border-radius:5px;
 	text-align:center;
@@ -145,6 +118,9 @@ body {
 #top button {
 	height:50px;
 	background-position:0 -122px;
+	position:absolute;
+	bottom:7px;
+	left:7px;
 }
 
 /* play */
@@ -228,30 +204,32 @@ body {
 	font-size:40px;
 }
 #score .fish {
-	padding-top:5px;
-	overflow:hidden;
+	padding:30px 35px 0;
+	/*overflow:hidden;*/
 }
 #score .fish li {
+	position:relative;
 	float:left;
 	width:50%;
 	-webkit-box-sizing:border-box;
 	box-sizing:border-box;
-	padding:5px 0 5px 10px;
+	/*overflow:hidden;*/
+	padding-right:20px;
+	padding-bottom:65px;
+}
+#score .fish li:nth-child(even) {
+	padding-right:0;
+	padding-left:20px;
 }
 #score .fish_num {
-	display:-webkit-box;
-	display:box;
-}
-#score .fish_sprite {
-	display:block;
-}
-#score .fish_num .num {
-	padding-left:10px;
-	line-height:92px;
+	float:right;
 	font-size:30px;
 }
+#score .fish img {
+	float:left;
+}
 #score .pt {
-	padding:5px 0 0 10px;
+	position:absolute;
 }
 #score button {
 	position:absolute;
