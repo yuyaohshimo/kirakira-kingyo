@@ -19,7 +19,7 @@
 {
     [super viewDidLoad];
 	// webview
-	NSURLRequest* req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://localhost:8888"]];
+	NSURLRequest* req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.41.112:8888"]];
 	[_webView loadRequest:req];
 	_webView.scrollView.scrollEnabled = NO;
 	_webView.scrollView.bounces = NO;

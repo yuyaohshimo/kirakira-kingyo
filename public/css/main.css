@@ -330,6 +330,9 @@ body {
 }
 
 /* maintenance */
+#maintenance {
+	-webkit-user-select:auto;
+}
 #maintenance .button {
 	background-color:#fff;
 	opacity:0.5;
