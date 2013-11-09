@@ -330,15 +330,13 @@ body {
 }
 
 /* maintenance */
-#maintenance {
-	-webkit-user-select:auto;
-}
-#maintenance .button {
+#maintenance button {
 	background-color:#fff;
 	opacity:0.5;
 	margin:5px 0;
 	padding:10px;
 	text-align:center;
+	width:100%;
 }
 #maintenance select {
 	-webkit-appearance:none;

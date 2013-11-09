@@ -81,7 +81,7 @@
 			render: function () {
 				var self = this;
 				return tag('div#maintenance')
-						.tag('div.button')
+						.tag('button')
 							.click(function () {
 								self.trigger('close');
 							})
@@ -99,7 +99,7 @@
 							.tag('option', { value: 4 }).text('t_id: 4').gat()
 						.gat()
 						.tag('div.send_btn')
-							.tag('div.button')
+							.tag('button')
 							.on('touchstart', function () {
 								var target = $(this);
 								var t_id = $('.select_t_id').value();
@@ -113,7 +113,7 @@
 							})
 							.text('ー')
 							.gat()
-							.tag('div.button')
+							.tag('button')
 							.on('touchstart', function () {
 								var target = $(this);
 								var t_id = $('.select_t_id').value();
@@ -136,7 +136,7 @@
 			render: function () {
 				var self = this;
 				return tag('div#maintenance')
-						.tag('div.button')
+						.tag('button')
 							.tap(function () {
 								self.trigger('close');
 							})
@@ -154,7 +154,7 @@
 							.tag('option', { value: 4 }).text('t_id: 4').gat()
 						.gat()
 						.tag('div.send_btn')
-							.tag('div.button')
+							.tag('button')
 							.tap(function () {
 								var t_id = $('.select_t_id').value();
 								self.trigger('send', t_id);
