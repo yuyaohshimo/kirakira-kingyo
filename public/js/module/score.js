@@ -24,7 +24,9 @@
 			render: function () {
 				var self = this;
 				return tag('div#score')
-							.tag('p.title').text('SCORE').gat()
+							.tag('p.title')
+								.tag('img', { src: '../../img/score_title.png', width:'93px', height:'25px' }).gat()
+							.gat()
 							.tag('p.total_score')
 								.tag('span.text').text(String(self.data.totalScore)).gat()
 							.gat()

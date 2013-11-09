@@ -28,7 +28,9 @@
 			render: function () {
 				var self = this;
 				return tag('div#ranking')
-							.tag('p.title').text('RANKING').gat()
+							.tag('p.title')
+								.tag('img', { src: '../../img/ranking_title.png', width:'118px', height:'25px' }).gat()
+							.gat()
 							.tag('ol')
 								.exec(function () {
 									for (var i = 0; i < self.array.length; i++) {

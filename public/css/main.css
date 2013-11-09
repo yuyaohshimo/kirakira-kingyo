@@ -26,13 +26,13 @@ ul,ol {
 }
 button {
 	border:none;
-	background-image:url("../img/common_btn.png");
+	/*background-image:url("../img/common_btn.png");*/
 	background-repeat:no-repeat;
-	background-size:306px 201px;
-	-webkit-background-size:306px 201px;
+	/*background-size:306px 201px;*/
+	/*-webkit-background-size:306px 201px;*/
 	background-position:0 0;
-	width:306px;
-	height:60px;
+	/*width:306px;*/
+	/*height:60px;*/
 	cursor:pointer;
 	background-color:transparent;
 }
@@ -40,7 +40,7 @@ button {
 	font-family:"HelveticaNeue-Light";
 }
 .pt::after {
-	font-family:"HelveticaNeue-UltraLightLight";
+	font-family:"HelveticaNeue-UltraLight";
 	content:'pt';
 }
 body {
@@ -62,15 +62,28 @@ body {
 }*/
 
 /* error */
-#error p {
+#error .title {
+	padding:43px 0 20px;
 	text-align:center;
+}
+#error .msg {
+	text-align:center;
+	line-height:1.5;
+	padding:0 0 105px;
 }
 #error img {
 	margin:0 auto;
 	display:block;
 }
 #error button {
-	background-position:0 -61px;
+	position:absolute;
+	left:7px;
+	bottom:7px;
+	width:306px;
+	height:70px;
+	background-image:url("../img/btn_back.png");
+	-webkit-background-size:cover;
+	background-size:cover;
 }
 
 /* top */
@@ -85,7 +98,6 @@ body {
 	font-size:50px;
 }
 #top .procedure img {
-	padding-top:10px;
 	width:223px;
 	height:130px;
 	margin:0 auto;
@@ -116,8 +128,11 @@ body {
 	appearance:none;
 }
 #top button {
-	height:50px;
-	background-position:0 -122px;
+	width:306px;
+	height:70px;
+	background-image:url("../img/btn_start.png");
+	-webkit-background-size:cover;
+	background-size:cover;
 	position:absolute;
 	bottom:7px;
 	left:7px;
@@ -128,8 +143,10 @@ body {
 	position:absolute;
 	left:7px;
 	top:7px;
-	background-position:0 -172px;
-	width:97px;
+	background-image:url("../img/btn_stop.png");
+	-webkit-background-size:cover;
+	background-size:cover;
+	width:85px;
 	height:29px;
 }
 #play .player_info > span {
@@ -190,7 +207,6 @@ body {
 
 /* score */
 #score .title {
-	font-size:30px;
 	text-align:center;
 }
 #score .total_score {
@@ -205,7 +221,6 @@ body {
 }
 #score .fish {
 	padding:30px 35px 0;
-	/*overflow:hidden;*/
 }
 #score .fish li {
 	position:relative;
@@ -213,33 +228,42 @@ body {
 	width:50%;
 	-webkit-box-sizing:border-box;
 	box-sizing:border-box;
-	/*overflow:hidden;*/
-	padding-right:20px;
+	padding-right:18px;
 	padding-bottom:65px;
 }
 #score .fish li:nth-child(even) {
 	padding-right:0;
-	padding-left:20px;
+	padding-left:18px;
 }
 #score .fish_num {
 	float:right;
 	font-size:30px;
+	line-height:46px;
 }
 #score .fish img {
 	float:left;
 }
 #score .pt {
 	position:absolute;
+	top:55px;
+	left:-5px;
+}
+#score .fish li:nth-child(even) .pt {
+	left:18px;
 }
 #score button {
 	position:absolute;
+	background-image:url("../img/btn_ranking.png");
+	-webkit-background-size:cover;
+	background-size:cover;
 	left:7px;
 	bottom:7px;
+	width:306px;
+	height:70px;
 }
 
 /* ranking */
 #ranking .title {
-	font-size:30px;
 	text-align:center;
 }
 #ranking ol {
@@ -270,7 +294,11 @@ body {
 	position:absolute;
 	left:7px;
 	bottom:7px;
-	background-position:0 -61px;
+	width:306px;
+	height:70px;
+	background-image:url("../img/btn_back.png");
+	-webkit-background-size:cover;
+	background-size:cover;
 }
 #ranking .rank {
 	color:#fff;
