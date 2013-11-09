@@ -133,9 +133,7 @@ body {
 	background-image:url("../img/btn_start.png");
 	-webkit-background-size:cover;
 	background-size:cover;
-	position:absolute;
-	bottom:7px;
-	left:7px;
+	margin-top:12px;
 }
 
 /* play */
