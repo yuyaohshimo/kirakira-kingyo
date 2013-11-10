@@ -63,7 +63,7 @@ $.ready(function () {
 		}
 		kingyo.Socket = function (view) {
 			var self = this;
-			self.ws = new WebSocket('ws://10.166.7.154:8888'); // need to override
+			self.ws = new WebSocket('ws://10.163.29.217:8888'); // need to override
 			// self.ws = new WebSocket('ws://172.22.242.251:8888'); // need to override
 			// self.ws = new WebSocket('ws://172.22.247.45:8888');
 			// onを使おうかな
@@ -76,16 +76,16 @@ $.ready(function () {
 				self.ws.send(JSON.stringify({ id:'game.prep', data:{ t_id: t_id, name: name }}));
 
 				// for debug
-				// self.ws.send(JSON.stringify({ id: 'game.fish', data: { t_id :t_id, fishInfo: { type: "1", score: "100" } } }));
-				// self.ws.send(JSON.stringify({ id: 'game.fish', data: { t_id :t_id, fishInfo: { type: "2", score: "200" } } }));
-				// self.ws.send(JSON.stringify({ id: 'game.fish', data: { t_id :t_id, fishInfo: { type: "3", score: "300" } } }));
-				// self.ws.send(JSON.stringify({ id: 'game.fish', data: { t_id :t_id, fishInfo: { type: "4", score: "400" } } }));
-				// self.ws.send(JSON.stringify({ id: 'game.fish', data: { t_id :t_id, fishInfo: { type: "5", score: "500" } } }));
-				// self.ws.send(JSON.stringify({ id: 'game.fish', data: { t_id :t_id, fishInfo: { type: "6", score: "600" } } }));
+				self.ws.send(JSON.stringify({ id: 'game.fish', data: { t_id :t_id, fishInfo: { type: "1", score: "20000" } } }));
+				self.ws.send(JSON.stringify({ id: 'game.fish', data: { t_id :t_id, fishInfo: { type: "2", score: "200" } } }));
+				self.ws.send(JSON.stringify({ id: 'game.fish', data: { t_id :t_id, fishInfo: { type: "3", score: "300" } } }));
+				self.ws.send(JSON.stringify({ id: 'game.fish', data: { t_id :t_id, fishInfo: { type: "4", score: "400" } } }));
+				self.ws.send(JSON.stringify({ id: 'game.fish', data: { t_id :t_id, fishInfo: { type: "5", score: "500" } } }));
+				self.ws.send(JSON.stringify({ id: 'game.fish', data: { t_id :t_id, fishInfo: { type: "6", score: "600" } } }));
 
 				// self.ws.send(JSON.stringify({ id: 'game.life', data: { t_id :t_id, lastLife: 2 } }));
 				// self.ws.send(JSON.stringify({ id: 'game.life', data: { t_id :t_id, lastLife: 1 } }));
-				// self.ws.send(JSON.stringify({ id: 'game.life', data: { t_id :t_id, lastLife: 0 } }));
+				self.ws.send(JSON.stringify({ id: 'game.life', data: { t_id :t_id, lastLife: 0 } }));
 			});
 			self.ws.addEventListener('close', function (e) {
 				log.debug('close web socket');

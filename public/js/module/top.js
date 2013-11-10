@@ -17,7 +17,7 @@
 							});
 						} else if (!name) {
 							callback({
-								message: 'ニックネームが入力されていません'
+								message: 'Twitter IDまたは、ニックネームが入力されていません'
 							});
 						} else if (!t_id) {
 							callback({
@@ -62,12 +62,17 @@
 						.gat()
 						.tag('div.form_container')
 							.tag('label')
-								.tag('span.text').text('ニックネームを入力してください（任意）').gat()
-								.tag('input', {
+								.tag('span.text.mplus').text('Twitter IDかニックネームを入力してください').gat()
+								.tag('input.mplus', {
 									type: 'text',
 									name: 'nickname',
-									maxlength: 7,
-									value: $.storage('t_id') ? $.format('プレイヤー{1}', $.storage('t_id')) : ''
+									maxlength: 16,
+									placeholder: '@あなたのID'
+								})
+								.focus(function () {
+									if ($(this).value().length === 0) {
+										$(this).value('@');
+									}
 								})
 								.gat()
 							.gat()

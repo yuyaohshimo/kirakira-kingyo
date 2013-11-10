@@ -4,7 +4,7 @@
 		'/rotate': {
 			name: 'rotate',
 			action: function (args) {
-				var ws = new WebSocket('ws://localhost:8888');
+				var ws = new WebSocket('ws://10.163.29.217:8888');
 				var isOpen = false;
 				var _view = $.view('maintenance.rotate');
 				_view.on({
@@ -43,7 +43,7 @@
 		'/kill': {
 			name: 'kill',
 			action: function (args) {
-				var ws = new WebSocket('ws://localhost:8888');
+				var ws = new WebSocket('ws://10.163.29.217:8888');
 				var isOpen = false;
 				var _view = $.view('maintenance.kill');
 				_view.on({
